@@ -550,6 +550,14 @@ En esta sección, se muestra un esquema básico del diseño de la Landing Page, 
 ![landing-wireframe-4.png](assets/images/chapter4/landingPageUiDesign/landing-wireframe-4.png)
 ![landing-wireframe-5.png](assets/images/chapter4/landingPageUiDesign/landing-wireframe-5.png)
 ### 4.3.2. Landing Page Mock-up
+El mock-up de la Landing Page ofrece una representación visual más avanzada del diseño final, incluyendo los colores, tipografía, imágenes y componentes interactivos. Este diseño está orientado a proporcionar una idea clara de cómo será la interfaz una vez implementada, reflejando la identidad visual de WasteTrack y su enfoque en la usabilidad.
+
+![landing-mockup-6.jpeg](assets/images/chapter4/landingPageUiDesign/landing-mockup-6.jpeg)
+![landing-mockup-5.jpeg](assets/images/chapter4/landingPageUiDesign/landing-mockup-5.jpeg)
+![landing-mockup-4.jpeg](assets/images/chapter4/landingPageUiDesign/landing-mockup-4.jpeg)
+![landing-mockup-3.jpeg](assets/images/chapter4/landingPageUiDesign/landing-mockup-3.jpeg)
+![landing-mockup-2.jpeg](assets/images/chapter4/landingPageUiDesign/landing-mockup-2.jpeg)
+
 
 ## 4.4. Mobile Applications UX/UI Design
 
