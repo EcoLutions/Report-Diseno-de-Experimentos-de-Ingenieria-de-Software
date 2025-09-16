@@ -334,6 +334,31 @@ Este componente se muestra cuando no hay datos disponibles en una sección. Prop
 ![nothingToShowCard.png](assets/images/chapter4/styleGuidelines/webStyleGuidelines/nothingToShowCard.png)
 
 ### 4.1.3. Mobile Style Guidelines
+Estos componentes son la base visual de la aplicación móvil y se han diseñado para ser consistentes en ambas plataformas (iOS y Android). Su implementación se realizará como un conjunto de componentes reutilizables en un framework multiplataforma como Flutter, garantizando una experiencia de marca unificada.
+
+![typography.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/typography.png)
+
+Define la jerarquía de texto para las pantallas móviles, estableciendo tamaños y pesos para títulos de pantalla, títulos de sección, cuerpo de texto y textos de ayuda. Utiliza la fuente 'Inter' para una legibilidad óptima en pantallas pequeñas.
+
+![buttons.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/buttons.png)
+
+El sistema de botones incluye una variante primaria para acciones principales, una secundaria para opciones alternativas, y un botón de selección (tipo chip o segmented control) para alternar entre estados activo e inactivo.
+
+![formFields.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/formFields.png)
+
+Es un componente de entrada de texto con un diseño limpio que incluye un label y un placeholder. Contempla un estado de error, resaltando el borde para notificar al usuario sobre datos incorrectos, garantizando una validación clara en los formularios.
+
+![cards.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/cards.png)
+
+Se definen dos tipos de tarjetas. La Tarjeta de Selección combina un ícono, título y subtítulo, ideal para menús o listas de opciones. La Tarjeta de Información es más simple y se usa para mostrar datos clave de manera concisa, como el estado de un contenedor.
+
+![uiItems.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/uiItems.png)
+
+Este grupo incluye la Notificación en Lista, diseñada para mostrar actualizaciones o mensajes dentro de una lista con su título, descripción y marca de tiempo. También define los Indicadores de Página (puntos), utilizados comúnmente en carruseles o flujos de onboarding para mostrar el progreso.
+
+![completeStateWindow.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/completeStateWindow.png)
+
+Este componente se utiliza para comunicar estados importantes que ocupan toda la pantalla, como pantallas de carga, error, o estados vacíos (empty states). Incluye un ícono, un título y un mensaje descriptivo para guiar al usuario.
 
 #### 4.1.3.1. iOS Mobile Style Guidelines
 
