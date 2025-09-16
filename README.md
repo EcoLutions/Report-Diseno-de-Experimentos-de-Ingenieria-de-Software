@@ -416,25 +416,72 @@ Para agrupar y presentar la información de manera coherente, se utilizan los si
 
 ### 4.2.2. Labeling Systems
 Para garantizar que los usuarios puedan navegar por la plataforma de manera eficiente y comprender la información presentada sin ambigüedad, se ha desarrollado un sistema de etiquetado consistente. El objetivo principal de este sistema es representar los datos y las acciones con la máxima simplicidad, utilizando un lenguaje claro para evitar la confusión.
+
 Las etiquetas se han diseñado considerando el contexto y las necesidades de cada perfil de usuario.
-#### Etiquetas de Navegación Principal
-Representan los conjuntos de información más grandes, y sirven como puntos de anclaje para la navegación.
 
-<b>Aplicación Ciudadano (móvil y Web):</b> Se utilizan etiquetas universalmente reconocibles como Mapa, Reportar y Notificaciones. Estas etiquetas de una sola palabra asocian inmediatamente la sección con su funcionalidad principal: visualizar información geoespacial o iniciar el proceso de creación de un reporte.
+#### **Etiquetas de navegación principal**
+Representan los conjuntos de información más grandes y sirven como puntos de anclaje para la navegación.
+* **Aplicación Ciudadano (móvil y web):** Se utilizan etiquetas universalmente reconocibles como **Mapa**, **Reportar** y **Notificaciones**. Estas etiquetas de una sola palabra asocian inmediatamente la sección con su funcionalidad principal: visualizar información geoespacial o iniciar el proceso de creación de un reporte.
+* **Aplicación Conductor (colaborador móvil):** Las etiquetas están orientadas a tareas específicas de su rol, como **Hoja de Ruta** y **Perfil**. La etiqueta **Hoja de Ruta** crea una asociación directa con su lista de tareas del día, agrupando todas las paradas y acciones relacionadas con su trabajo de recolección.
+* **Aplicación Administrador (colaborador web):** Se emplea un sistema de etiquetado temático y descriptivo. Etiquetas como **Dashboard**, **Gestión de Rutas**, **Dispositivos IoT**, **Colaboradores** y **Reportes Ciudadanos** asocian cada sección con un conjunto completo de herramientas de administración. El uso de la palabra "Gestión" establece en la mente del usuario que dentro de esa sección encontrará funcionalidades para crear, visualizar, editar y monitorear los elementos correspondientes, sin necesidad de aglomerar todas las opciones en el menú principal.
 
-<b>Aplicación Conductor (colaborador móvil):</b> Las etiquetas están orientadas a tareas específicas de su rol, como Hoja de Ruta y Perfil. La etiqueta Hoja de Ruta crea una asociación directa con su lista de tareas del día, agrupando todas las paradas y acciones relacionadas con su trabajo de recolección.
-
-<b>Aplicación Administrador (colaborador web):</b> Se emplea un sistema de etiquetado temático y descriptivo. Etiquetas como Dashboard, Gestión de Rutas, Dispositivos IoT , Colaboradores y Reportes Ciudadanos asocian cada sección con un conjunto completo de herramientas de administración. El uso de la palabra "Gestión" establece en la mente del usuario que dentro de esa sección encontrará funcionalidades para crear, visualizar, editar y monitorear los elementos correspondientes, sin necesidad de aglomerar todas las opciones en el menú principal.
-#### Etiquetas de acciones (Botones y enlaces)
+#### **Etiquetas de acciones (Botones y enlaces)**
 Las etiquetas para elementos interactivos se han estandarizado para ser claras, predecibles y orientadas a la acción.
+* **Consistencia Verbo-Sustantivo:** La mayoría de las acciones principales se etiquetan con un formato de verbo imperativo, como **Enviar Reporte**, **Generar Ruta**, **Invitar Colaborador** o **Guardar Cambios**. Esta consistencia ayuda al usuario a entender inmediatamente el resultado de su interacción.
+* **Concisión:** En contextos donde el espacio es limitado, como en las tablas de datos, se utilizan etiquetas cortas y directas. Por ejemplo, la etiqueta **Ver Detalles** en la lista de reportes asocia la acción con la apertura de una vista más completa que contendrá toda la información del reporte (mapa, foto, comentarios), evitando sobrecargar la tabla con datos innecesarios. De igual manera, **Editar** o **Configurar** comunican una acción específica sin ambigüedad.
 
-<b>Consistencia verbo-sustantivo:</b> La mayoría de las acciones principales se etiquetan con un formato de verbo imperativo, como Enviar Reporte, Generar Ruta, Invitar Colaborador o Guardar Cambios. Esta consistencia ayuda al usuario a entender inmediatamente el resultado de su interacción.
-
-<b>Concisión:</b> En contextos donde el espacio es limitado, como en las tablas de datos, se utilizan etiquetas cortas y directas. Por ejemplo, la etiqueta Ver Detalles en la lista de reportes asocia la acción con la apertura de una vista más completa que contendrá toda la información del reporte (mapa, foto, comentarios), evitando sobrecargar la tabla con datos innecesarios. De igual manera, Editar o Configurar comunican una acción específica sin ambigüedad.
-#### Etiquetas de contenido y datos
-Para la representación de datos dentro de formularios, tablas y vistas de detalle, se utilizan etiquetas descriptivas breves que definen claramente la información mostrada. Encabezados como Nivel de Llenado, Estado del Dispositivo o Rol son consistentes a través de toda la plataforma, asegurando que el usuario pueda escanear y comprender la información rápidamente, independientemente de la sección en la que se encuentre.
-
+#### **Etiquetas de contenido y datos**
+Para la representación de datos dentro de formularios, tablas y vistas de detalle, se utilizan etiquetas descriptivas breves que definen claramente la información mostrada. Encabezados como **Nivel de Llenado**, **Estado del Dispositivo** o **Rol** son consistentes a través de toda la plataforma, asegurando que el usuario pueda escanear y comprender la información rápidamente, independientemente de la sección en la que se encuentre.
 ### 4.2.3. SEO Tags and Meta Tags
+
+A continuación se detallan los valores para las etiquetas SEO y Meta Tags recomendadas para las páginas clave del proyecto.
+
+#### 1. Landing Page
+
+El objetivo de esta página es atraer, informar y convertir a nuevos usuarios (municipios y ciudadanos). Por lo tanto, las etiquetas están optimizadas para motores de búsqueda públicos como Google.
+
+* **Title:**
+  * **Valor:** `WasteTrack | Gestión Inteligente de Residuos para Ciudades Modernas`
+  * **Descripción:** Es conciso, incluye el nombre de la marca al inicio y las palabras clave principales ("Gestión Inteligente de Residuos", "Ciudades Modernas"). Tiene una longitud ideal para una buena visualización en los resultados de búsqueda.
+
+* **Meta Tag Description:**
+  * **Valor:** `Transforma la gestión de residuos de tu ciudad con WasteTrack. Usamos sensores IoT y optimización de rutas para una recolección de basura eficiente y sostenible. ¡Descubre más!`
+  * **Descripción:** Ofrece un resumen atractivo de la propuesta de valor, utilizando palabras clave secundarias ("sensores IoT", "optimización de rutas", "recolección de basura") y finalizando con una llamada a la acción.
+
+* **Meta Tag Keywords:**
+  * **Valor:** `gestión de residuos, contenedores inteligentes, recolección de basura, optimización de rutas, IoT, ciudades inteligentes, sostenibilidad, software municipal, WasteTrack`
+  * **Descripción:** Agrupa los términos de búsqueda más relevantes para el servicio. Aunque su peso en el SEO moderno ha disminuido, sigue siendo una buena práctica para contextualizar el contenido de la página.
+
+* **Meta Tag Author:**
+  * **Valor:** `WasteTrack`
+  * **Descripción:** Identifica al creador o propietario del contenido, en este caso, el nombre del producto o la startup.
+
+#### 2. Aplicación Web
+
+Estas páginas no están destinadas a ser indexadas por motores de búsqueda públicos, ya que requieren autenticación. El objetivo aquí es la experiencia de usuario, especialmente en los títulos que se muestran en las pestañas del navegador.
+
+* **Title (Estructura Dinámica):**
+  * **Valor:** `[Nombre de la Vista Actual] - WasteTrack`
+  * **Descripción:** Se utiliza una estructura dinámica donde el título de la página específica precede al nombre de la marca. Esto ayuda a los usuarios a identificar rápidamente qué pestaña corresponde a qué tarea.
+  * **Ejemplos para Administrador:**
+    * `Dashboard - WasteTrack`
+    * `Gestión de Contenedores - WasteTrack`
+    * `Rutas Activas - WasteTrack`
+  * **Ejemplos para Ciudadano:**
+    * `Mapa de Recolección - WasteTrack`
+    * `Mis Reportes - WasteTrack`
+
+* **Meta Tag Description:**
+  * **Valor:** `Plataforma de WasteTrack para la gestión y monitoreo en tiempo real de la recolección de residuos urbanos.`
+  * **Descripción:** Se puede usar una descripción general para todas las páginas internas de la aplicación, ya que su propósito no es el SEO público. Describe la función principal de la plataforma.
+
+* **Meta Tag Keywords:**
+  * **Valor:** `dashboard, monitoreo IoT, rutas, reportes de ciudadanos, gestión municipal, nivel de llenado, sensores, mapa de recolección`
+  * **Descripción:** Incluye términos relacionados con las funcionalidades internas de la aplicación.
+
+* **Meta Tag Author:**
+  * **Valor:** `WasteTrack`
+  * **Descripción:** Mantiene la consistencia de la marca.
 
 ### 4.2.4. Searching Systems
 
