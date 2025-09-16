@@ -301,11 +301,25 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
 
 ## 4.8. Domain-Driven Software Architecture
 
+En esta sección se documenta la arquitectura de software basada en el enfoque de Domain-Driven Design (DDD). Se incluyen diagramas que representan el contexto del sistema, los contenedores y los componentes, proporcionando una visión clara de cómo se estructura y organiza la solución de software para abordar los requisitos del negocio y las necesidades del usuario.
+
 ### 4.8.1. Software Architecture Context Diagram
+
+Se presenta el diagrama de contexto de la arquitectura de software, que ilustra los límites del sistema, los actores externos y las interacciones principales. Este diagrama ayuda a comprender cómo el sistema se integra con su entorno y cuáles son las responsabilidades clave del mismo.
+
+![Diagrama de Contexto de la Arquitectura de Software](assets/software-architecture/out/software-architecture-context-diagram.png)
 
 ### 4.8.2. Software Architecture Container Diagrams
 
+Se incluyen los diagramas de contenedores de la arquitectura de software, que muestran los principales contenedores del sistema, como aplicaciones, servicios y bases de datos. Estos diagramas detallan cómo se comunican los contenedores entre sí y con los actores externos, proporcionando una visión más granular de la estructura del sistema.
+
+![Diagrama de Contenedores de la Arquitectura de Software](assets/software-architecture/out/software-architecture-container-diagram.png)
+
 ### 4.8.3. Software Architecture Components Diagrams
+
+Se presentan los diagramas de componentes de la arquitectura de software, que descomponen los contenedores en componentes más pequeños y manejables. Estos diagramas detallan las responsabilidades de cada componente y cómo interactúan entre sí para cumplir con los requisitos del sistema.
+
+![Diagrama de Componentes de la Arquitectura de Software](assets/software-architecture/out/software-architecture-component-diagram.png)
 
 ## 4.9. Software Object-Oriented Design
 
