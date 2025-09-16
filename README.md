@@ -368,6 +368,11 @@ Para ofrecer una experiencia nativa y familiar a los usuarios de iOS, los siguie
 - ![iosStyle.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/iosStyle.png)
 
 #### 4.1.3.2. Android Mobile Style Guidelines
+Estos componentes se basan en los principios de Material Design para asegurar una integración perfecta con el ecosistema Android. Su implementación se recomienda utilizando los componentes de Jetpack Compose.
+- Barra de Aplicación Superior (Top App Bar): A diferencia de iOS, la barra de navegación superior de Android alinea el título a la izquierda, justo después del ícono de navegación (flecha para retroceder o ícono de "hamburguesa"). Este componente se implementa con TopAppBar en Jetpack Compose.
+- Barra de Navegación Inferior: Este componente de navegación inferior se caracteriza por tener un fondo sólido y mostrar siempre las etiquetas de texto para todos los íconos, tanto para la pestaña activa como para las inactivas, facilitando el reconocimiento de cada sección. Se implementa con el componente NavigationBar.
+
+![androidStyle.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/androidStyle.png)
 
 ## 4.2. Information Architecture
 
