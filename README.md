@@ -648,15 +648,234 @@ Identificar procesos actuales, herramientas utilizadas y puntos de dolor especí
 
 ### 2.3.1. User personas
 
+### Administrador Municipal
+
+![Administrador Municipal Persona.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.1.userpersonas/adminMunicipalPersona.png)
+
+### Conductor de Recoleccion 
+
+![Conductor de Recoleccion Persona.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.1.userpersonas/conductorRecolectorPersona.png)
+
+### Ciudadano Residente
+
+![Ciudadano Residente Persona.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.1.userpersonas/ciudadanoResidentePersona.png)
+
 ### 2.3.2. User Task Matrix
+
+<table>
+  <tr>
+    <th rowspan="2">Tarea</th>
+    <th colspan="2">Administrador Municipal</th>
+    <th colspan="2">Conductor de Recolección</th>
+    <th colspan="2">Ciudadano Residente</th>
+  </tr>
+  <tr>
+    <th>Frecuencia</th>
+    <th>Importancia</th>
+    <th>Frecuencia</th>
+    <th>Importancia</th>
+    <th>Frecuencia</th>
+    <th>Importancia</th>
+  </tr>
+  <tr>
+    <td>Reportar Contenedores Llenos</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>OCACIONAL</td><td>BAJA</td>
+  </tr>
+  <tr>
+    <td>Reportar Problemas de Recolección</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>DIARIO</td><td>MEDIA</td>
+    <td>OCACIONAL</td><td>ALTA</td>
+  </tr>
+  <tr>
+    <td>Monitorear el Progreso de la Recolección</td>
+    <td>DIARIO</td><td>BAJA</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>OCACIONAL</td><td>BAJA</td>
+  </tr>
+  <tr>
+    <td>Acceder a Información de Servicios Municipales</td>
+    <td>DIARIO</td><td>BAJA</td>
+    <td>DIARIO</td><td>BAJA</td>
+    <td>OCACIONAL</td><td>ALTA</td>
+  </tr>
+  <tr>
+    <td>Reportar Problemas de Seguridad</td>
+    <td>OCACIONAL</td><td>BAJA</td>
+    <td>OCACIONAL</td><td>ALTA</td>
+    <td>DIARIO</td><td>ALTA</td>
+  </tr>
+  <tr>
+    <td>Enviar y recibir quejas de la comunidad</td>
+    <td>OCACIONAL</td><td>MEDIA</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>DIARIO</td><td>ALTA</td>
+  </tr>
+  <tr>
+    <td>Analizar y Generar Informes</td>
+    <td>DIARIO</td><td>BAJA</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>OCACIONAL</td><td>BAJA</td>
+  </tr>
+  <tr>
+    <td>Comunicarse con el equipo o municipalidad</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>DIARIO</td><td>ALTA</td>
+    <td>DIARIO</td><td>ALTA</td>
+  </tr>
+</table>
 
 ### 2.3.3. User Journey Mapping
 
+### Administrador Municipal
+
+![Administrador Municipal Journey Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.3.userjourneymapping/adminMunicipalJourney.png)
+
+### Conductor de Recoleccion
+
+![Conductor de Recoleccion Journey Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.3.userjourneymapping/conductorRecoleccionJourney.png)
+
+### Ciudadano Residente
+
+![Ciudadano Residente Journey Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.3.userjourneymapping/ciudadanoResidenteJourney.png)
+
 ### 2.3.4. Empathy Mapping
+
+### Administrador Municipal
+
+![Administrador Municipal Empathy Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.4.empathymapping/adminMunicipalEmpathy.png)
+
+### Conductor de Recoleccion
+
+![Conductor de Recoleccion Empathy Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.4.empathymapping/conductorRecolectorEmpathy.png)
+
+### Ciudadano Residente
+
+![Ciudadano Residente Empathy Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.4.empathymapping/ciudadanoResidenteEmpathy.png)
 
 ### 2.3.5. As-is Scenario Mapping
 
+### Administrador Municipal
+
+![Administrador Municipal As-is Scenario Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.5.asisscenariomapping/asisMuni.png)
+
+### Conductor de Recoleccion
+
+![Conductor de Recoleccion As-is Scenario Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.5.asisscenariomapping/asisReco.png)
+
+### Ciudadano Residente
+
+![Ciudadano Residente As-is Scenario Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.5.asisscenariomapping/asisCiud.png)
+
 ## 2.4. Ubiquitous Language
+
+Esta sección presenta el glosario de términos y conceptos fundamentales utilizados en el dominio de gestión de residuos sólidos urbanos, estableciendo un vocabulario común y sin ambigüedades para todos los miembros del equipo y stakeholders del proyecto WasteTrack. Los términos han sido identificados durante el proceso de Big Picture Event Storming y representan conceptos clave del negocio.
+
+### Términos del Dominio
+
+**Budget Approval** (Aprobación de Presupuesto)  
+Proceso administrativo mediante el cual la municipalidad asigna y autoriza recursos financieros específicos para las operaciones de recolección de residuos sólidos durante un período determinado.
+
+**Collection Point** (Punto de Recolección)  
+Ubicación específica donde se encuentran contenedores de residuos sólidos y donde los vehículos recolectores deben detenerse para realizar el vaciado y carga de residuos.
+
+**Collection Route** (Ruta de Recolección)  
+Secuencia planificada de puntos de recolección que debe seguir un vehículo recolector durante una jornada de trabajo, optimizada para maximizar la eficiencia operativa.
+
+**Collection Supervisor** (Supervisor de Recolección)  
+Funcionario municipal responsable de coordinar y supervisar las operaciones diarias de recolección de residuos, incluyendo asignación de personal, vehículos y rutas.
+
+**Container** (Contenedor)  
+Recipiente destinado al almacenamiento temporal de residuos sólidos, ubicado en espacios públicos o privados, con capacidad variable según su tipo y ubicación.
+
+**Container Capacity** (Capacidad del Contenedor)  
+Volumen máximo de residuos sólidos que puede almacenar un contenedor específico, medido generalmente en metros cúbicos o litros.
+
+**Container Overflow** (Desbordamiento del Contenedor)  
+Situación en la que el volumen de residuos depositados supera la capacidad física del contenedor, causando acumulación de residuos fuera del mismo.
+
+**Container Saturation** (Saturación del Contenedor)  
+Estado crítico del contenedor cuando alcanza su capacidad máxima sin desbordarse, requiriendo recolección inmediata para evitar problemas operativos.
+
+**Disposal Fee** (Tasa de Disposición)  
+Tarifa cobrada por las instalaciones de disposición final (rellenos sanitarios, plantas de tratamiento) por recibir y procesar residuos sólidos, calculada generalmente por tonelada.
+
+**Emergency Collection** (Recolección de Emergencia)  
+Servicio extraordinario de recolección activado fuera de los horarios regulares para atender situaciones críticas como desbordamientos o acumulaciones problemáticas.
+
+**Emergency Dispatcher** (Despachador de Emergencias)  
+Funcionario responsable de coordinar y activar servicios de recolección de emergencia en respuesta a reportes ciudadanos o situaciones críticas detectadas.
+
+**Fleet Management** (Gestión de Flota)  
+Administración integral de los vehículos recolectores incluyendo mantenimiento, asignación, seguimiento operativo y control de recursos asociados.
+
+**Household Waste** (Residuos Domiciliarios)  
+Residuos sólidos generados en viviendas como resultado de actividades domésticas cotidianas, incluyendo restos orgánicos, envases y materiales diversos.
+
+**Commercial Waste** (Residuos Comerciales)  
+Residuos sólidos producidos por establecimientos comerciales, oficinas y servicios, caracterizados por mayor volumen y composición específica según el tipo de negocio.
+
+**Hospital Waste** (Residuos Hospitalarios)  
+Residuos sólidos generados en establecimientos de salud, que pueden incluir materiales biocontaminados y requieren manejo especializado según normativas sanitarias.
+
+**Industrial Waste** (Residuos Industriales)  
+Residuos sólidos producidos por procesos industriales y manufactureros, que pueden requerir tratamiento especializado según su composición y características.
+
+**Informal Recycler** (Reciclador Informal)  
+Persona que se dedica a la recolección, separación y comercialización de materiales reciclables de manera independiente, operando fuera del sistema formal de gestión de residuos.
+
+**Landfill** (Relleno Sanitario)  
+Instalación de ingeniería diseñada para la disposición final segura de residuos sólidos, con sistemas de control ambiental y cumplimiento de normativas técnicas específicas.
+
+**Maintenance Schedule** (Cronograma de Mantenimiento)  
+Planificación sistemática de actividades de mantenimiento preventivo y correctivo para vehículos, contenedores y equipos del sistema de gestión de residuos.
+
+**Municipal Administrator** (Administrador Municipal)  
+Funcionario de alto nivel responsable de la planificación estratégica y gestión general del servicio municipal de limpieza pública y gestión de residuos sólidos.
+
+**Organic Waste** (Residuos Orgánicos)  
+Fracción de residuos sólidos de origen biológico, principalmente restos de alimentos y materiales vegetales, susceptibles de ser compostados o tratados biológicamente.
+
+**Recyclable Material** (Material Reciclable)  
+Componentes de los residuos sólidos que pueden ser reprocesados para la fabricación de nuevos productos, incluyendo papel, cartón, plásticos, metales y vidrio.
+
+**Regulatory Compliance** (Cumplimiento Regulatorio)  
+Adherencia a las normativas ambientales y sanitarias establecidas por entidades como MINAM, OEFA y otras autoridades competentes en materia de gestión de residuos.
+
+**Route Optimization** (Optimización de Rutas)  
+Proceso de planificación que busca determinar la secuencia más eficiente de puntos de recolección para minimizar tiempo, distancia y consumo de recursos operativos.
+
+**Shift Schedule** (Cronograma de Turnos)  
+Organización temporal de las jornadas de trabajo del personal operativo, definiendo horarios, responsabilidades y asignaciones específicas para cada turno.
+
+**Transfer Station** (Estación de Transferencia)  
+Instalación intermedia donde los residuos recolectados son consolidados y transferidos a vehículos de mayor capacidad para su transporte hacia la disposición final.
+
+**Truck Driver** (Conductor de Camión)  
+Operario especializado responsable de conducir vehículos recolectores y ejecutar las rutas de recolección siguiendo los protocolos establecidos.
+
+**Waste Disposal** (Disposición de Residuos)  
+Acto de colocar residuos sólidos en contenedores o ubicaciones designadas por parte de generadores (ciudadanos, comercios, instituciones).
+
+**Waste Generation** (Generación de Residuos)  
+Proceso mediante el cual las actividades humanas producen materiales que se descartan como residuos sólidos, variando según el tipo de generador y actividad.
+
+**Waste Generator** (Generador de Residuos)  
+Persona natural o jurídica cuyas actividades producen residuos sólidos, incluyendo hogares, comercios, industrias e instituciones públicas.
+
+**Waste Segregation** (Segregación de Residuos)  
+Separación de residuos sólidos en diferentes categorías (orgánicos, reciclables, no reciclables) en el punto de generación para facilitar su manejo posterior.
+
+**Waste Transportation** (Transporte de Residuos)  
+Traslado de residuos sólidos desde los puntos de recolección hacia estaciones de transferencia, plantas de tratamiento o sitios de disposición final.
+
+**Waste Weighing** (Pesaje de Residuos)  
+Proceso de medición del peso de residuos sólidos transportados, realizado en básculas especializadas para control operativo y facturación de servicios.
+
+**Weekly Schedule** (Cronograma Semanal)  
+Planificación operativa que define días, horarios y frecuencias de recolección para diferentes sectores del distrito, estableciendo la regularidad del servicio.
 
 # Capítulo III: Requirements Specification
 
