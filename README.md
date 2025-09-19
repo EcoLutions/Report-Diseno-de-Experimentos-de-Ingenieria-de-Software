@@ -646,6 +646,66 @@ Esta es la pantalla final del flujo de trabajo diario. Al "Finalizar Jornada", l
 ![dayCompleted.png](assets/images/chapter4/mobileApplicationUxUi/dayCompleted.png)
 
 ### 4.4.2. Mobile Applications Wire flow Diagrams
+Los Wire Flow Diagrams representan de manera visual la navegación y los principales puntos de interacción dentro de las aplicaciones móviles, diferenciados según los perfiles de usuario: Ciudadano y Colaborador Municipal (Conductor). Estos diagramas combinan la estructura de los wireframes con la lógica de los flujos de usuario, mostrando cómo cada pantalla se conecta con la siguiente y qué acciones permiten avanzar en el proceso.
+
+#### Flujo de usuario: Ciudadano
+
+#### 1. Configuración inicial
+
+Pantallas donde el ciudadano puede establecer su ubicación principal (distrito o dirección) para personalizar la información del servicio.
+![configLocation.png](assets/images/chapter4/mobileWireflows/ciudadanos/configLocation.png)
+
+#### 2. Ubicación de contenedores
+
+Muestra en un mapa interactivo los contenedores de basura más cercanos a la ubicación del ciudadano, con detalles básicos.
+![viewContainers.png](assets/images/chapter4/mobileWireflows/ciudadanos/viewContainers.png)
+
+
+#### 3. Reportar incidencias
+
+Permite registrar incidencias relacionadas al servicio de limpieza (contenedores llenos, basura acumulada, etc.), adjuntando fotos y comentarios.
+![reportIncident.png](assets/images/chapter4/mobileWireflows/ciudadanos/reportIncident.png)
+
+#### 4. Notificaciones de servicio
+
+Pantalla donde el usuario recibe notificaciones sobre el estado de sus reportes e información general del servicio de limpieza.
+![notifications.png](assets/images/chapter4/mobileWireflows/ciudadanos/notifications.png)
+
+
+#### 5. Consulta de otra municipalidad
+
+Opción para seleccionar y consultar información de otra municipalidad distinta a la configurada inicialmente.
+![selectMunicipality.png](assets/images/chapter4/mobileWireflows/ciudadanos/selectMunicipality.png)
+
+
+#### Flujo de usuario: Colaborador municipal (Chofer)
+
+#### 1. Inicio de sesión
+
+Pantalla donde el colaborador accede a la aplicación con sus credenciales de usuario para comenzar la jornada.
+![loginDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/loginDriver.png)
+
+#### 2. Ruta asignada
+
+Muestra la ruta diaria asignada al conductor, incluyendo paradas y horarios planificados.
+![assignedRoute.png](assets/images/chapter4/mobileWireflows/colaboradores/assignedRoute.png)
+
+#### 3. Navegación a contenedores
+
+Permite visualizar y seguir el recorrido hacia los contenedores asignados de manera eficiente, con apoyo de mapas o GPS integrado.
+
+![navigateContainers.png](assets/images/chapter4/mobileWireflows/colaboradores/navigateContainers.png)
+
+#### 4. Reportar incidencias
+
+Pantalla para registrar incidencias detectadas en los contenedores durante la jornada, adjuntando fotos y comentarios.
+![reportIncidentDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/reportIncidentDriver.png)
+
+#### 5. Cierre de jornada
+
+Al finalizar la jornada, el colaborador puede confirmar el fin de su turno y acceder a un resumen con paradas completadas, incidencias reportadas y tiempo total trabajado.
+![daySummary.png](assets/images/chapter4/mobileWireflows/colaboradores/daySummary.png)
+
 
 ### 4.4.3. Mobile Applications Mock-ups
 
