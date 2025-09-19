@@ -680,7 +680,31 @@ Opción para seleccionar y consultar información de otra municipalidad distinta
 
 #### Flujo de usuario: Colaborador municipal (Chofer)
 
+#### 1. Inicio de sesión
 
+Pantalla donde el colaborador accede a la aplicación con sus credenciales de usuario para comenzar la jornada.
+![loginDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/loginDriver.png)
+
+#### 2. Ruta asignada
+
+Muestra la ruta diaria asignada al conductor, incluyendo paradas y horarios planificados.
+![assignedRoute.png](assets/images/chapter4/mobileWireflows/colaboradores/assignedRoute.png)
+
+#### 3. Navegación a contenedores
+
+Permite visualizar y seguir el recorrido hacia los contenedores asignados de manera eficiente, con apoyo de mapas o GPS integrado.
+
+![navigateContainers.png](assets/images/chapter4/mobileWireflows/colaboradores/navigateContainers.png)
+
+#### 4. Reportar incidencias
+
+Pantalla para registrar incidencias detectadas en los contenedores durante la jornada, adjuntando fotos y comentarios.
+![reportIncidentDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/reportIncidentDriver.png)
+
+#### 5. Cierre de jornada
+
+Al finalizar la jornada, el colaborador puede confirmar el fin de su turno y acceder a un resumen con paradas completadas, incidencias reportadas y tiempo total trabajado.
+![daySummary.png](assets/images/chapter4/mobileWireflows/colaboradores/daySummary.png)
 
 
 ### 4.4.3. Mobile Applications Mock-ups
