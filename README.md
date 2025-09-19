@@ -233,6 +233,18 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
 
 ## 3.1. To-Be Scenario Mapping
 
+### Administrador Municipal
+
+![tobeMuni.png](assets/3.requirementsspecification/3.1.tobescenariomapping/tobeMuni.png)
+
+### Conductor de Recolección
+
+![tobeReco.png](assets/3.requirementsspecification/3.1.tobescenariomapping/tobeReco.png)
+
+### Ciudadano Residente
+
+![tobeCiud.png](assets/3.requirementsspecification/3.1.tobescenariomapping/tobeCiud.png)
+
 ## 3.2. User Stories
 
 ## 3.3. Product Backlog
