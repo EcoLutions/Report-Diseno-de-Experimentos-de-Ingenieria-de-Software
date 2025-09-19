@@ -328,6 +328,18 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
 
 ### 2.3.5. As-is Scenario Mapping
 
+### Administrador Municipal
+
+![Administrador Municipal As-is Scenario Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.5.asisscenariomapping/asisMuni.png)
+
+### Conductor de Recoleccion
+
+![Conductor de Recoleccion As-is Scenario Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.5.asisscenariomapping/asisReco.png)
+
+### Ciudadano Residente
+
+![Ciudadano Residente As-is Scenario Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.5.asisscenariomapping/asisCiud.png)
+
 ## 2.4. Ubiquitous Language
 
 # Capítulo III: Requirements Specification
