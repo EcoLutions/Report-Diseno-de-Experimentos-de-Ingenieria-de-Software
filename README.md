@@ -219,6 +219,18 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
 
 ### 2.3.1. User personas
 
+### Administrador Municipal
+
+![Administrador Municipal Persona.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.1.userpersonas/adminMunicipalPersona.png)
+
+### Conductor de Recoleccion 
+
+![Conductor de Recoleccion Persona.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.1.userpersonas/conductorRecolectorPersona.png)
+
+### Ciudadano Residente
+
+![Ciudadano Residente Persona.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.1.userpersonas/ciudadanoResidentePersona.png)
+
 ### 2.3.2. User Task Matrix
 
 ### 2.3.3. User Journey Mapping
