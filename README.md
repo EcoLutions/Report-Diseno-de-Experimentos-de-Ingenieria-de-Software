@@ -314,6 +314,18 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
 
 ### 2.3.4. Empathy Mapping
 
+### Administrador Municipal
+
+![Administrador Municipal Empathy Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.4.empathymapping/adminMunicipalEmpathy.png)
+
+### Conductor de Recoleccion
+
+![Conductor de Recoleccion Empathy Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.4.empathymapping/conductorRecolectorEmpathy.png)
+
+### Ciudadano Residente
+
+![Ciudadano Residente Empathy Map.png](assets/2.requirements-elicitation-analysis/2.3.needfinding/2.3.4.empathymapping/ciudadanoResidenteEmpathy.png)
+
 ### 2.3.5. As-is Scenario Mapping
 
 ## 2.4. Ubiquitous Language
