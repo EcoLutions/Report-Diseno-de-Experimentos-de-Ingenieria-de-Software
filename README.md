@@ -646,6 +646,42 @@ Esta es la pantalla final del flujo de trabajo diario. Al "Finalizar Jornada", l
 ![dayCompleted.png](assets/images/chapter4/mobileApplicationUxUi/dayCompleted.png)
 
 ### 4.4.2. Mobile Applications Wire flow Diagrams
+Los Wire Flow Diagrams representan de manera visual la navegación y los principales puntos de interacción dentro de las aplicaciones móviles, diferenciados según los perfiles de usuario: Ciudadano y Colaborador Municipal (Conductor). Estos diagramas combinan la estructura de los wireframes con la lógica de los flujos de usuario, mostrando cómo cada pantalla se conecta con la siguiente y qué acciones permiten avanzar en el proceso.
+
+#### Flujo de usuario: Ciudadano
+
+#### 1. Configuración inicial
+
+Pantallas donde el ciudadano puede establecer su ubicación principal (distrito o dirección) para personalizar la información del servicio.
+![configLocation.png](assets/images/chapter4/mobileWireflows/ciudadanos/configLocation.png)
+
+#### 2. Ubicación de contenedores
+
+Muestra en un mapa interactivo los contenedores de basura más cercanos a la ubicación del ciudadano, con detalles básicos.
+![viewContainers.png](assets/images/chapter4/mobileWireflows/ciudadanos/viewContainers.png)
+
+
+#### 3. Reportar incidencias
+
+Permite registrar incidencias relacionadas al servicio de limpieza (contenedores llenos, basura acumulada, etc.), adjuntando fotos y comentarios.
+![reportIncident.png](assets/images/chapter4/mobileWireflows/ciudadanos/reportIncident.png)
+
+#### 4. Notificaciones de servicio
+
+Pantalla donde el usuario recibe notificaciones sobre el estado de sus reportes e información general del servicio de limpieza.
+![notifications.png](assets/images/chapter4/mobileWireflows/ciudadanos/notifications.png)
+
+
+#### 5. Consulta de otra municipalidad
+
+Opción para seleccionar y consultar información de otra municipalidad distinta a la configurada inicialmente.
+![selectMunicipality.png](assets/images/chapter4/mobileWireflows/ciudadanos/selectMunicipality.png)
+
+
+#### Flujo de usuario: Colaborador municipal (Chofer)
+
+
+
 
 ### 4.4.3. Mobile Applications Mock-ups
 
