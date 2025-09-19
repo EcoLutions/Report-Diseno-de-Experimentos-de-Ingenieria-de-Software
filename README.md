@@ -568,7 +568,7 @@ A continuación, se presentan los wireframes de baja fidelidad para la aplicaci�
 Este flujo está diseñado para ser simple e intuitivo, permitiendo a cualquier ciudadano interactuar con el sistema de gestión de residuos de su municipalidad.
 
 #### Pantallas de bienvenida e integración (Onboarding)
-Representa el primer contacto del usuario con la aplicación. A través de una serie de pantallas, se presenta la propuesta de valor, se le permite al usuario seleccionar su rol ("Ciudadano") y, crucialmente, buscar y elegir la municipalidad a la que pertenece para personalizar el contenido de la aplicación.
+Representa el primer contacto del usuario con la aplicación. A través de una serie de pantallas, se presenta la propuesta de valor, se le permite al usuario buscar y elegir la municipalidad a la que pertenece para personalizar el contenido de la aplicación.
 
 ![onboardingCitizen.png](assets/images/chapter4/mobileApplicationUxUi/onboardingCitizen.png)
 
@@ -596,7 +596,7 @@ Esta pantalla funciona como una bandeja de entrada donde el usuario recibe actua
 Este flujo es una herramienta de trabajo diseñada para la eficiencia operativa. Es una aplicación robusta que guía al conductor a través de sus tareas diarias.
 
 #### Pantallas de bienvenida e integración (Onboarding)
-Representa el primer contacto del usuario con la aplicación. A través de una serie de pantallas, se presenta la propuesta de valor, se le permite al usuario seleccionar su rol ("Colaborador municipal")
+Representa el primer contacto del usuario con la aplicación. A través de una serie de dos pantallas, primero se diferencia que la aplicación es exclusivamente para choferes recolectores de basura, y se presenta la propuesta de valor.
 
 ![onboardingMunicipalityAgent.png](assets/images/chapter4/mobileApplicationUxUi/onboardingMunicipalityAgent.png)
 
