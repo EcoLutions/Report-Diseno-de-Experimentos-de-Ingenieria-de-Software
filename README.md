@@ -1048,6 +1048,36 @@ Esta pantalla se muestra cuando el conductor ha completado todas las paradas asi
 
 ### 4.4.4. Mobile Applications User Flow Diagrams
 
+Los **User Flow Diagrams** muestran de manera detallada la secuencia de pantallas y decisiones que sigue cada usuario para alcanzar un objetivo específico dentro de la aplicación. A diferencia de los Wireflows, aquí se representan tanto la ruta esperada (*happy path*) como las rutas alternativas o excepcionales (*unhappy paths*), evidenciando las condiciones de validación y mensajes que se presentan en cada escenario.
+
+#### Flujo de usuario: Ciudadano
+
+**1. Configuración inicial**
+Flujo donde el ciudadano selecciona su municipalidad y define su ubicación inicial. El *happy path* considera la elección correcta de la municipalidad y la carga del mapa. 
+
+![configLocation.png](assets/images/chapter4/userFlows/ciudadanos/configLocation.png)
+
+**2. Ubicación de contenedores**
+Flujo que muestra el mapa interactivo con los contenedores cercanos. El *happy path* es la visualización normal de los puntos en el mapa. 
+
+![viewContainers.png](assets/images/chapter4/userFlows/ciudadanos/viewContainers.png)
+
+**3. Reportar incidencias**
+Flujo para registrar incidencias relacionadas al servicio. El *happy path* ocurre al seleccionar un tipo de incidencia, añadir detalles opcionales y enviar exitosamente el reporte. Los *unhappy paths* incluyen no seleccionar el tipo de incidencia (se muestra un mensaje de error) o problemas de conexión que impiden el envío.
+
+![reportIncident.png](assets/images/chapter4/userFlows/ciudadanos/reportIncident.png)
+
+**4. Notificaciones de servicio**
+Flujo donde el ciudadano accede a la bandeja de notificaciones para ver alertas sobre la recolección, resolución de reportes o recordatorios de reciclaje. El *happy path* contempla notificaciones disponibles.
+
+![notifications.png](assets/images/chapter4/userFlows/ciudadanos/notifications.png)
+
+**5. Consulta de otra municipalidad**
+Flujo que permite cambiar la municipalidad configurada inicialmente para consultar información en otra jurisdicción. El *happy path* es la selección correcta de una nueva municipalidad, que actualiza el mapa.
+
+![selectMunicipality.png](assets/images/chapter4/userFlows/ciudadanos/selectMunicipality.png)
+
+
 ## 4.5. Mobile Applications Prototyping
 El propósito de esta sección es presentar los prototipos interactivos desarrollados para las aplicaciones móviles del ciudadano y del colaborador municipal (chofer). Estos prototipos permiten simular la experiencia de usuario final, facilitando la evaluación de la usabilidad, la navegación y la interacción con las funcionalidades clave antes de la implementación técnica.
 
@@ -1235,7 +1265,6 @@ Flujo para registrar vehículos municipales, asociarlos a rutas y mantener actua
 
 ![registerVehicle.png](assets/images/chapter4/mobileWireflows/municipalidad/registerVehicle.png)
 
-
 ### 4.6.3. Web Applications Mock-ups
 ### Flujo de Super Administrador
 Este flujo está diseñado como una herramienta interna y segura, accesible únicamente para los desarrolladores o administradores del sistema. Su única finalidad es la creación y gestión de las cuentas maestras de las municipalidades, siguiendo un modelo de negocio B2B.
@@ -1339,7 +1368,7 @@ Debe aparecer como confirmación o feedback inmediato después de que el adminis
 ![updateNotificationToast.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/updateNotificationToast.png)
 ![updatedReportToastNotification.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/updatedReportToastNotification.png)
 
-### 4.6.4. Web Applications User Flow Diagrams
+### 4.6.4. Web Applications User Flow Diagrams  
 
 ## 4.7. Web Applications Prototyping
 El propósito de esta sección es presentar los prototipos interactivos desarrollados para la aplicación web de administración. Estos prototipos permiten simular la experiencia de usuario final, facilitando la evaluación de la usabilidad, la navegación y la interacción con las funcionalidades clave antes de la implementación técnica.
