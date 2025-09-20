@@ -1052,31 +1052,67 @@ Los **User Flow Diagrams** muestran de manera detallada la secuencia de pantalla
 
 #### Flujo de usuario: Ciudadano
 
-**1. Configuración inicial**
+**User goal: Configuración inicial**
 Flujo donde el ciudadano selecciona su municipalidad y define su ubicación inicial. El *happy path* considera la elección correcta de la municipalidad y la carga del mapa. 
 
 ![configLocation.png](assets/images/chapter4/userFlows/ciudadanos/configLocation.png)
 
-**2. Ubicación de contenedores**
+**User goal: Ubicación de contenedores**
 Flujo que muestra el mapa interactivo con los contenedores cercanos. El *happy path* es la visualización normal de los puntos en el mapa. 
 
 ![viewContainers.png](assets/images/chapter4/userFlows/ciudadanos/viewContainers.png)
 
-**3. Reportar incidencias**
+**User goal: Reportar incidencias**
 Flujo para registrar incidencias relacionadas al servicio. El *happy path* ocurre al seleccionar un tipo de incidencia, añadir detalles opcionales y enviar exitosamente el reporte. Los *unhappy paths* incluyen no seleccionar el tipo de incidencia (se muestra un mensaje de error) o problemas de conexión que impiden el envío.
 
 ![reportIncident.png](assets/images/chapter4/userFlows/ciudadanos/reportIncident.png)
 
-**4. Notificaciones de servicio**
+**User goal: Notificaciones de servicio**
 Flujo donde el ciudadano accede a la bandeja de notificaciones para ver alertas sobre la recolección, resolución de reportes o recordatorios de reciclaje. El *happy path* contempla notificaciones disponibles.
 
 ![notifications.png](assets/images/chapter4/userFlows/ciudadanos/notifications.png)
 
-**5. Consulta de otra municipalidad**
+**User goal: Consulta de otra municipalidad**
 Flujo que permite cambiar la municipalidad configurada inicialmente para consultar información en otra jurisdicción. El *happy path* es la selección correcta de una nueva municipalidad, que actualiza el mapa.
 
 ![selectMunicipality.png](assets/images/chapter4/userFlows/ciudadanos/selectMunicipality.png)
 
+#### Flujo de usuario: Colaborador municipal (Chofer)
+
+**User goal: Inicio de sesión**
+Flujo donde el colaborador accede a la aplicación con sus credenciales para comenzar la jornada.
+
+* *Happy path*: ingreso correcto y acceso a la ruta asignada.
+* *Unhappy path*: credenciales incorrectas, mostrando mensaje de error e impidiendo avanzar.
+  ![loginDriver.png](assets/images/chapter4/userFlows/colaboradores/loginDriver.png)
+
+**User goal: Ruta asignada**
+Flujo que muestra las paradas del día y permite iniciar la jornada.
+
+* *Happy path*: el conductor visualiza sus contenedores asignados y comienza el recorrido.
+* *Unhappy path*: no hay ruta asignada en el sistema, mostrando un mensaje que indica al colaborador contactar a su supervisor.
+  ![assignedRoute.png](assets/images/chapter4/userFlows/colaboradores/assignedRoute.png)
+
+**User goal: Navegación a contenedores**
+Flujo que guía al colaborador hacia el contenedor seleccionado mediante GPS integrado.
+
+* *Happy path*: se inicia la navegación hasta el contenedor y se muestra la llegada estimada.
+  ![navigateContainers.png](assets/images/chapter4/userFlows/colaboradores/navigateContainers.png)
+
+
+**User goal: Reportar incidencias**
+Flujo para registrar incidencias encontradas en un contenedor durante la jornada.
+
+* *Happy path*: selección del tipo de incidencia, notas opcionales, foto y envío exitoso.
+* *Unhappy path*: no seleccionar el tipo de incidencia impide completar el reporte y se muestra un mensaje de error.
+  ![reportIncidentDriver.png](assets/images/chapter4/userFlows/colaboradores/reportIncidentDriver.png)
+
+**User goal: Cierre de jornada**
+Flujo donde el colaborador confirma la recolección en el último contenedor y revisa un resumen con paradas completadas, incidencias reportadas y duración total del turno.
+
+* *Happy path*: la jornada se completa con éxito y se muestra el resumen final.
+
+![daySummary.png](assets/images/chapter4/userFlows/colaboradores/daySummary.png)
 
 ## 4.5. Mobile Applications Prototyping
 El propósito de esta sección es presentar los prototipos interactivos desarrollados para las aplicaciones móviles del ciudadano y del colaborador municipal (chofer). Estos prototipos permiten simular la experiencia de usuario final, facilitando la evaluación de la usabilidad, la navegación y la interacción con las funcionalidades clave antes de la implementación técnica.
@@ -1211,13 +1247,13 @@ Debe aparecer como confirmación o feedback inmediato después de que el adminis
 
 #### Flujo de usuario: Municipalidad (Administrador)
 
-#### 1. Inicio de sesión administrador
+**User Goal:  Inicio de sesión administrador**
 
 Flujo donde el administrador accede al sistema con sus credenciales para gestionar los recursos municipales.
 
 ![loginAdmin.png](assets/images/chapter4/mobileWireflows/municipalidad/adminProfile.png)
 
-#### 2. Gestión de colaboradores
+**User Goal: Gestión de colaboradores**
 
 **a. Invitar colaborador**
 Flujo para registrar e invitar a nuevos colaboradores al sistema, asignándoles un rol o perfil específico.
@@ -1229,13 +1265,13 @@ Flujo que permite al administrador actualizar la información o rol de colaborad
 
 ![editCollaborator.png](assets/images/chapter4/mobileWireflows/municipalidad/editCollaborator.png)
 
-#### 3. Gestión de rutas de recolección
+**User Goal: Gestión de rutas de recolección**
 
 Flujo donde el administrador puede generar y asignar rutas de recolección de residuos, asignándolas a colaboradores.
 
 ![manageRoutes.png](assets/images/chapter4/mobileWireflows/municipalidad/manageRoutes.png)
 
-#### 4. Gestión de dispositivos IoT
+**User Goal: Gestión de dispositivos IoT**
 
 **a. Registrar dispositivo IoT**
 Flujo para registrar nuevos dispositivos IoT destinados a monitorear contenedores u otros puntos de control.
@@ -1247,19 +1283,19 @@ Flujo que permite actualizar datos o reconfigurar dispositivos IoT existentes.
 
 ![editIoT.png](assets/images/chapter4/mobileWireflows/municipalidad/editIoT.png)
 
-#### 5. Gestión de reportes ciudadanos
+**User Goal: Gestión de reportes ciudadanos**
 
 Flujo que muestra los reportes enviados por ciudadanos (ej. incidencias en el servicio de limpieza), con opciones para revisarlos y darles seguimiento.
 
 ![manageReports.png](assets/images/chapter4/mobileWireflows/municipalidad/manageReports.png)
 
-#### 6. Gestión de sesión y perfil
+**User Goal: Gestión de sesión y perfil**
 
 Flujo donde el administrador puede actualizar su información básica, cambiar contraseña o cerrar sesión.
 
 ![adminProfile.png](assets/images/chapter4/mobileWireflows/municipalidad/adminProfile.png)
 
-#### 7. Registro de vehículos
+**User Goal: Registro de vehículos**
 
 Flujo para registrar vehículos municipales, asociarlos a rutas y mantener actualizado el inventario de la flota.
 
@@ -1368,7 +1404,7 @@ Debe aparecer como confirmación o feedback inmediato después de que el adminis
 ![updateNotificationToast.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/updateNotificationToast.png)
 ![updatedReportToastNotification.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/updatedReportToastNotification.png)
 
-### 4.6.4. Web Applications User Flow Diagrams  
+### 4.6.4. Web Applications User Flow Diagrams
 
 ## 4.7. Web Applications Prototyping
 El propósito de esta sección es presentar los prototipos interactivos desarrollados para la aplicación web de administración. Estos prototipos permiten simular la experiencia de usuario final, facilitando la evaluación de la usabilidad, la navegación y la interacción con las funcionalidades clave antes de la implementación técnica.
