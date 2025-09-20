@@ -889,60 +889,61 @@ Esta pantalla se muestra cuando el conductor ha completado todas las paradas asi
 ### 4.4.2. Mobile Applications Wire flow Diagrams
 Los Wire Flow Diagrams representan de manera visual la navegación y los principales puntos de interacción dentro de las aplicaciones móviles, diferenciados según los perfiles de usuario: Ciudadano y Colaborador Municipal (Conductor). Estos diagramas combinan la estructura de los wireframes con la lógica de los flujos de usuario, mostrando cómo cada pantalla se conecta con la siguiente y qué acciones permiten avanzar en el proceso.
 
-#### Flujo de usuario: Ciudadano
+**Flujo de usuario: Ciudadano**
 
-#### 1. Configuración inicial
+**1. Configuración inicial**
 
 Pantallas donde el ciudadano puede establecer su ubicación principal (distrito o dirección) para personalizar la información del servicio.
 ![configLocation.png](assets/images/chapter4/mobileWireflows/ciudadanos/configLocation.png)
 
-#### 2. Ubicación de contenedores
+**2. Ubicación de contenedores**
 
 Muestra en un mapa interactivo los contenedores de basura más cercanos a la ubicación del ciudadano, con detalles básicos.
 ![viewContainers.png](assets/images/chapter4/mobileWireflows/ciudadanos/viewContainers.png)
 
 
-#### 3. Reportar incidencias
+**3. Reportar incidencias**
 
 Permite registrar incidencias relacionadas al servicio de limpieza (contenedores llenos, basura acumulada, etc.), adjuntando fotos y comentarios.
 ![reportIncident.png](assets/images/chapter4/mobileWireflows/ciudadanos/reportIncident.png)
 
-#### 4. Notificaciones de servicio
+**4. Notificaciones de servicio**
 
 Pantalla donde el usuario recibe notificaciones sobre el estado de sus reportes e información general del servicio de limpieza.
 ![notifications.png](assets/images/chapter4/mobileWireflows/ciudadanos/notifications.png)
 
 
-#### 5. Consulta de otra municipalidad
+**5. Consulta de otra municipalidad**
 
 Opción para seleccionar y consultar información de otra municipalidad distinta a la configurada inicialmente.
 ![selectMunicipality.png](assets/images/chapter4/mobileWireflows/ciudadanos/selectMunicipality.png)
 
 
-#### Flujo de usuario: Colaborador municipal (Chofer)
+**Flujo de usuario: Colaborador municipal (Chofer)**
 
-#### 1. Inicio de sesión
+**1. Inicio de sesión**
 
 Pantalla donde el colaborador accede a la aplicación con sus credenciales de usuario para comenzar la jornada.
 ![loginDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/loginDriver.png)
 
-#### 2. Ruta asignada
+**2. Ruta asignada**
 
 Muestra la ruta diaria asignada al conductor, incluyendo paradas y horarios planificados.
 ![assignedRoute.png](assets/images/chapter4/mobileWireflows/colaboradores/assignedRoute.png)
 
-#### 3. Navegación a contenedores
+**3. Navegación a contenedores**
 
 Permite visualizar y seguir el recorrido hacia los contenedores asignados de manera eficiente, con apoyo de mapas o GPS integrado.
 
 ![navigateContainers.png](assets/images/chapter4/mobileWireflows/colaboradores/navigateContainers.png)
 
-#### 4. Reportar incidencias
+
+**4. Reportar incidencias**
 
 Pantalla para registrar incidencias detectadas en los contenedores durante la jornada, adjuntando fotos y comentarios.
 ![reportIncidentDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/reportIncidentDriver.png)
 
-#### 5. Cierre de jornada
+**5. Cierre de jornada**
 
 Al finalizar la jornada, el colaborador puede confirmar el fin de su turno y acceder a un resumen con paradas completadas, incidencias reportadas y tiempo total trabajado.
 ![daySummary.png](assets/images/chapter4/mobileWireflows/colaboradores/daySummary.png)
@@ -1165,6 +1166,63 @@ Debe aparecer como confirmación o feedback inmediato después de que el adminis
 ![updatedReportToastNotification.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/updatedReportToastNotification.png)
 
 ### 4.6.2. Web Applications Wire flow Diagrams
+
+#### Flujo de usuario: Municipalidad (Administrador)
+
+#### 1. Inicio de sesión administrador
+
+Flujo donde el administrador accede al sistema con sus credenciales para gestionar los recursos municipales.
+
+![loginAdmin.png](assets/images/chapter4/mobileWireflows/municipalidad/adminProfile.png)
+
+#### 2. Gestión de colaboradores
+
+**a. Invitar colaborador**
+Flujo para registrar e invitar a nuevos colaboradores al sistema, asignándoles un rol o perfil específico.
+
+![inviteCollaborator.png](assets/images/chapter4/mobileWireflows/municipalidad/inviteCollaborator.png)
+
+**b. Editar colaborador**
+Flujo que permite al administrador actualizar la información o rol de colaboradores ya registrados.
+
+![editCollaborator.png](assets/images/chapter4/mobileWireflows/municipalidad/editCollaborator.png)
+
+#### 3. Gestión de rutas de recolección
+
+Flujo donde el administrador puede generar y asignar rutas de recolección de residuos, asignándolas a colaboradores.
+
+![manageRoutes.png](assets/images/chapter4/mobileWireflows/municipalidad/manageRoutes.png)
+
+#### 4. Gestión de dispositivos IoT
+
+**a. Registrar dispositivo IoT**
+Flujo para registrar nuevos dispositivos IoT destinados a monitorear contenedores u otros puntos de control.
+
+![registerIoT.png](assets/images/chapter4/mobileWireflows/municipalidad/registerIoT.png)
+
+**b. Editar dispositivo IoT**
+Flujo que permite actualizar datos o reconfigurar dispositivos IoT existentes.
+
+![editIoT.png](assets/images/chapter4/mobileWireflows/municipalidad/editIoT.png)
+
+#### 5. Gestión de reportes ciudadanos
+
+Flujo que muestra los reportes enviados por ciudadanos (ej. incidencias en el servicio de limpieza), con opciones para revisarlos y darles seguimiento.
+
+![manageReports.png](assets/images/chapter4/mobileWireflows/municipalidad/manageReports.png)
+
+#### 6. Gestión de sesión y perfil
+
+Flujo donde el administrador puede actualizar su información básica, cambiar contraseña o cerrar sesión.
+
+![adminProfile.png](assets/images/chapter4/mobileWireflows/municipalidad/adminProfile.png)
+
+#### 7. Registro de vehículos
+
+Flujo para registrar vehículos municipales, asociarlos a rutas y mantener actualizado el inventario de la flota.
+
+![registerVehicle.png](assets/images/chapter4/mobileWireflows/municipalidad/registerVehicle.png)
+
 
 ### 4.6.3. Web Applications Mock-ups
 ### Flujo de Super Administrador
