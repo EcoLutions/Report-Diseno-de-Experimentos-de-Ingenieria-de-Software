@@ -1588,6 +1588,60 @@ A continuacion, se detallan las herramientas utilizadas para el desarrollo del s
 
 ### 5.1.2. Source Code Management
 
+Se utilizó Gihub como plataforma principal para el control de versiones la gestion de repositorios. A continuación, se describen las prácticas y convenciones adoptadas para asegurar una gestión eficiente y colaborativa del código fuente:
+
+**Estructura de Repositorios:** El proyecto se organizó en múltiples repositorios, cada uno dedicado a un componente específico del sistema (frontend web, aplicaciones móviles, backend API). Esto facilita la gestión y el despliegue independiente de cada parte del sistema.
+
+- Landing Page: https://github.com/EcoLutions/Landing-Page
+
+Branching Strategy:
+
+Adoptamos el modelo de Git Flow como nuestra estrategia de ramificación principal. Esta metodología nos permite gestionar de manera estructurada el desarrollo, las nuevas funcionalidades, los lanzamientos y las correcciones urgentes. Las ramas principales que utilizamos son:
+
+- main: Contiene el código completamente estable y listo para ser desplegado en producción. No se realizan commits directos a esta rama.
+
+- develop: Es la rama de integración. Aquí se fusiona el código de todas las nuevas funcionalidades que están en desarrollo. Representa la versión más reciente del proyecto con todas las características completadas.
+
+- feature/: Se crea una rama por cada nueva funcionalidad o historia de usuario. Se nombran con el prefijo feature/ seguido de una descripción concisa (ej. feature/login-de-usuario).
+
+- release/: Se crea una rama para preparar un nuevo lanzamiento a producción. Esta rama permite realizar las pruebas finales y las correcciones de errores de último momento antes de fusionar el código a main.
+
+- hotfix/: Se crea para corregir rápidamente errores críticos en la rama main. El arreglo se fusiona tanto a main (para la corrección inmediata) como a develop (para mantener la coherencia).
+
+Estrategia de Trabajo:
+
+Para mantener un historial de commits claro, coherente y legible, seguimos la especificación de Conventional Commits. Esto nos permite automatizar tareas como la generación de notas de lanzamiento (release notes) y la detección de cambios importantes que requieren una nueva versión del software.
+
+Cada mensaje de commit debe tener una estructura definida:
+
+    <type> [opcional scope]: <description>
+    [optional body]
+    [optional footer
+
+- type: Obligatorio. Describe la naturaleza del cambio. Los tipos más comunes son:
+
+  - feat: Nuevas funcionalidades.
+
+  - fix: Corrección de errores.
+
+  - docs: Cambios en la documentación.
+
+  - style: Cambios de formato (sin impacto en el código).
+
+  - refactor: Reestructuración del código (sin cambios de funcionalidad).
+
+  - test: Adición o modificación de pruebas.
+
+  - chore: Cambios de construcción o herramientas.
+
+- scope: Un prefijo opcional que indica la parte del proyecto afectada por el cambio (ej. login, backend, UI).
+
+- description: Una descripción breve y clara del cambio. Debe ser concisa y empezar con una letra minúscula.
+
+- body:  Sirve para detallar aun más la información sobre el commit en caso que el description no sea suficiente.
+
+- footer: Se utiliza de forma opcional para informar respecto a cambios importantes en el proyecto
+
 ### 5.1.3. Source Code Style Guide & Conventions
 
 ### 5.1.4. Software Deployment Configuration
