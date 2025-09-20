@@ -1594,7 +1594,9 @@ Se utilizó Gihub como plataforma principal para el control de versiones la gest
 
 - Landing Page: https://github.com/EcoLutions/Landing-Page
 
-Branching Strategy:
+---
+
+**Branching Strategy:**
 
 Adoptamos el modelo de Git Flow como nuestra estrategia de ramificación principal. Esta metodología nos permite gestionar de manera estructurada el desarrollo, las nuevas funcionalidades, los lanzamientos y las correcciones urgentes. Las ramas principales que utilizamos son:
 
@@ -1608,7 +1610,9 @@ Adoptamos el modelo de Git Flow como nuestra estrategia de ramificación princip
 
 - hotfix/: Se crea para corregir rápidamente errores críticos en la rama main. El arreglo se fusiona tanto a main (para la corrección inmediata) como a develop (para mantener la coherencia).
 
-Estrategia de Trabajo:
+---
+
+**Estrategia de Trabajo:**
 
 Para mantener un historial de commits claro, coherente y legible, seguimos la especificación de Conventional Commits. Esto nos permite automatizar tareas como la generación de notas de lanzamiento (release notes) y la detección de cambios importantes que requieren una nueva versión del software.
 
@@ -1643,6 +1647,41 @@ Cada mensaje de commit debe tener una estructura definida:
 - footer: Se utiliza de forma opcional para informar respecto a cambios importantes en el proyecto
 
 ### 5.1.3. Source Code Style Guide & Conventions
+
+### Convenciones de Nomenclatura
+
+Una convención de nombres clara facilita la comprensión del propósito de cada elemento del código. A continuación, se detallan nuestras convenciones:
+
+-   **Variables y funciones:** Usamos **`camelCase`**. Los nombres deben ser descriptivos y evitar abreviaciones ambiguas.
+    -   *Ejemplo:* `const nombreDeUsuario = 'Jane';` o `function calcularTotalCompra() { ... }`
+-   **Clases y Componentes:** Usamos **`PascalCase`**. Los nombres deben ser sustantivos y reflejar su responsabilidad.
+    -   *Ejemplo:* `class Usuario { ... }` o `function BotonPrincipal() { ... }`
+-   **Constantes:** Usamos **`UPPER_CASE_SNAKE_CASE`**. Son valores que no cambiarán durante la ejecución del programa.
+    -   *Ejemplo:* `const MAX_INTENTOS = 3;`
+-   **Archivos:** Usamos **`kebab-case`** para archivos y directorios en la mayoría de los casos.
+    -   *Ejemplo:* `pagina-principal.component.ts`
+
+---
+
+### Convenciones de Formato y Estructura
+
+Para la estructura visual del código, seguimos estas reglas:
+
+-   **Indentación:** Usamos **2 espacios** para la indentación en lugar de tabulaciones. Esto garantiza una consistencia visual en cualquier editor de código.
+-   **Espacios:** Siempre se debe incluir un espacio después de las comas en listas y objetos, y alrededor de operadores (`=`, `+`, `-`, etc.).
+    -   *Ejemplo:* `const numeros = [1, 2, 3];` o `const resultado = a + b;`
+-   **Comillas:** Usamos **comillas simples (`'`)** en JavaScript, a menos que sea necesario usar comillas dobles (`"`) para evitar un escape de caracteres. Se recomienda el uso de *backticks* (`) para plantillas de *strings*.
+-   **Punto y coma:** Finalizamos cada declaración con un punto y coma `;` para evitar errores y hacer el código más predecible.
+
+---
+
+### Comentarios y Documentación
+
+Los comentarios son vitales para explicar el **porqué** de una decisión de diseño, no solo el **qué** hace el código.
+
+-   **Comentarios de bloque:** Se usan para explicar funcionalidades complejas o algoritmos.
+-   **Comentarios de línea:** Se usan para aclarar una línea de código específica.
+-   **Documentación de funciones y clases:** Se recomienda el uso de un formato de comentarios estandarizado (como **JSDoc** para JavaScript) para describir los parámetros, el valor de retorno y el propósito de las funciones.
 
 ### 5.1.4. Software Deployment Configuration
 
