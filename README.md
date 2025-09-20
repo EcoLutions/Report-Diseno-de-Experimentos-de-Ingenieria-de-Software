@@ -1556,7 +1556,35 @@ Se presentan los diagramas de componentes de la arquitectura de software, que de
 
 ## 5.1. Software Configuration Management
 
+A continuacion, se detallan las herramientas utilizadas para la planificación y el diseño del software del proyecto:
+
+- Miro: Esta plataforma de pizarra colaborativa se utiliza para la gestión de requisitos y el mapeo de procesos. Permite al equipo visualizar flujos de trabajo, crear diagramas de eventos y mapear funcionalidades de forma interactiva y en tiempo real.
+
+- Lucidchart: Es una herramienta para el modelado de arquitecturas y flujos. Se usa para crear diagramas de sistemas, flujos de datos y estructuras de red, proporcionando una visión clara de la arquitectura del software.
+
+- Figma: Un editor de gráficos vectoriales y una herramienta de prototipado esencial para el diseño de la interfaz de usuario (UI). Permite crear maquetas, flujos de navegación y prototipos interactivos que simulan la experiencia del usuario final.
+
+- UXPressia: Herramienta especializada en investigación de usuarios y diseño de la experiencia de usuario (UX). Facilita la creación de User Personas, User Journey maps, y Empathy Maps, ayudando a comprender las necesidades y puntos débiles del usuario.
+
+- Canva: Se utiliza para la creación de recursos visuales y gráficos complementarios. Es útil para elaborar gráficos, banners, y otros elementos de marketing o presentación que no forman parte directa de la interfaz de la aplicación, pero que apoyan el proyecto.
+
 ### 5.1.1. Software Development Environment Configuration
+
+A continuacion, se detallan las herramientas utilizadas para el desarrollo del software del proyecto:
+
+- Git: Un sistema de control de versiones distribuido (DVCS) fundamental. Se instala localmente para rastrear y gestionar los cambios en el código fuente. Permite crear commits (guardar versiones), ramificar (branching) y fusionar (merging) código, lo que es vital para el trabajo en equipo.
+
+- GitHub: Una plataforma de alojamiento de repositorios Git. No solo almacena el código en la nube, sino que también ofrece funcionalidades clave para la colaboración, como la gestión de issues, pull requests y la automatización de flujos de trabajo mediante GitHub Actions. Es el centro de colaboración del equipo.
+
+- WebStorm: Un entorno de desarrollo integrado (IDE) de JetBrains, especializado en desarrollo web frontend. Ofrece herramientas de autocompletado inteligente, depuración y refactorización para lenguajes como HTML, CSS, JavaScript y frameworks como Vue y Angular.
+
+- IntelliJ IDEA Ultimate: Un IDE de alta gama, también de JetBrains, utilizado para el desarrollo del backend. Con el plugin Spring Assistant, facilita la creación y gestión de proyectos con el framework Spring Boot, que se utiliza para construir servicios web robustos en Java.
+
+- Visual Studio Code (VS Code): Un editor de código ligero pero potente de Microsoft, muy popular por su flexibilidad y la gran cantidad de extensiones disponibles. Es una excelente alternativa a los IDEs más pesados para el desarrollo de scripts, frontend o proyectos que no requieran un entorno completo.
+
+- Postman: Una herramienta para probar APIs. Permite enviar solicitudes HTTP a los servicios backend (creados con Spring Boot) y verificar las respuestas, lo que es esencial para el desarrollo y depuración de las APIs.
+
+- Docker: Una plataforma para crear, desplegar y ejecutar aplicaciones en contenedores. Permite empaquetar una aplicación con todas sus dependencias en un "contenedor" ligero y portable, asegurando que el software funcione de manera idéntica en cualquier entorno (desarrollo, pruebas, producción). Esto elimina los problemas de "en mi máquina funciona".
 
 ### 5.1.2. Source Code Management
 
