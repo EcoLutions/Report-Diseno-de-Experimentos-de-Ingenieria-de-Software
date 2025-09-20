@@ -898,6 +898,35 @@ Al finalizar la jornada, el colaborador puede confirmar el fin de su turno y acc
 
 
 ### 4.4.3. Mobile Applications Mock-ups
+A continuación, se presentan los mock-ups de alta fidelidad diseñados para las aplicaciones móviles del ciudadano y del colaborador municipal (chofer). Estos diseños reflejan la identidad visual de WasteTrack, utilizando una paleta de colores coherente, tipografía legible y componentes interactivos optimizados para dispositivos móviles. Cada pantalla está diseñada para ofrecer una experiencia de usuario fluida y atractiva, facilitando la interacción con las funcionalidades clave del sistema de gestión de residuos.
+
+### Flujo de usuario: Ciudadano
+Este flujo está diseñado para ser simple e intuitivo, permitiendo a cualquier ciudadano interactuar con el sistema de gestión de residuos de su municipalidad.
+
+#### Pantallas de bienvenida e integración (Onboarding)
+Representa el primer contacto del usuario con la aplicación. A través de una serie de pantallas, se presenta la propuesta de valor, se le permite al usuario buscar y elegir la municipalidad a la que pertenece para personalizar el contenido de la aplicación.
+
+![onboardingCitizen.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/onboardingCitizen.png)
+
+#### Vista principal (Mapa)
+Es el centro de la experiencia del ciudadano. Muestra un mapa en tiempo real con la ubicación de los contenedores de basura cercanos. Desde aquí, el usuario puede visualizar el estado de los contenedores y la ruta estimada del camión recolector. La barra de navegación inferior le da acceso directo a las funciones más importantes: "Mapa" y "Reportar".
+
+![mainViewMap.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/mainViewMap.png)
+
+#### Menú de municipalidad
+Este es un menú contextual que se despliega al presionar el ícono de la municipalidad en la vista principal. Su función principal es permitir al usuario cambiar de municipalidad de manera rápida y heurística, sin tener que navegar a una pantalla de configuración separada.
+
+![municipalityMenu.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/municipalityMenu.png)
+
+#### Reporte de incidencia
+Muestra un formulario simple y directo para que el ciudadano pueda reportar anónimamente problemas relacionados con la basura. Incluye campos para seleccionar el tipo de incidencia, añadir una descripción opcional y adjuntar una fotografía como evidencia, fomentando la colaboración para mantener la ciudad limpia.
+
+![incidenceReport.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/incidenceReport.png)
+
+#### Centro de notificaciones
+Esta pantalla funciona como una bandeja de entrada donde el usuario recibe actualizaciones importantes. Aquí se le notificará sobre el estado de sus reportes (ej. "reporte recibido", "reporte solucionado") y otros avisos relevantes de su municipalidad. Cada notificación puede ser eliminada individualmente.
+
+![notifications.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/notifications.png)
 
 ### 4.4.4. Mobile Applications User Flow Diagrams
 
