@@ -2,7 +2,8 @@ workspace "EcoLutions" "Description" {
 
     model {
         citizen = person "Citizen" "A user of the solution with citizen account"
-        municipalEmployee = person "Municipal Employee" "An employee of the municipality, with admin account"
+        municipalAdmin = person "Municipal Admin" "An employee of the municipality with admin account"
+        collectorDriver = person "Collector Driver" "A driver of the waste collection truck"
 
         ecolutions = softwareSystem "EcoLutions" {
             webApp = container "Web Application" "Delivers the dynamic content to Ecolutions single page application" "Angular 20"
@@ -20,22 +21,22 @@ workspace "EcoLutions" "Description" {
         pushNotification = softwareSystem "Push Notification System" "" "Push"
         openStreetMap = softwareSystem "Open Street Map" "API" "Open Street"
         authentication = softwareSystem "Authentication" "API" "Authentication"
-        openAi = softwareSystem "Open AI" "API" "Open AI"
 
         // Context
         citizen -> ecolutions "Views available containers, map diagrams"
-        municipalEmployee -> ecolutions "Views reports, containers administration, simulate routes"
+        municipalAdmin -> ecolutions "Views reports, containers administration, simulate routes"
+        collectorDriver -> ecolutions "Views assigned routes, container pickup status"
 
         ecolutions -> pushNotification "Sends notification using"
         ecolutions -> openStreetMap "Gets map information"
         ecolutions -> authentication "Uses OAuth" "Token"
-        ecolutions -> openAi "Uses GPT-4o mini model" "HTTPS"
 
         pushNotification -> citizen "Sends notifications to"
 
         // Containers
         citizen -> mobileApp "Uses"
-        municipalEmployee -> webApp "Uses"
+        municipalAdmin -> webApp "Uses"
+        collectorDriver -> mobileApp "Uses"
 
         mobileApp -> apiApp "Makes API calls to" "JSON/HTTPS"
         webApp -> apiApp "Makes API calls to" "JSON/HTTPS"
@@ -45,7 +46,6 @@ workspace "EcoLutions" "Description" {
         apiApp -> pushNotification "Uses"
         apiApp -> openStreetMap "Uses"
         apiApp -> authentication "Uses"
-        apiApp -> openAi "Uses"
 
         pushNotification -> mobileApp "Send push notifications"
 
