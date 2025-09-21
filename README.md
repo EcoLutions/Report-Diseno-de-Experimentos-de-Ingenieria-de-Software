@@ -2155,6 +2155,10 @@ Encapsula toda la lógica de negocio relacionada con la gestión del ciclo compl
 
 ![Diagrama de Clases del Bounded Context Payment & Subscriptions](assets/4.product-design/4.9.software-object-oriented-design/5.class-diagram-payment-and-subscriptions.png)
 
+**Diagrama de clases del Bounded Context Communication Hub**:
+Encapsula toda la lógica de negocio relacionada con la orquestación de comunicaciones multi-canal, gestión de templates de mensajes, tracking de entrega, y coordinación de notificaciones entre todos los bounded contexts para asegurar comunicación efectiva y oportuna con stakeholders del sistema.
+
+![Diagrama de Clases del Bounded Context Communication Hub](assets/4.product-design/4.9.software-object-oriented-design/6.class-diagram-communication-hub.png)
 
 ### 4.9.2. Class Dictionary
 
