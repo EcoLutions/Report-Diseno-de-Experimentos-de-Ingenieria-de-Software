@@ -8192,7 +8192,11 @@ Interfaz de repositorio para la persistencia y consulta de roles.
 
 ## 4.10. Database Design
 
+En esta sección se presenta el diseño de la base de datos utilizada en el proyecto, incluyendo diagramas y descripciones de las tablas y sus relaciones.
+
 ### 4.10.1. Relational/Non-Relational Database Diagram
+
+El siguiente diagrama ilustra la estructura de la base de datos relacional utilizada en el proyecto, mostrando las tablas principales y sus relaciones de los bounded contexts identificados:
 
 # Capítulo V: Product Implementation
 
