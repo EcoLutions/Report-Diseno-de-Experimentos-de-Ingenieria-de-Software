@@ -2160,6 +2160,21 @@ Se presentan los diagramas de componentes de la arquitectura de software, que de
 
 ### 5.2.2. Implemented Landing Page Evidence
 
+**Enlace de la landing page:** [https://wastetracklanding.vercel.app/](https://wastetracklanding.vercel.app/)
+
+![landing page](./assets/5.product-implementation/5.2.implementation&deployment/landingPageEcolution.png)
+
+Pasos para desplegar un landing page en Vercel
+
+![vercel](./assets/5.product-implementation/5.2.implementation&deployment/vercel.png)
+
+1. Preparación del repositorio funcional en ambiente local
+2. Crear una cuenta en Vercel
+3. Desplegar desde GitHub
+    - Build command: `npm run build` o `yarn build`
+    - Publish directory: `build`
+4. Desplegar la aplicación
+
 ### 5.2.3. Implemented Frontend-Web Application Evidence
 
 ### 5.2.4. Implemented Native-Mobile Application Evidence
