@@ -1685,9 +1685,26 @@ Los comentarios son vitales para explicar el **porqué** de una decisión de dis
 
 ### 5.1.4. Software Deployment Configuration
 
+El despliegue de WasteTrack se ejecuta de forma automatizada en entornos en la nube, utilizando herramientas modernas de integración continua (CI) y entrega continua (CD).
+
+**Herramientas de despliegue utilizadas:**
+- **GitHub Actions**: CI/CD para pruebas y despliegue
+<p align="center"><img src="https://avatars.githubusercontent.com/u/44036562?s=280&v=4" width="200"/></p>
+
+**Pasos de despliegue:**
+
+1. Cambios se suben a rama `release/*`
+2. GitHub Actions ejecuta pruebas y linter
+3. Se construyen contenedores con Docker
+4. Se despliegan el backend y el frontend
+5. Servicios IoT son conectados vía MQTT
+6. Validación final en entorno productivo
+
 ## 5.2. Product Implementation & Deployment
 
 ### 5.2.1. Sprint Backlogs
+
+**Sprint Backlog 1**
 
 ### 5.2.2. Implemented Landing Page Evidence
 
