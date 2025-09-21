@@ -1165,6 +1165,36 @@ Estos componentes se basan en los principios de Material Design para asegurar un
 
 ![androidStyle.png](assets/images/chapter4/styleGuidelines/mobileStyleGuidelines/androidStyle.png)
 
+#### 4.1.3.3. IoT Style Guidelines
+
+Estas directrices definen las características físicas y visuales del hardware (dispositivo IoT) para asegurar su durabilidad, funcionalidad y coherencia con la identidad del sistema.
+
+#### Diseño físico y carcasa
+
+El diseño del dispositivo prioriza la robustez y la discreción para su instalación en contenedores de basura en entornos urbanos.
+
+* **Material:** La carcasa está construida con plástico **ABS de alto impacto**, resistente a condiciones climáticas adversas (sol, lluvia, temperaturas extremas) y a posibles actos de vandalismo.
+* **Color:** Se utiliza un color **gris neutro (Hex: #333333)** para que el dispositivo se integre discretamente con la mayoría de los diseños de contenedores sin llamar la atención.
+* **Forma:** El diseño es compacto y de bajo perfil para minimizar su exposición. Las esquinas son redondeadas para evitar enganches durante la recole-cción de basura.
+* **Certificación de Resistencia:** El dispositivo debe contar con una **certificación IP67**, garantizando que es completamente hermético al polvo y resistente a la inmersión temporal en agua.
+
+#### Componentes visuales en campo
+
+Son los elementos que permiten la interacción y el diagnóstico del dispositivo en el sitio de instalación.
+
+* **Identificador Físico (QR / ID Numérico):** Es la etiqueta principal del dispositivo y sirve como su identificador único. Se implementa como una etiqueta de policarbonato grabada con láser para máxima durabilidad. Contiene un código QR para un escaneo rápido y un ID alfanumérico (ej. IOT-007) legible por humanos.
+* **Indicadores de Estado (LED):** Proporciona feedback visual inmediato sobre el estado operativo. Utiliza luces LED de alta visibilidad protegidas por una cubierta transparente y sellada.
+  * **Luz Verde Intermitente:** Funcionamiento normal y conexión a la red.
+  * **Luz Roja Fija:** Error crítico de hardware o fallo de conexión.
+  * **Luz Azul:** Modo de transmisión de datos activo.
+
+#### Montaje e instalación
+
+Define el método estándar para fijar el dispositivo al contenedor, asegurando su estabilidad y la precisión de sus mediciones.
+
+* **Ubicación:** El dispositivo se debe montar en la parte interna superior de la tapa del contenedor, centrado para obtener una lectura ultrasónica precisa del nivel de llenado.
+* **Fijación:** La instalación se realiza utilizando **tornillos de seguridad** (anti-manipulación) para prevenir robos o daños intencionados. Se debe utilizar una junta de goma para asegurar un sellado correcto.
+
 ## 4.2. Information Architecture
 
 ### 4.2.1. Organization Systems
@@ -1223,6 +1253,22 @@ Las etiquetas para elementos interactivos se han estandarizado para ser claras, 
 
 #### **Etiquetas de contenido y datos**
 Para la representación de datos dentro de formularios, tablas y vistas de detalle, se utilizan etiquetas descriptivas breves que definen claramente la información mostrada. Encabezados como **Nivel de Llenado**, **Estado del Dispositivo** o **Rol** son consistentes a través de toda la plataforma, asegurando que el usuario pueda escanear y comprender la información rápidamente, independientemente de la sección en la que se encuentre.
+
+### Etiquetas del Dispositivo Físico (IoT)
+Para crear un puente claro entre el hardware instalado en campo y la plataforma digital, los dispositivos IoT utilizan un sistema de etiquetado físico simple y funcional.
+
+#### **Identificador Único (QR / ID Numérico)**
+
+Cada sensor físico lleva una etiqueta indeleble con un **código QR** y un **ID alfanumérico único** (ej. *IOT-007*). Esta etiqueta es el identificador primario que asocia el dispositivo físico con su representación digital en el panel de administración. Durante el registro, el administrador escanea o introduce este código para vincular el sensor a un contenedor y ubicación específicos.
+
+#### **Indicadores de Estado (LED)**
+
+El propio dispositivo utiliza un sistema de **luces LED** como etiquetas visuales para comunicar su estado operativo a los técnicos en campo, sin necesidad de consultar la aplicación. Este sistema se define por:
+
+*  **Luz Verde Intermitente:** Indica que el dispositivo está conectado a la red y funcionando correctamente.
+*  **Luz Roja Fija:** Representa un error de hardware o un problema de conexión que requiere atención.
+*  **Luz Azul:** Señaliza que el dispositivo está en proceso de transmitir datos al servidor.
+
 ### 4.2.3. SEO Tags and Meta Tags
 
 A continuación se detallan los valores para las etiquetas SEO y Meta Tags recomendadas para las páginas clave del proyecto.
@@ -1353,6 +1399,10 @@ El mock-up de la Landing Page ofrece una representación visual más avanzada de
 ## 4.4. Mobile Applications UX/UI Design
 
 ### 4.4.1. Mobile Applications Wireframes
+Se puede encontrar todos los Mobile Applications Wireframes en el siguiente [enlace a Figma](https://www.figma.com/design/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=0-1&p=f):
+
+https://www.figma.com/design/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=0-1&p=f
+
 A continuación, se presentan los wireframes de baja fidelidad para la aplicación móvil del ciudadano. Estos wireframes ilustran la estructura básica y la disposición de los elementos en cada pantalla, proporcionando una visión clara de la experiencia del usuario y el flujo de navegación dentro de la aplicación.
 
 ### Flujo de usuario: Ciudadano
@@ -1436,89 +1486,619 @@ Esta es la pantalla final del flujo de trabajo diario. Al "Finalizar Jornada", l
 
 ![dayCompleted.png](assets/images/chapter4/mobileApplicationUxUi/dayCompleted.png)
 
+#### Pantalla "Todo en Orden"
+Esta pantalla se muestra cuando el conductor ha completado todas las paradas asignadas para el día. Es una confirmación visual de que no quedan tareas pendientes, proporcionando un sentido de logro y cierre al finalizar su jornada laboral. También, se muestra cuando el conductor intenta iniciar su jornada sin una ruta asignada, informándole que no hay tareas para realizar.
+
+![nothingToDo.png](assets/images/chapter4/mobileApplicationUxUi/nothingToDo.png)
+
 ### 4.4.2. Mobile Applications Wire flow Diagrams
 Los Wire Flow Diagrams representan de manera visual la navegación y los principales puntos de interacción dentro de las aplicaciones móviles, diferenciados según los perfiles de usuario: Ciudadano y Colaborador Municipal (Conductor). Estos diagramas combinan la estructura de los wireframes con la lógica de los flujos de usuario, mostrando cómo cada pantalla se conecta con la siguiente y qué acciones permiten avanzar en el proceso.
 
-#### Flujo de usuario: Ciudadano
+**Flujo de usuario: Ciudadano**
 
-#### 1. Configuración inicial
+**1. Configuración inicial**
 
 Pantallas donde el ciudadano puede establecer su ubicación principal (distrito o dirección) para personalizar la información del servicio.
 ![configLocation.png](assets/images/chapter4/mobileWireflows/ciudadanos/configLocation.png)
 
-#### 2. Ubicación de contenedores
+**2. Ubicación de contenedores**
 
 Muestra en un mapa interactivo los contenedores de basura más cercanos a la ubicación del ciudadano, con detalles básicos.
 ![viewContainers.png](assets/images/chapter4/mobileWireflows/ciudadanos/viewContainers.png)
 
 
-#### 3. Reportar incidencias
+**3. Reportar incidencias**
 
 Permite registrar incidencias relacionadas al servicio de limpieza (contenedores llenos, basura acumulada, etc.), adjuntando fotos y comentarios.
 ![reportIncident.png](assets/images/chapter4/mobileWireflows/ciudadanos/reportIncident.png)
 
-#### 4. Notificaciones de servicio
+**4. Notificaciones de servicio**
 
 Pantalla donde el usuario recibe notificaciones sobre el estado de sus reportes e información general del servicio de limpieza.
 ![notifications.png](assets/images/chapter4/mobileWireflows/ciudadanos/notifications.png)
 
 
-#### 5. Consulta de otra municipalidad
+**5. Consulta de otra municipalidad**
 
 Opción para seleccionar y consultar información de otra municipalidad distinta a la configurada inicialmente.
 ![selectMunicipality.png](assets/images/chapter4/mobileWireflows/ciudadanos/selectMunicipality.png)
 
 
-#### Flujo de usuario: Colaborador municipal (Chofer)
+**Flujo de usuario: Colaborador municipal (Chofer)**
 
-#### 1. Inicio de sesión
+**1. Inicio de sesión**
 
 Pantalla donde el colaborador accede a la aplicación con sus credenciales de usuario para comenzar la jornada.
 ![loginDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/loginDriver.png)
 
-#### 2. Ruta asignada
+**2. Ruta asignada**
 
 Muestra la ruta diaria asignada al conductor, incluyendo paradas y horarios planificados.
 ![assignedRoute.png](assets/images/chapter4/mobileWireflows/colaboradores/assignedRoute.png)
 
-#### 3. Navegación a contenedores
+**3. Navegación a contenedores**
 
 Permite visualizar y seguir el recorrido hacia los contenedores asignados de manera eficiente, con apoyo de mapas o GPS integrado.
 
 ![navigateContainers.png](assets/images/chapter4/mobileWireflows/colaboradores/navigateContainers.png)
 
-#### 4. Reportar incidencias
+
+**4. Reportar incidencias**
 
 Pantalla para registrar incidencias detectadas en los contenedores durante la jornada, adjuntando fotos y comentarios.
 ![reportIncidentDriver.png](assets/images/chapter4/mobileWireflows/colaboradores/reportIncidentDriver.png)
 
-#### 5. Cierre de jornada
+**5. Cierre de jornada**
 
 Al finalizar la jornada, el colaborador puede confirmar el fin de su turno y acceder a un resumen con paradas completadas, incidencias reportadas y tiempo total trabajado.
 ![daySummary.png](assets/images/chapter4/mobileWireflows/colaboradores/daySummary.png)
 
 
 ### 4.4.3. Mobile Applications Mock-ups
+Se pueden encontrar todos los Mobile Applications Mock-ups en el siguiente [enlace a Figma](https://www.figma.com/design/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=108-2&p=f):
+
+https://www.figma.com/design/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=108-2&p=f
+
+A continuación, se presentan los mock-ups de alta fidelidad diseñados para las aplicaciones móviles del ciudadano y del colaborador municipal (chofer). Estos diseños reflejan la identidad visual de WasteTrack, utilizando una paleta de colores coherente, tipografía legible y componentes interactivos optimizados para dispositivos móviles. Cada pantalla está diseñada para ofrecer una experiencia de usuario fluida y atractiva, facilitando la interacción con las funcionalidades clave del sistema de gestión de residuos.
+
+### Flujo de usuario: Ciudadano
+Este flujo está diseñado para ser simple e intuitivo, permitiendo a cualquier ciudadano interactuar con el sistema de gestión de residuos de su municipalidad.
+
+#### Pantallas de bienvenida e integración (Onboarding)
+Representa el primer contacto del usuario con la aplicación. A través de una serie de pantallas, se presenta la propuesta de valor, se le permite al usuario buscar y elegir la municipalidad a la que pertenece para personalizar el contenido de la aplicación.
+
+![onboardingCitizen.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/onboardingCitizen.png)
+
+#### Vista principal (Mapa)
+Es el centro de la experiencia del ciudadano. Muestra un mapa en tiempo real con la ubicación de los contenedores de basura cercanos. Desde aquí, el usuario puede visualizar el estado de los contenedores y la ruta estimada del camión recolector. La barra de navegación inferior le da acceso directo a las funciones más importantes: "Mapa" y "Reportar".
+
+![mainViewMap.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/mainViewMap.png)
+
+#### Menú de municipalidad
+Este es un menú contextual que se despliega al presionar el ícono de la municipalidad en la vista principal. Su función principal es permitir al usuario cambiar de municipalidad de manera rápida y heurística, sin tener que navegar a una pantalla de configuración separada.
+
+![municipalityMenu.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/municipalityMenu.png)
+
+#### Reporte de incidencia
+Muestra un formulario simple y directo para que el ciudadano pueda reportar anónimamente problemas relacionados con la basura. Incluye campos para seleccionar el tipo de incidencia, añadir una descripción opcional y adjuntar una fotografía como evidencia, fomentando la colaboración para mantener la ciudad limpia.
+
+![incidenceReport.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/incidenceReport.png)
+
+#### Centro de notificaciones
+Esta pantalla funciona como una bandeja de entrada donde el usuario recibe actualizaciones importantes. Aquí se le notificará sobre el estado de sus reportes (ej. "reporte recibido", "reporte solucionado") y otros avisos relevantes de su municipalidad. Cada notificación puede ser eliminada individualmente.
+
+![notifications.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/notifications.png)
+
+### Flujo de usuario: Colaborador municipal (Chofer)
+Este flujo es una herramienta de trabajo diseñada para la eficiencia operativa. Es una aplicación robusta que guía al conductor a través de sus tareas diarias.
+
+#### Pantallas de bienvenida e integración (Onboarding)
+Representa el primer contacto del usuario con la aplicación. A través de una serie de dos pantallas, primero se diferencia que la aplicación es exclusivamente para choferes recolectores de basura, y se presenta la propuesta de valor.
+
+![onboardingMunicipalityAgent.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/onboardingMunicipalityAgent.png)
+
+#### Acceso de colaborador
+Representa una pantalla de inicio de sesión segura y simple, diseñada para personal autorizado. El colaborador (conductor) ingresa sus credenciales (Usuario/ID y Contraseña) para acceder a sus funciones operativas. No incluye una opción de registro, ya que las cuentas son creadas por un administrador en la plataforma web.
+
+![login.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/login.png)
+
+#### Estado de acceso
+Esta vista muestra los posibles mensajes de error o estados informativos durante el login. Incluye el "unhappy path" de credenciales incorrectas, resaltando visualmente los campos erróneos y mostrando un mensaje claro. También cubre el caso en que el login es exitoso pero no hay una ruta de trabajo asignada para el día.
+
+![wrongCredentialsLogin.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/wrongCredentialsLogin.png)
+
+#### Hoja de ruta del día
+Es el dashboard principal del conductor después de iniciar sesión. Presenta la ruta optimizada del día de dos maneras: una vista de mapa para el contexto geográfico y una lista secuencial de las paradas a realizar. Desde aquí, el conductor puede iniciar su jornada y seleccionar cada parada para ver más detalles.
+
+![routPlan.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/routPlan.png)
+
+#### Detalle de parada
+Muestra toda la información necesaria para una única parada de recolección: la ubicación exacta, el ID del contenedor y su nivel de llenado. Funciona como el centro de acciones, permitiendo al conductor confirmar la recolección, navegar a la ubicación vía GPS o reportar una incidencia específica de esa parada.
+
+![stopDetail.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/stopDetail.png)
+
+#### Navegación GPS
+Representa la vista de navegación paso a paso. Se activa cuando el conductor presiona "Navegar a la Parada". Le proporciona instrucciones en tiempo real para llegar a su siguiente destino de la manera más eficiente, minimizando el tiempo de viaje.
+
+![gpsNavigation.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/gpsNavigation.png)
+
+#### Reporte de incidencia (Conductor)
+Un formulario especializado para que el conductor reporte problemas operativos que encuentre en su ruta, como un contenedor dañado, un acceso bloqueado u otra eventualidad. Esto permite comunicar problemas internos al administrador de forma inmediata.
+
+![incidenceReportDriver.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/incidenceReportDriver.png)
+
+#### Pantalla de confirmación
+Esta toast notification aparece como confirmación o feedback inmediato después de que el conductor realiza una acción clave, como confirmar una recolección o enviar un reporte. Es un mensaje breve que asegura al usuario que su acción fue exitosa sin interrumpir su flujo de trabajo. También, se utiliza para notificar errores críticos, como problemas de conexión a internet.
+
+![toastNotification.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/toastNotification.png)
+
+#### Perfil y opciones del Conductor
+Representa una pantalla de ajustes donde el conductor puede ver su información básica (nombre, ID, vehículo asignado) y realizar acciones clave de fin de sesión, como "Finalizar Jornada" o "Cerrar Sesión".
+
+![profile.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/profile.png)
+
+#### Resumen de jornada
+Esta es la pantalla final del flujo de trabajo diario. Al "Finalizar Jornada", la aplicación presenta un resumen del trabajo realizado (ej. paradas completadas, incidencias reportadas, duración del turno). Sirve para confirmar la finalización exitosa de las tareas del día.
+
+![dayCompleted.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/dayCompleted.png)
+
+#### Pantalla "Todo en Orden"
+Esta pantalla se muestra cuando el conductor ha completado todas las paradas asignadas para el día. Es una confirmación visual de que no quedan tareas pendientes, proporcionando un sentido de logro y cierre al finalizar su jornada laboral. También, se muestra cuando el conductor intenta iniciar su jornada sin una ruta asignada, informándole que no hay tareas para realizar.
+
+![nothingToDo.png](assets/images/chapter4/mobileApplicationUxUi/mockUps/nothingToDo.png)
 
 ### 4.4.4. Mobile Applications User Flow Diagrams
 
+Los **User Flow Diagrams** muestran de manera detallada la secuencia de pantallas y decisiones que sigue cada usuario para alcanzar un objetivo específico dentro de la aplicación. A diferencia de los Wireflows, aquí se representan tanto la ruta esperada (*happy path*) como las rutas alternativas o excepcionales (*unhappy paths*), evidenciando las condiciones de validación y mensajes que se presentan en cada escenario.
+
+#### Flujo de usuario: Ciudadano
+
+**User goal: Configuración inicial**
+Flujo donde el ciudadano selecciona su municipalidad y define su ubicación inicial. El *happy path* considera la elección correcta de la municipalidad y la carga del mapa. 
+
+![configLocation.png](assets/images/chapter4/userFlows/ciudadanos/configLocation.png)
+
+**User goal: Ubicación de contenedores**
+Flujo que muestra el mapa interactivo con los contenedores cercanos. El *happy path* es la visualización normal de los puntos en el mapa. 
+
+![viewContainers.png](assets/images/chapter4/userFlows/ciudadanos/viewContainers.png)
+
+**User goal: Reportar incidencias**
+Flujo para registrar incidencias relacionadas al servicio. El *happy path* ocurre al seleccionar un tipo de incidencia, añadir detalles opcionales y enviar exitosamente el reporte. Los *unhappy paths* incluyen no seleccionar el tipo de incidencia (se muestra un mensaje de error) o problemas de conexión que impiden el envío.
+
+![reportIncident.png](assets/images/chapter4/userFlows/ciudadanos/reportIncident.png)
+
+**User goal: Notificaciones de servicio**
+Flujo donde el ciudadano accede a la bandeja de notificaciones para ver alertas sobre la recolección, resolución de reportes o recordatorios de reciclaje. El *happy path* contempla notificaciones disponibles.
+
+![notifications.png](assets/images/chapter4/userFlows/ciudadanos/notifications.png)
+
+**User goal: Consulta de otra municipalidad**
+Flujo que permite cambiar la municipalidad configurada inicialmente para consultar información en otra jurisdicción. El *happy path* es la selección correcta de una nueva municipalidad, que actualiza el mapa.
+
+![selectMunicipality.png](assets/images/chapter4/userFlows/ciudadanos/selectMunicipality.png)
+
+#### Flujo de usuario: Colaborador municipal (Chofer)
+
+**User goal: Inicio de sesión**
+Flujo donde el colaborador accede a la aplicación con sus credenciales para comenzar la jornada.
+
+* *Happy path*: ingreso correcto y acceso a la ruta asignada.
+* *Unhappy path*: credenciales incorrectas, mostrando mensaje de error e impidiendo avanzar.
+  ![loginDriver.png](assets/images/chapter4/userFlows/colaboradores/loginDriver.png)
+
+**User goal: Ruta asignada**
+Flujo que muestra las paradas del día y permite iniciar la jornada.
+
+* *Happy path*: el conductor visualiza sus contenedores asignados y comienza el recorrido.
+* *Unhappy path*: no hay ruta asignada en el sistema, mostrando un mensaje que indica al colaborador contactar a su supervisor.
+  ![assignedRoute.png](assets/images/chapter4/userFlows/colaboradores/assignedRoute.png)
+
+**User goal: Navegación a contenedores**
+Flujo que guía al colaborador hacia el contenedor seleccionado mediante GPS integrado.
+
+* *Happy path*: se inicia la navegación hasta el contenedor y se muestra la llegada estimada.
+  ![navigateContainers.png](assets/images/chapter4/userFlows/colaboradores/navigateContainers.png)
+
+
+**User goal: Reportar incidencias**
+Flujo para registrar incidencias encontradas en un contenedor durante la jornada.
+
+* *Happy path*: selección del tipo de incidencia, notas opcionales, foto y envío exitoso.
+* *Unhappy path*: no seleccionar el tipo de incidencia impide completar el reporte y se muestra un mensaje de error.
+  ![reportIncidentDriver.png](assets/images/chapter4/userFlows/colaboradores/reportIncidentDriver.png)
+
+**User goal: Cierre de jornada**
+Flujo donde el colaborador confirma la recolección en el último contenedor y revisa un resumen con paradas completadas, incidencias reportadas y duración total del turno.
+
+* *Happy path*: la jornada se completa con éxito y se muestra el resumen final.
+
+![daySummary.png](assets/images/chapter4/userFlows/colaboradores/daySummary.png)
+
 ## 4.5. Mobile Applications Prototyping
+El propósito de esta sección es presentar los prototipos interactivos desarrollados para las aplicaciones móviles del ciudadano y del colaborador municipal (chofer). Estos prototipos permiten simular la experiencia de usuario final, facilitando la evaluación de la usabilidad, la navegación y la interacción con las funcionalidades clave antes de la implementación técnica.
 
-### 4.5.1. Android Mobile Applications Prototyping
+A continuación, se presentan capturas y los enlaces a los videos explicativos que detallan los flujos de usuario relacionados:
 
-### 4.5.2. iOS Mobile Applications Prototyping
+![pictureCitizensVideo.png](assets/images/chapter4/mobileApplicationUxUi/prototyping/pictureCitizensVideo.png)
+
+Enlace para acceder al video explicativo del [Mobile Application Prototyping para Ciudadano](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202220829_upc_edu_pe/EfacU1lOl0dDhVjvsiQTz80BNf47Kehz1Po42sXwE1Mz2A?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=dJxpJk)
+
+![pictureDriversVideo.png](assets/images/chapter4/mobileApplicationUxUi/prototyping/pictureDriversVideo.png)
+
+Enlace para acceder al video explicativo del [Mobile Application Prototyping para Colaborador Municipal (Chofer)](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202220829_upc_edu_pe/EfA-tJfVYVdIufJ9c54xT7IB57K_1VjP_IFEgWfgSYoRbg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=5sZlbF)
+
+Asimismo, a continuación se presentan los enlaces que llevan a los flujos por cada perfil de usuario:
+
+* [Mobile Application Prototyping para Ciudadano](https://www.figma.com/proto/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=148-1571&t=D0tjx3N2qsot8HmY-1&scaling=min-zoom&content-scaling=fixed&page-id=108%3A2&starting-point-node-id=148%3A1571&show-proto-sidebar=1)
+
+* [Mobile Application Prototyping para Colaborador Municipal (Chofer)](https://www.figma.com/proto/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=148-2635&t=D0tjx3N2qsot8HmY-1&scaling=min-zoom&content-scaling=fixed&page-id=108%3A2&starting-point-node-id=148%3A2635&show-proto-sidebar=1)
 
 ## 4.6. Web Applications UX/UI Design
 
 ### 4.6.1. Web Applications Wireframes
+Se puede encontrar todos los Web Applications Wireframes en el siguiente [enlace a Figma](https://www.figma.com/design/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=7-2&p=f):
+
+https://www.figma.com/design/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=7-2&p=f
+
+A continuación, se presentan los wireframes de baja fidelidad para la aplicación web de administración. Estos wireframes ilustran la estructura básica y la disposición de los elementos en cada pantalla, proporcionando una visión clara de la experiencia del usuario y el flujo de navegación dentro de la aplicación.
+
+### Flujo de Super Administrador
+Este flujo está diseñado como una herramienta interna y segura, accesible únicamente para los desarrolladores o administradores del sistema. Su única finalidad es la creación y gestión de las cuentas maestras de las municipalidades, siguiendo un modelo de negocio B2B.
+
+#### Acceso de Super Administrador
+Representa un portal de inicio de sesión de alta seguridad, completamente separado del de los administradores municipales. Esta pantalla es el único punto de entrada para la gestión global de las cuentas de clientes. Se incluyen las vistas para un ingreso exitoso y para un intento fallido, mostrando un mensaje de error claro.
+
+![login.png](assets/images/chapter4/webApplicationUxUi/wireframes/login.png)
+![LoginError.png](assets/images/chapter4/webApplicationUxUi/wireframes/LoginError.png)
+
+#### Dashboard de Municipalidades
+Es la pantalla principal del super administrador. Muestra un listado de todas las cuentas de municipalidades creadas en el sistema, con información clave como el nombre, el email del administrador principal y su estado (Activa/Inactiva). Se ha diseñado tanto el estado ideal (con datos) como el estado vacío, que guía al usuario a crear la primera cuenta.
+
+![municipalitiesList.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalitiesList.png)
+![noRegisters.png](assets/images/chapter4/webApplicationUxUi/wireframes/noRegisters.png)
+
+#### Creación de Cuenta Municipal
+Muestra el formulario completo que utiliza el super administrador para registrar una nueva municipalidad en el sistema. Incluye campos para los datos de la municipalidad, la asignación de su ubicación geográfica mediante un mapa, y la creación de la cuenta inicial para el administrador principal de dicha municipalidad. Se contempla también el estado de error del formulario.
+
+![createMunicipalAccount.png](assets/images/chapter4/webApplicationUxUi/wireframes/createMunicipalAccount.png)
+![createMunicipalAccountError.png](assets/images/chapter4/webApplicationUxUi/wireframes/createMunicipalAccountError.png)
+
+#### Gestión de Cuenta Municipal
+Representa la pantalla de edición y gestión de una cuenta municipal existente. Desde aquí, el super administrador puede modificar datos, ver los administradores asociados y, crucialmente, acceder a la "Zona de Peligro" para desactivar temporalmente una cuenta en caso de ser necesario.
+
+![municipalAccountManagement.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAccountManagement.png)
+
+#### Modal de Confirmación
+Esta vista modal aparece cuando el super administrador intenta realizar una acción crítica, como desactivar una cuenta. Su propósito es prevenir acciones accidentales, forzando al usuario a confirmar su decisión antes de que se aplique el cambio.
+
+![confirmationModal.png](assets/images/chapter4/webApplicationUxUi/wireframes/confirmationModal.png)
+
+#### Notificación toast
+Debe aparecer como confirmación o feedback inmediato después de que el super administrador realiza una acción clave, como crear o actualizar una cuenta. Es un mensaje breve que asegura al usuario que su acción fue exitosa sin interrumpir su flujo de trabajo. También, se utiliza para notificar errores críticos, como problemas de conexión a internet.
+
+![toastNotification.png](assets/images/chapter4/webApplicationUxUi/wireframes/toastNotification.png)
+
+### Flujo de Colaborador Municipal (Administrador)
+Este es el panel de control principal para el personal administrativo de cada municipalidad. Está diseñado como una herramienta de gestión operativa completa que permite monitorear y controlar todos los aspectos del sistema de recolección de residuos.
+
+#### Acceso de Administrador Municipal
+Representa el portal de inicio de sesión para el personal administrativo. A diferencia del super admin, este flujo permite la creación de una cuenta a través de una invitación, como se ve en la vista de "Activación de Cuenta".
+
+![invitationActivation.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/invitationActivation.png)
+![login.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/login.png)
+
+#### Dashboard Principal
+Es la vista central del administrador. Ofrece un resumen de alto nivel de las operaciones del día con métricas clave (contenedores llenos, rutas activas), una alerta de dispositivos para problemas urgentes y un gráfico de barras que visualiza la eficiencia de la recolección, permitiendo una toma de decisiones rápida e informada.
+
+![dashboard.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/dashboard.png)
+
+#### Gestión de Flota (Vehículos)
+Muestra un inventario completo de todos los vehículos (camiones) de la municipalidad. Permite al administrador registrar nuevos vehículos, especificando datos cruciales como su capacidad de carga, y editar los existentes. Esta sección es la base para la generación de rutas optimizadas.
+
+![fleetManagement.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/fleetManagement.png)
+![addVehicle.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/addVehicle.png)
+
+#### Gestión de Colaboradores
+Presenta una lista de todo el personal registrado (conductores, otros administradores). Desde aquí, el administrador puede invitar a nuevos miembros y, fundamentalmente, asignar un vehículo específico a cada conductor, vinculando al personal con la flota.
+
+![noEmployees.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/noEmployees.png)
+![employeesList.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/employeesList.png)
+![addEmployee.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/addEmployee.png)
+![editEmployeeInfo.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/editEmployeeInfo.png)
+
+#### Gestión de Dispositivos IoT
+Muestra un listado de todos los sensores IoT instalados en los contenedores. El administrador puede ver su estado en tiempo real (nivel de llenado, batería) y acceder al modal de configuración para ajustar parámetros operativos como el umbral de "contenedor lleno". También puede registrar nuevos dispositivos mediante un proceso guiado.
+
+![iotDevices.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/iotDevices.png)
+![noIotDevices.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/noIotDevices.png)
+![registerIotDevice.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/registerIotDevice.png)
+![configIotDevice.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/configIotDevice.png)
+
+#### Gestión de Rutas (Multi-Conductor)
+Este es el centro de control operativo. La pantalla principal es un Dashboard de Monitoreo que muestra en un mapa las rutas que ya están activas. Un panel lateral informa sobre las Rutas Pendientes (generadas pero no asignadas), permitiendo al administrador acceder al Panel de Asignación en cualquier momento para distribuir el trabajo entre los conductores disponibles, cuya capacidad de vehículo se muestra para una mejor planificación. También incluye una vista de Historial para auditorías.
+
+![routesManagementNoActions.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/routesManagementNoActions.png)
+![routesManagement.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/routesManagement.png)
+![routesDistribution.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/routesDistribution.png)
+![confirmRouteAssignment.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/confirmRouteAssignment.png)
+![routesOnCourse.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/routesOnCourse.png)
+![routesHistory.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/routesHistory.png)
+
+#### Reportes Ciudadanos
+Funciona como una bandeja de entrada para todas las incidencias reportadas por los ciudadanos. El administrador puede ver una lista de los reportes, filtrarlos y hacer clic en "Ver Detalles" para acceder a una vista detallada con el mapa de ubicación, la foto adjunta y las opciones para cambiar el estado del reporte.
+
+![populationReport.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/populationReport.png)
+![noCitizensReport.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/noCitizensReport.png)
+![reportDetail.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/reportDetail.png)
+
+#### Perfil y Configuración
+Permite al administrador ver y editar su información personal, cambiar su contraseña. También incluye la opción de cerrar sesión de manera segura.
+
+![profileConfig.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/profileConfig.png)
+![logOutConfirmation.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/logOutConfirmation.png)
+
+#### Notificación toast
+Debe aparecer como confirmación o feedback inmediato después de que el administrador realiza una acción clave, como crear una ruta o asignar un conductor. Es un mensaje breve que asegura al usuario que su acción fue exitosa sin interrumpir su flujo de trabajo. También, se utiliza para notificar errores críticos, como problemas de conexión a internet.
+
+![iotDeviceUpdatedToastNotification.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/iotDeviceUpdatedToastNotification.png)
+![updatedReportToastNotification.png](assets/images/chapter4/webApplicationUxUi/wireframes/municipalAdmin/updatedReportToastNotification.png)
 
 ### 4.6.2. Web Applications Wire flow Diagrams
 
+#### Flujo de usuario: Municipalidad (Administrador)
+
+**User Goal:  Inicio de sesión administrador**
+
+Flujo donde el administrador accede al sistema con sus credenciales para gestionar los recursos municipales.
+
+![loginAdmin.png](assets/images/chapter4/mobileWireflows/municipalidad/adminProfile.png)
+
+**User Goal: Gestión de colaboradores**
+
+**a. Invitar colaborador**
+Flujo para registrar e invitar a nuevos colaboradores al sistema, asignándoles un rol o perfil específico.
+
+![inviteCollaborator.png](assets/images/chapter4/mobileWireflows/municipalidad/inviteCollaborator.png)
+
+**b. Editar colaborador**
+Flujo que permite al administrador actualizar la información o rol de colaboradores ya registrados.
+
+![editCollaborator.png](assets/images/chapter4/mobileWireflows/municipalidad/editCollaborator.png)
+
+**User Goal: Gestión de rutas de recolección**
+
+Flujo donde el administrador puede generar y asignar rutas de recolección de residuos, asignándolas a colaboradores.
+
+![manageRoutes.png](assets/images/chapter4/mobileWireflows/municipalidad/manageRoutes.png)
+
+**User Goal: Gestión de dispositivos IoT**
+
+**a. Registrar dispositivo IoT**
+Flujo para registrar nuevos dispositivos IoT destinados a monitorear contenedores u otros puntos de control.
+
+![registerIoT.png](assets/images/chapter4/mobileWireflows/municipalidad/registerIoT.png)
+
+**b. Editar dispositivo IoT**
+Flujo que permite actualizar datos o reconfigurar dispositivos IoT existentes.
+
+![editIoT.png](assets/images/chapter4/mobileWireflows/municipalidad/editIoT.png)
+
+**User Goal: Gestión de reportes ciudadanos**
+
+Flujo que muestra los reportes enviados por ciudadanos (ej. incidencias en el servicio de limpieza), con opciones para revisarlos y darles seguimiento.
+
+![manageReports.png](assets/images/chapter4/mobileWireflows/municipalidad/manageReports.png)
+
+**User Goal: Gestión de sesión y perfil**
+
+Flujo donde el administrador puede actualizar su información básica, cambiar contraseña o cerrar sesión.
+
+![adminProfile.png](assets/images/chapter4/mobileWireflows/municipalidad/adminProfile.png)
+
+**User Goal: Registro de vehículos**
+
+Flujo para registrar vehículos municipales, asociarlos a rutas y mantener actualizado el inventario de la flota.
+
+![registerVehicle.png](assets/images/chapter4/mobileWireflows/municipalidad/registerVehicle.png)
+
 ### 4.6.3. Web Applications Mock-ups
+### Flujo de Super Administrador
+Este flujo está diseñado como una herramienta interna y segura, accesible únicamente para los desarrolladores o administradores del sistema. Su única finalidad es la creación y gestión de las cuentas maestras de las municipalidades, siguiendo un modelo de negocio B2B.
+
+#### Acceso de Super Administrador
+Representa un portal de inicio de sesión de alta seguridad, completamente separado del de los administradores municipales. Esta pantalla es el único punto de entrada para la gestión global de las cuentas de clientes. Se incluyen las vistas para un ingreso exitoso y para un intento fallido, mostrando un mensaje de error claro.
+
+![login.png](assets/images/chapter4/webApplicationUxUi/mockUps/login.png)
+![loginError.png](assets/images/chapter4/webApplicationUxUi/mockUps/loginError.png)
+
+#### Dashboard de Municipalidades
+Es la pantalla principal del super administrador. Muestra un listado de todas las cuentas de municipalidades creadas en el sistema, con información clave como el nombre, el email del administrador principal y su estado (Activa/Inactiva). Se ha diseñado tanto el estado ideal (con datos) como el estado vacío, que guía al usuario a crear la primera cuenta.
+
+![municipalitiesList.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalitiesList.png)
+![nothingToShow.png](assets/images/chapter4/webApplicationUxUi/mockUps/nothingToShow.png)
+
+#### Creación de Cuenta Municipal
+Muestra el formulario completo que utiliza el super administrador para registrar una nueva municipalidad en el sistema. Incluye campos para los datos de la municipalidad, la asignación de su ubicación geográfica mediante un mapa, y la creación de la cuenta inicial para el administrador principal de dicha municipalidad. Se contempla también el estado de error del formulario.
+
+![registerNewMunicipalAccount.png](assets/images/chapter4/webApplicationUxUi/mockUps/registerNewMunicipalAccount.png)
+![registerNewMunicipalAccountError.png](assets/images/chapter4/webApplicationUxUi/mockUps/registerNewMunicipalAccountError.png)
+
+#### Gestión de Cuenta Municipal
+Representa la pantalla de edición y gestión de una cuenta municipal existente. Desde aquí, el super administrador puede modificar datos, ver los administradores asociados y, crucialmente, acceder a la "Zona de Peligro" para desactivar temporalmente una cuenta en caso de ser necesario.
+
+![editMunicipalAccount.png](assets/images/chapter4/webApplicationUxUi/mockUps/editMunicipalAccount.png)
+
+#### Modal de Confirmación
+Esta vista modal aparece cuando el super administrador intenta realizar una acción crítica, como desactivar una cuenta. Su propósito es prevenir acciones accidentales, forzando al usuario a confirmar su decisión antes de que se aplique el cambio.
+
+![deactivation.png](assets/images/chapter4/webApplicationUxUi/mockUps/deactivation.png)
+
+#### Notificación toast
+Debe aparecer como confirmación o feedback inmediato después de que el super administrador realiza una acción clave, como crear o actualizar una cuenta. Es un mensaje breve que asegura al usuario que su acción fue exitosa sin interrumpir su flujo de trabajo. También, se utiliza para notificar errores críticos, como problemas de conexión a internet.
+
+![toastNotification.png](assets/images/chapter4/webApplicationUxUi/mockUps/toastNotification.png)
+
+### Flujo de Colaborador Municipal (Administrador)
+Este es el panel de control principal para el personal administrativo de cada municipalidad. Está diseñado como una herramienta de gestión operativa completa que permite monitorear y controlar todos los aspectos del sistema de recolección de residuos.
+
+#### Acceso de Administrador Municipal
+Representa el portal de inicio de sesión para el personal administrativo. A diferencia del super admin, este flujo permite la creación de una cuenta a través de una invitación, como se ve en la vista de "Activación de Cuenta".
+
+![invitationActivation.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/invitationActivation.png)
+![login.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/login.png)
+
+#### Dashboard Principal
+Es la vista central del administrador. Ofrece un resumen de alto nivel de las operaciones del día con métricas clave (contenedores llenos, rutas activas), una alerta de dispositivos para problemas urgentes y un gráfico de barras que visualiza la eficiencia de la recolección, permitiendo una toma de decisiones rápida e informada.
+
+![dashboard.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/dashboard.png)
+
+#### Gestión de Flota (Vehículos)
+Muestra un inventario completo de todos los vehículos (camiones) de la municipalidad. Permite al administrador registrar nuevos vehículos, especificando datos cruciales como su capacidad de carga, y editar los existentes. Esta sección es la base para la generación de rutas optimizadas.
+
+![fleetManagement.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/fleetManagement.png)
+![addVehicle.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/addVehicle.png)
+![editVehicle.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/editVehicle.png)
+
+#### Gestión de Colaboradores
+Presenta una lista de todo el personal registrado (conductores, otros administradores). Desde aquí, el administrador puede invitar a nuevos miembros y, fundamentalmente, asignar un vehículo específico a cada conductor, vinculando al personal con la flota.
+
+![noEmployees.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/noEmployees.png)
+![employeesList.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/employeesList.png)
+![inviteNewEmployee.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/inviteNewEmployee.png)
+![editEmployee.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/editEmployee.png)
+
+#### Gestión de Dispositivos IoT
+Muestra un listado de todos los sensores IoT instalados en los contenedores. El administrador puede ver su estado en tiempo real (nivel de llenado, batería) y acceder al modal de configuración para ajustar parámetros operativos como el umbral de "contenedor lleno". También puede registrar nuevos dispositivos mediante un proceso guiado.
+
+![iotDevices.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/iotDevices.png)
+![noIotDevices.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/noIotDevices.png)
+![registerIotDevice.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/registerIotDevice.png)
+![configIotDevice.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/configIotDevice.png)
+
+#### Gestión de Rutas (Multi-Conductor)
+Este es el centro de control operativo. La pantalla principal es un Dashboard de Monitoreo que muestra en un mapa las rutas que ya están activas. Un panel lateral informa sobre las Rutas Pendientes (generadas pero no asignadas), permitiendo al administrador acceder al Panel de Asignación en cualquier momento para distribuir el trabajo entre los conductores disponibles, cuya capacidad de vehículo se muestra para una mejor planificación. También incluye una vista de Historial para auditorías.
+
+![routeManagementNoAction.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/routeManagementNoAction.png)
+![routeManagement.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/routeManagement.png)
+![routeAssignation.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/routeAssignation.png)
+![selectDriver.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/selectDriver.png)
+![mainWindowWithCompleteActions.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/mainWindowWithCompleteActions.png)
+![routesHistory.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/routesHistory.png)
+
+#### Reportes Ciudadanos
+Funciona como una bandeja de entrada para todas las incidencias reportadas por los ciudadanos. El administrador puede ver una lista de los reportes, filtrarlos y hacer clic en "Ver Detalles" para acceder a una vista detallada con el mapa de ubicación, la foto adjunta y las opciones para cambiar el estado del reporte.
+
+![peopleReport.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/peopleReport.png)
+![noCitizensReports.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/noCitizensReports.png)
+![citizenReportDetail.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/citizenReportDetail.png)
+
+#### Perfil y Configuración
+Permite al administrador ver y editar su información personal, cambiar su contraseña. También incluye la opción de cerrar sesión de manera segura.
+
+![profileConfig.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/profileConfig.png)
+![logOutConfirmation.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/logOutConfirmation.png)
+
+#### Notificación toast
+Debe aparecer como confirmación o feedback inmediato después de que el administrador realiza una acción clave, como crear una ruta o asignar un conductor. Es un mensaje breve que asegura al usuario que su acción fue exitosa sin interrumpir su flujo de trabajo. También, se utiliza para notificar errores críticos, como problemas de conexión a internet.
+
+![updateNotificationToast.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/updateNotificationToast.png)
+![updatedReportToastNotification.png](assets/images/chapter4/webApplicationUxUi/mockUps/municipalAdmin/updatedReportToastNotification.png)
 
 ### 4.6.4. Web Applications User Flow Diagrams
 
+
+Los **User Flow Diagrams** muestran de manera detallada la secuencia de pantallas y decisiones que sigue cada usuario para alcanzar un objetivo específico dentro de la aplicación. A diferencia de los Wireflows, aquí se representan tanto la ruta esperada (*happy path*) como las rutas alternativas o excepcionales (*unhappy paths*), evidenciando las condiciones de validación y mensajes que se presentan en cada escenario.
+
+### Flujo de usuario: Municipalidad (Administrador)
+
+**User Goal: Inicio de sesión administrador**
+Flujo donde el administrador accede al sistema con sus credenciales para gestionar los recursos municipales.
+
+* *Happy path*: credenciales correctas permiten el ingreso al panel principal.
+* *Unhappy path*: credenciales incorrectas impiden el acceso y muestran un mensaje de error.
+
+![loginAdmin.png](assets/images/chapter4/userFlows/municipalidad/loginAdmin.png)
+
+**User Goal: Gestión de colaboradores**
+
+**a. Invitar colaborador**
+Flujo para registrar e invitar a nuevos colaboradores al sistema, asignándoles un rol o perfil específico.
+
+* *Happy path*: se completa el formulario y el colaborador recibe su acceso.
+
+![inviteCollaborator.png](assets/images/chapter4/userFlows/municipalidad/inviteCollaborator.png)
+
+**b. Editar colaborador**
+Flujo que permite al administrador actualizar la información o rol de colaboradores ya registrados.
+
+* *Happy path*: los cambios se guardan exitosamente en el sistema.
+
+![editCollaborator.png](assets/images/chapter4/userFlows/municipalidad/editCollaborator.png)
+
+
+**User Goal: Gestión de rutas de recolección**
+Flujo donde el administrador puede generar y asignar rutas de recolección de residuos, así como consultar el historial de rutas ejecutadas.
+
+* *Happy path*: se visualizan las rutas activas y se consulta el historial correctamente.
+
+![manageRoutes.png](assets/images/chapter4/userFlows/municipalidad/manageRoutes.png)
+
+
+**User Goal: Gestión de dispositivos IoT**
+
+**a. Registrar dispositivo IoT**
+Flujo para registrar nuevos dispositivos IoT destinados a monitorear contenedores u otros puntos de control.
+
+* *Happy path*: el dispositivo queda correctamente registrado en el sistema.
+
+![registerIoT.png](assets/images/chapter4/userFlows/municipalidad/registerIoT.png)
+
+**b. Editar dispositivo IoT**
+Flujo que permite actualizar datos o reconfigurar dispositivos IoT existentes.
+
+* *Happy path*: los cambios de configuración se guardan y se confirma la actualización.
+
+![editIoT.png](assets/images/chapter4/userFlows/municipalidad/editIoT.png)
+
+**User Goal: Gestión de reportes ciudadanos**
+Flujo que muestra los reportes enviados por ciudadanos (ej. incidencias en el servicio de limpieza), con opciones para revisarlos, visualizar evidencia y darles seguimiento.
+
+* *Happy path*: el estado del reporte se actualiza correctamente y queda registrado en el historial.
+
+![manageReports.png](assets/images/chapter4/userFlows/municipalidad/manageReports.png)
+
+**User Goal: Gestión de sesión y perfil**
+Flujo donde el administrador puede actualizar su información básica, cambiar contraseña o cerrar sesión.
+
+* *Happy path*: al cerrar sesión se redirige a la pantalla de acceso.
+
+![adminProfile.png](assets/images/chapter4/userFlows/municipalidad/adminProfile.png)
+
+**User Goal: Registro de vehículos**
+Flujo para registrar vehículos municipales, asociarlos a rutas y mantener actualizado el inventario de la flota.
+
+* *Happy path*: se guarda un nuevo vehículo y aparece en la lista de gestión de flota.
+
+![registerVehicle.png](assets/images/chapter4/userFlows/municipalidad/registerVehicle.png)
+
+
 ## 4.7. Web Applications Prototyping
+El propósito de esta sección es presentar los prototipos interactivos desarrollados para la aplicación web de administración. Estos prototipos permiten simular la experiencia de usuario final, facilitando la evaluación de la usabilidad, la navegación y la interacción con las funcionalidades clave antes de la implementación técnica.
+
+A continuación, se presentan capturas y los enlaces a los videos explicativos que detallan los flujos de usuario relacionados:
+
+![pictureSuperAdminVideo.png](assets/images/chapter4/webApplicationUxUi/prototyping/pictureSuperAdminVideo.png)
+
+Enlace para acceder al video explicativo del [Web Application Prototyping para Super Administrador](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202220829_upc_edu_pe/EXtElBFN9PVGnxtbblNzxEwB16x5kRUJpU78JlIh4HsWyQ?e=kUtnM8&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+
+![pictureMunicipalAdminVideo.png](assets/images/chapter4/webApplicationUxUi/prototyping/pictureMunicipalAdminVideo.png)
+
+Enlace para acceder al video explicativo del [Web Application Prototyping para Administrador Municipal](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202220829_upc_edu_pe/EQ1EazbFsN9MiRw2o43XRUEBRIXp-3VqlKywOmt3kXHDhw?e=QCrwj1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+
+Asimismo, a continuación se presentan los enlaces que llevan a los flujos por cada perfil de usuario:
+* [Web Application Prototyping para Super Administrador](https://www.figma.com/proto/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=229-11&t=LaKQIDXdLY978TmR-1&scaling=min-zoom&content-scaling=fixed&page-id=108%3A3&starting-point-node-id=229%3A11&show-proto-sidebar=1)
+* [Web Application Prototyping para Administrador Municipal](https://www.figma.com/proto/SYYxFeZgRViEvSUVEYlhZq/PRODUCT?node-id=108-1167&t=LaKQIDXdLY978TmR-1&scaling=min-zoom&content-scaling=fixed&page-id=108%3A3&starting-point-node-id=108%3A1167&show-proto-sidebar=1)
 
 ## 4.8. Domain-Driven Software Architecture
 
