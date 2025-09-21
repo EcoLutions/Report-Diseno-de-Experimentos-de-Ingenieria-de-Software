@@ -642,6 +642,255 @@ Identificar procesos actuales, herramientas utilizadas y puntos de dolor especí
 
 ### 2.2.2. Registro de entrevistas
 
+**Administrador Municipal**
+
+Entrevistado #1: Alejandro Becerril Puerta
+
+![Entrevista1](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaMuni1.png)
+
+●	Sexo: Masculino
+
+●	Edad: 28 años
+
+●	Distrito en el que vive: Totora
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=4tYBGW&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MC4yN319](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=4tYBGW&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MC4yN319) 
+
+●	Momento en el que inicia: 0:00
+
+●	Duración: 05:54
+
+●	Entrevistador: Riva Rodríguez, Elmer Augusto
+
+Resumen:
+
+<p align="justify">
+Alejandro Becerril, un administrador de 28 años, gestiona los residuos sólidos en la Municipalidad de Totora, donde vive y trabaja. Con 5 años de experiencia, sus responsabilidades incluyen la recolección de basura y la concientización de los ciudadanos para que separen sus residuos. Su mayor frustración es que el relleno sanitario actual está casi lleno y no hay planes para uno nuevo. Para optimizar su trabajo, él y su pequeño equipo planifican rutas semanales utilizando Excel, y él considera que una herramienta digital que proporcione información en tiempo real sobre el estado de los contenedores, como su nivel de llenado o si requieren mantenimiento, le sería de gran ayuda para mejorar la eficiencia de la recolección.
+</p>
+
+
+Entrevistado #2: Angie Vivian
+
+![Entrevista2](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaMuni2.png)
+
+●	Sexo: Femenino
+
+●	Edad: 30 años
+
+●	Distrito en el que vive: Chachapoyas
+
+Entrevista:
+
+●	Link:  [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=afjJ36&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MzU1LjUxfX0%3D](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=afjJ36&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MzU1LjUxfX0%3D)
+
+●	Momento en el que inicia: 5:55
+
+●	Duración: 05:47
+
+●	Entrevistador: Riva Rodríguez, Elmer Augusto
+
+Resumen:
+
+<p align="justify">
+Angie Vivian Yancás Celada, administradora de 30 años en la Municipalidad de Chachapoyas, se encarga de coordinar la recolección de residuos y la limpieza pública. Su principal desafío es la falta de un relleno sanitario, lo que encarece y retrasa la gestión. Aunque toma decisiones basándose en reportes y llamadas de ciudadanos, la información no siempre está actualizada en tiempo real, lo que dificulta la priorización de zonas con alta acumulación de basura y la respuesta a las quejas. Por ello, Angie cree que una herramienta que le proporcione datos en tiempo real sobre el nivel de llenado y las necesidades de mantenimiento de los contenedores sería fundamental para optimizar las rutas y mejorar la eficiencia del servicio.
+</p>
+
+
+Entrevistado #3: Pamela Rojas Aramburu
+
+![Entrevista3](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaMuni3.png)
+
+●	Sexo: Femenino
+
+●	Edad: 31 años
+
+●	Distrito en el que vive: Santiago de Surco
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=0BXepU&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6NzAyLjI2fX0%3D](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=0BXepU&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6NzAyLjI2fX0%3D)
+
+●	Momento en el que inicia: 11:44
+
+●	Duración: 06:50
+
+●	Entrevistador: Riva Rodríguez, Elmer Augusto
+
+Resumen:
+
+<p align="justify">
+Pamela Rojas, coordinadora de operaciones de limpieza pública en Santiago de Surco, gestiona la planificación de rutas y un equipo de 15 personas. Aunque utiliza un sistema municipal para la data oficial, su trabajo diario depende de Excel y WhatsApp debido a que la información oficial está desactualizada. Su principal desafío es el constante fallo de la flota de vehículos, que son antiguos y causan retrasos, obligándola a ser reactiva ante las quejas de los ciudadanos. Pamela mide su éxito por el porcentaje de rutas cumplidas a tiempo y desearía tener recursos para renovar la flota y adquirir un software de gestión logística avanzado. Ella cree que una herramienta que le brinde información en tiempo real sobre los contenedores de basura le permitiría pasar de ser reactiva a proactiva, mejorando la eficiencia y reduciendo drásticamente las quejas.
+</p>
+
+
+**Conductor de Recolección**
+
+Entrevistado #1: Irving Allca
+
+![Entrevista4](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaReco1.png)
+
+●	Sexo: Masculino
+
+●	Edad: 26 años
+
+●	Distrito en el que vive: San Juan de Lurigancho
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=Dr9HCi&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MTExNC41OX19](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=Dr9HCi&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MTExNC41OX19)
+
+●	Momento en el que inicia: 18:35
+
+●	Duración: 08:02
+
+●	Entrevistador: Hernández Tuiro, Eric Ernesto
+
+Resumen:
+
+<p align="justify">
+Irving Alca, un conductor de camión de basura de 26 años, describe su jornada laboral en San Juan de Lurigancho. Su día comienza temprano, inspeccionando el camión antes de seguir rutas fijas que, aunque las tiene memorizadas, pueden cambiar debido al tráfico, que es la parte más estresante de su trabajo. Aunque usa aplicaciones como Waze para navegar, cree que una aplicación diseñada específicamente para su trabajo sería muy útil. Una herramienta que le muestre rutas optimizadas en tiempo real, junto con alertas sobre el tráfico y el estado de los contenedores de basura, le permitiría ser más eficiente y reducir las pérdidas de tiempo. A pesar de los desafíos, se siente motivado por la importancia de su trabajo para mantener la comunidad limpia.
+</p>
+
+Entrevistado #2: Mateo Sanchez
+
+![Entrevista5](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaReco2.png)
+
+●	Sexo: Masculino
+
+●	Edad: 21 años
+
+●	Distrito en el que vive: Lince
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=o2BgbL&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MTU5Ni44N319](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=o2BgbL&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MTU5Ni44N319)
+
+●	Momento en el que inicia: 26:35
+
+●	Duración: 05:00
+
+●	Entrevistador: Hernández Tuiro, Eric Ernesto
+
+Resumen:
+
+<p align="justify">
+Mateo Sánchez, un conductor de camión de basura de 21 años, describe su jornada laboral que empieza a las 3 de la mañana en rutas fijas de Lima. Lo más estresante de su trabajo es el tráfico pesado y los contenedores desbordados, que le hacen perder tiempo y le obligan a bajar para solucionar los problemas. Para ser más eficiente, le gustaría tener una mejor comunicación e información actualizada, y considera que una aplicación que le muestre la mejor ruta, el estado de los contenedores y las alertas de tráfico en tiempo real sería de gran ayuda. Aunque a veces no se siente valorado, se motiva por la importancia de su trabajo en mantener la ciudad limpia.
+</p>
+
+
+
+Entrevistado #3: Giancarlo Dávila
+
+![Entrevista6](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaReco3.png)
+
+●	Sexo: Masculino
+
+●	Edad: 21 años
+
+●	Distrito en el que vive: Santiago de Surco
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=peceS3&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MTg5Ni40M319](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=peceS3&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MTg5Ni40M319)
+
+●	Momento en el que inicia: 31:36
+
+●	Duración: 05:27
+
+●	Entrevistador: Hernández Tuiro, Eric Ernesto
+
+Resumen:
+
+<p align="justify">
+Giancarlo Dávila, un conductor de 21 años con dos años de experiencia, describe su trabajo de recolección de residuos, que se desarrolla entre las 7 a.m. y las 2 p.m. en el distrito de Surco. Aunque conoce sus rutas de memoria, el tráfico, los contenedores bloqueados y las calles cerradas son las situaciones más estresantes que le hacen perder tiempo. Para ser más eficiente, le gustaría tener acceso a información en tiempo real, como el estado de los contenedores o alertas de tráfico, y cree que una aplicación con estas funciones sería de gran utilidad. A pesar de los desafíos, se siente motivado al final del día por saber que su trabajo es importante y ayuda a mantener la ciudad más limpia.
+</p>
+
+
+**Ciudadano Residente**
+
+Entrevistado #1: Leonardo Meléndez Álvarez
+
+![Entrevista7](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaCiud1.png)
+
+●	Sexo: Masculino
+
+●	Edad: 21 años
+
+●	Distrito en el que vive: San Borja
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=YVtI5N&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MjIyMy41NX19](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=YVtI5N&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MjIyMy41NX19)
+
+●	Momento en el que inicia: 37:03
+
+●	Duración: 06:35
+
+●	Entrevistador: Riva Rodríguez, Elmer Augusto
+
+Resumen:
+
+<p align="justify">
+Leonardo Meléndez, un estudiante de 21 años de San Borja, considera que su barrio es tranquilo, pero se siente frustrado con la ineficiencia del servicio de recolección de basura, que a menudo no pasa, lo que lleva a la acumulación y a que los mismos vecinos deban limpiar las calles. Siente que sus quejas no son escuchadas por las autoridades y le gustaría tener más participación e información sobre la gestión de residuos a través de su celular. Por ello, considera que una aplicación móvil que le permitiera ver el estado del camión recolector en tiempo real y reportar problemas de forma inmediata sería una solución muy útil, ya que le daría el control y la información que actualmente no tiene.
+</p>
+
+
+Entrevistado #2: Miguel Angel Lopez Sandoval
+
+![Entrevista8](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaCiud2.png)
+
+●	Sexo: Masculino
+
+●	Edad: 24 años
+
+●	Distrito en el que vive: Santiago de Surco
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=VEMG7L&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MjYxOC4wN319](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=VEMG7L&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MjYxOC4wN319)
+
+●	Momento en el que inicia: 43:38
+
+●	Duración: 06:37
+
+●	Entrevistador: Riva Rodríguez, Elmer Augusto
+
+Resumen:
+
+<p align="justify">
+Miguel Ángel López, un estudiante de 24 años que vive en Surco, percibe el servicio de recolección de basura como frecuente, pero se siente frustrado con la falta de limpieza cuando las bolsas se rompen o cuando la gente deja basura en las calles. No tiene una comunicación directa con las autoridades municipales y depende de una vecina para reportar problemas, lo que a menudo resulta en respuestas lentas. Miguel usaría una aplicación que le permita rastrear el camión de basura y reportar problemas directamente, ya que esto le daría una forma más efectiva de lidiar con las fallas del servicio y la falta de civismo de otros, y le gustaría que se le notificara de posibles incidentes con el servicio.
+</p>
+
+
+
+Entrevistado #3: Daniel Crispin Ramos
+
+![Entrevista9](assets/2.requirements-elicitation-analysis/2.2.interviews/2.2.2.interviewrecords/entrevistaCiud03.png)
+
+●	Sexo: Masculino
+
+●	Edad: 21 años
+
+●	Distrito en el que vive: Independencia
+
+Entrevista:
+
+●	Link: [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=O5Pl7J&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MzAxNS45Mn19](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=O5Pl7J&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifSwicGxheWJhY2tPcHRpb25zIjp7InN0YXJ0VGltZUluU2Vjb25kcyI6MzAxNS45Mn19)
+
+●	Momento en el que inicia: 50:16
+
+●	Duración: 07:
+
+●	Entrevistador: Sulca Gonzales, Paul Fernando
+
+Resumen:
+
+<p align="justify">
+Daniel, un residente de Independencia, vive en un barrio ruidoso y desordenado. Su principal frustración con los servicios públicos es la irregularidad en el recojo de basura, que ha empeorado recientemente, causando que los contenedores se desborden y que la basura se esparza por las calles, generando malos olores. Siente que hay una falta de comunicación y gestión por parte de la municipalidad, y le gustaría que le notificaran a través de una aplicación cuando el camión de basura va a pasar. Daniel considera que esta simple funcionalidad no solo le ayudaría a él a organizar su rutina, sino que también contribuiría a mantener su distrito más limpio y ordenado.
+</p>
+
 ### 2.2.3. Análisis de entrevistas
 
 ## 2.3. Need finding
@@ -1587,3 +1836,11 @@ Se presentan los diagramas de componentes de la arquitectura de software, que de
 # Bibliografía
 
 # Anexos
+
+## Anexo B: Entrevistas de needfinding TB1
+
+**Enlace:** [https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=nzXEkO&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D](https://upcedupe-my.sharepoint.com/:v:/g/personal/u20221c857_upc_edu_pe/EcvS530YIgVBj44dBEGN4A4BG6IWMrTG9yDlqMIOllvQHA?e=nzXEkO&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+
+**Descripción:** Video recopilatorio de las entrevistas realizadas para la fase de needfinding del proyecto.
+
+**Acceso:** Enlace público de solo lectura
