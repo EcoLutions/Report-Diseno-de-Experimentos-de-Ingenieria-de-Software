@@ -1421,6 +1421,19 @@ El Product Backlog está configurado en Jira con estimaciones en story points, l
 
 ## 3.4. Impact Mapping
 
+- Conductor Recolector
+
+![Conductor Recolector Impact Mapping.png](assets/3.requirementsspecification/3.4.impactmapping/conductorRecolectorImpactMapping.png)
+
+- Ciudadano Residente
+
+![Ciudadano Residente Impact Mapping.png](assets/3.requirementsspecification/3.4.impactmapping/ciudadanoResidenteImpactMapping.png)
+
+- Administrador de residuos Municipal
+
+![Admin Municipal Impact Mapping.png](assets/3.requirementsspecification/3.4.impactmapping/adminMunicipalImpactMapping.png)
+
+
 # Capítulo IV: Product Design
 En esta sección, presentaremos el diseño del producto como parte integral del sistema. El diseño de producto abarcará los componentes físicos como el software. Además, se va a detallar como los componentes influyen en la interacción humano-computadora
 
