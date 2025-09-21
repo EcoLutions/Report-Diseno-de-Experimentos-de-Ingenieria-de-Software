@@ -2145,6 +2145,11 @@ Encapsula toda la lógica de negocio relacionada con la gestión de operaciones 
 
 ![Diagrama de Clases del Bounded Context Municipal Operations](assets/4.product-design/4.9.software-object-oriented-design/3.class-diagram-municipal-operations.png)
 
+**Diagrama de clases del Bounded Context Community Relations**:
+Encapsula toda la lógica de negocio relacionada con el engagement ciudadano, gestión de reportes comunitarios, sistemas de recompensas gamificados, y comunicación omnicanal para fomentar la participación activa de los ciudadanos en la gestión municipal de residuos.
+
+![Diagrama de Clases del Bounded Context Community Relations](assets/4.product-design/4.9.software-object-oriented-design/4.class-diagram-community-relations.png)
+
 ### 4.9.2. Class Dictionary
 
 ## 4.10. Database Design
