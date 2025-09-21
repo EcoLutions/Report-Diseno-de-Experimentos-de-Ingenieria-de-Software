@@ -2148,6 +2148,16 @@ Se presentan los diagramas de componentes de la arquitectura de software, que de
 
 ### 5.2.1. Sprint Backlogs
 
+**Sprint Backlog – Sprint 1**
+
+| User Story ID | User Story Title                        | Task ID | Task Title               | Description                                                              | Estimation (Hours) | Assigned To                       | Status |
+|---------------|-----------------------------------------|---------|--------------------------|--------------------------------------------------------------------------|--------------------|-----------------------------------|--------|
+| US32          | Página principal con propuesta de valor | T1      | Implementar sección Hero | Diseñar e implementar la sección principal con propuesta de valor clara. | 4                  | Riva Rodríguez, Elmer Augusto     | Done   |
+| US33          | Sección específica para administradores | T2      | Sección Administradores  | Crear sección enfocada en funcionalidades para gestión administrativa.   | 8                  | Ramirez Mestanza, Salim Ignacio   | Done   |
+| US34          | Sección específica para conductores     | T3      | Sección Conductores      | Diseñar e implementar la sección para conductores con enfoque móvil.     | 6                  | Sulca Gonzales, Paul Fernando     | Done   |
+| US35          | Sección específica para ciudadanos      | T4      | Sección Ciudadanos       | Crear sección que muestre opciones de participación ciudadana.           | 4                  | Hernández Tuiro, Eric Ernesto     | Done   |
+| US36          | Casos de éxito y testimonios            | T5      | Casos de Éxito           | Diseñar e implementar sección con testimonios e indicadores de impacto.  | 4                  | Gutiérrez Soto, Jhosepmyr Orlando | Done   |
+
 ### 5.2.2. Implemented Landing Page Evidence
 
 ### 5.2.3. Implemented Frontend-Web Application Evidence
