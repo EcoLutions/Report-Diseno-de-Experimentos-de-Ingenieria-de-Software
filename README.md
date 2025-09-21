@@ -2135,6 +2135,11 @@ Encapsula toda la lógica de negocio relacionada con el monitoreo de contenedore
 
 ![Diagrama de Clases del Bounded Context Container Monitoring](assets/4.product-design/4.9.software-object-oriented-design/1.class-diagram-container-monitoring.png)
 
+**Diagrama de clases del Bounded Context Route Planning**:
+Encapsula toda la lógica de negocio relacionada con la optimización de rutas de recolección, la planificación inteligente de recorridos, y el seguimiento en tiempo real de la ejecución de rutas para maximizar la eficiencia operacional y minimizar costos ambientales.
+
+![Diagrama de Clases del Bounded Context Route Planning](assets/4.product-design/4.9.software-object-oriented-design/2.class-diagram-route-planning.png)
+
 ### 4.9.2. Class Dictionary
 
 ## 4.10. Database Design
