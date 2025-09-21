@@ -2130,10 +2130,10 @@ En esta sección se documenta el diseño orientado a objetos del software, propo
 
 Los diagramas de clases representan la estructura estática del sistema, mostrando las clases, sus atributos, métodos y las relaciones entre ellas. Estos diagramas ayudan a visualizar cómo se organiza el código y cómo interactúan los diferentes componentes del sistema.
 
-**Diagrama de clases del Bounded Context Monitoring:**
+**Diagrama de clases del Bounded Context Container Monitoring:**
 Encapsula toda la lógica de negocio relacionada con el monitoreo de contenedores de residuos mediante sensores IoT, la gestión de su estado operacional, y la generación de análisis predictivo para optimizar las operaciones de recolección municipal.
 
-![Diagrama de Clases del Bounded Context Monitoring](assets/4.product-design/4.9.software-object-oriented-design/1.class-diagram-monitoring.png)
+![Diagrama de Clases del Bounded Context Container Monitoring](assets/4.product-design/4.9.software-object-oriented-design/1.class-diagram-container-monitoring.png)
 
 ### 4.9.2. Class Dictionary
 
