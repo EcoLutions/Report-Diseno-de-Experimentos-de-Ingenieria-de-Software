@@ -2124,7 +2124,16 @@ Se presentan los diagramas de componentes de la arquitectura de software, que de
 
 ## 4.9. Software Object-Oriented Design
 
+En esta sección se documenta el diseño orientado a objetos del software, proporcionando diagramas y descripciones detalladas de las clases y sus interacciones. Se incluyen diagramas de clases que ilustran la estructura estática del sistema, así como un diccionario de clases que describe las responsabilidades y atributos de cada clase.
+
 ### 4.9.1. Class Diagrams
+
+Los diagramas de clases representan la estructura estática del sistema, mostrando las clases, sus atributos, métodos y las relaciones entre ellas. Estos diagramas ayudan a visualizar cómo se organiza el código y cómo interactúan los diferentes componentes del sistema.
+
+**Diagrama de clases del Bounded Context Monitoring:**
+Encapsula toda la lógica de negocio relacionada con el monitoreo de contenedores de residuos mediante sensores IoT, la gestión de su estado operacional, y la generación de análisis predictivo para optimizar las operaciones de recolección municipal.
+
+![Diagrama de Clases del Bounded Context Monitoring](assets/4.product-design/4.9.software-object-oriented-design/1.class-diagram-monitoring.png)
 
 ### 4.9.2. Class Dictionary
 
