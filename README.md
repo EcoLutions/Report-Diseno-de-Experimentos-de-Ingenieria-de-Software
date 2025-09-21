@@ -2140,6 +2140,11 @@ Encapsula toda la lógica de negocio relacionada con la optimización de rutas d
 
 ![Diagrama de Clases del Bounded Context Route Planning](assets/4.product-design/4.9.software-object-oriented-design/2.class-diagram-route-planning.png)
 
+**Diagrama de clases del Bounded Context Municipal Operations**:
+Encapsula toda la lógica de negocio relacionada con la gestión de operaciones municipales, administración de distritos, gestión de flotas vehiculares, y coordinación de recursos humanos para optimizar la eficiencia operacional y el control presupuestario municipal.
+
+![Diagrama de Clases del Bounded Context Municipal Operations](assets/4.product-design/4.9.software-object-oriented-design/3.class-diagram-municipal-operations.png)
+
 ### 4.9.2. Class Dictionary
 
 ## 4.10. Database Design
