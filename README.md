@@ -893,6 +893,148 @@ Daniel, un residente de Independencia, vive en un barrio ruidoso y desordenado. 
 
 ### 2.2.3. Análisis de entrevistas
 
+**Segmento 1: Administradores de Residuos Municipales**
+
+1. Perfil y Herramientas Actuales
+
+- **Alejandro:** Usa Android.
+- **Angie:** Usa iPhone.
+- **Pamela:** Usa Android.
+
+**Sistemas Digitales:**  
+Los tres administradores coinciden en que usan **Excel** como su principal herramienta de trabajo para control, reportes y análisis. Los sistemas municipales oficiales son percibidos como antiguos, lentos y poco amigables.
+
+**Comunicación:**  
+Se basa en métodos manuales, como reuniones, reportes de campo y grupos de **WhatsApp** para emergencias.
+
+**Información y Desactualización:**  
+La información con la que trabajan **no está en tiempo real**. Pamela menciona un desfase de **24 a 48 horas**, lo que los obliga a depender de llamadas y mensajes para gestionar urgencias.
+
+ 2. Principales Frustraciones y Problemas
+
+**Infraestructura Deficiente:**
+- Alejandro y Angie comparten una frustración común: la **falta de un relleno sanitario adecuado** en sus distritos.
+    - *Totora (Alejandro):* Está al 75% de su capacidad sin un plan de reemplazo.
+    - *Chachapoyas (Angie):* No tener relleno encarece la gestión y genera retrasos.
+
+**Flota Vehicular Antigua:**
+- Pamela señala que el **mantenimiento de la flota** es su mayor "dolor de cabeza".
+    - Los camiones son antiguos y fallan constantemente.
+    - Obliga a alquilar unidades de emergencia a **alto costo**.
+
+ 3. Métricas de Éxito e Indicadores Clave
+
+- **Satisfacción Ciudadana:** Alejandro mide el éxito en la satisfacción de la población con el servicio.
+- **Cumplimiento de Rutas:** Pamela usa el porcentaje de cumplimiento de rutas a tiempo.
+- **Reducción de Quejas:** Angie y Pamela se enfocan en este indicador.
+- **Eficiencia:** Pamela también mide el **tonelaje de residuos recogidos**.
+
+ 4. Soluciones Deseadas y Visión de Futuro
+
+**Monitoreo en Tiempo Real:**
+- Los tres administradores desean una herramienta digital con información en tiempo real.
+- Alejandro y Angie: Quieren saber cuándo los contenedores están llenos para optimizar recolección.
+- Pamela: Afirma que sería un *"cambio radical"* que permitiría pasar de ser reactivos a proactivos.
+
+**Mantenimiento Predictivo:**
+- Pamela propone un sistema de mantenimiento predictivo para la flota vehicular.
+
+**Inversión Prioritaria (recursos ilimitados):**
+- **Angie:** Relleno sanitario provincial + modernización de la flota.
+- **Alejandro:** Construcción de un nuevo relleno sanitario.
+- **Pamela:** Renovación completa de la flota con unidades modernas y ecológicas + software de gestión logística.
+
+---
+
+**Segmento 2: Conductores de Recolección**
+
+1. Perfil y Dispositivos
+
+- **Irving Allca:** 26 años, 4 años de experiencia, San Juan de Lurigancho. Usa Android.
+- **Mateo Sánchez:** 21 años, 1 año de experiencia, vive en Lince, trabaja en Lima. Usa Android.
+- **Giancarlo Dávila:** 21 años, 2 años de experiencia, Santiago de Surco. Usa Android.
+
+> Se observa una clara preferencia por **Android** entre los tres conductores.
+
+2. Gestión del Trabajo y Herramientas
+
+- **Rutas:** Tienen rutas fijas que conocen de memoria, pero pueden cambiar por tráfico o desvíos.
+- **Comunicación:** Principalmente por llamadas o WhatsApp.
+- **Navegación:** Usan apps genéricas como **Waze** o **Google Maps**. No cuentan con una herramienta específica para su trabajo.
+
+3. Principales Frustraciones y Problemas
+
+- **Tráfico:**
+    - Principal fuente de estrés y pérdida de tiempo.
+    - Lo describen como "demasiado", "pesado" y "bullicioso".
+
+- **Contenedores:**
+    - Desbordados, bloqueados o inaccesibles.
+    - Obliga a desviarse, reportar, y perder tiempo.
+    - Mateo: A veces tiene que bajarse él mismo a solucionar el problema.
+
+- **Falta de Información en Tiempo Real:**
+    - Giancarlo y Mateo lo identifican como causa de ineficiencia.
+
+4. Motivación y Sentido del Valor
+
+- Se sienten motivados al saber que están **ayudando a la comunidad**.
+- Mateo: A veces no se siente valorado porque su trabajo pasa desapercibido.
+
+5. Soluciones Deseadas
+
+Todos coinciden en que una **aplicación (APP)** sería útil.
+
+**Funcionalidades más deseadas:**
+- Rutas optimizadas en tiempo real.
+- Alertas de tráfico y desvíos.
+- Información sobre el estado de los contenedores (llenos/vacíos).
+- Irving y Mateo: La información debe ser en **tiempo real** para ser más eficientes.
+
+---
+
+**Segmento 3: Ciudadanos Residentes**
+
+ 1. Perfil y Dispositivos
+
+- **Leonardo Meléndez**: 21 años, estudiante, San Borja. Usa iPhone.
+- **Miguel López**: 24 años, estudiante, Surco. Usa iPhone.
+- **Daniel Crispín Ramos**: 21 años, trabajador, Independencia. Usa Android (Xiaomi).
+
+**Observaciones:**
+- Hay una preferencia por iPhone entre los residentes de distritos más ordenados.
+- El usuario de Independencia (Daniel) utiliza Android.
+- Ninguno está en grupos de WhatsApp del barrio en general.
+- Daniel y Viviana sí usan grupos vecinales específicos o redes sociales para informarse.
+
+---
+
+ 2. Experiencia con los Servicios Públicos
+
+ Percepción del Servicio de Basura
+
+- **Leonardo**: Lo considera deficiente; el camión "a veces no pasa".
+- **Miguel**: Lo percibe como frecuente y regular, pero se frustra por la basura en las calles.
+- **Daniel**: Lo califica como irregular y en deterioro, provocando desbordes y malos olores.
+
+ Falta de Información sobre Otros Servicios
+
+- **Daniel**: Destaca la falta de gestión y comunicación por parte de los servicios municipales.
+
+---
+
+ 3. Comunicación y Quejas
+
+ Canales Inefectivos
+
+- **Leonardo**: Siente que sus quejas “no nos hacen caso”.
+- **Miguel**: Se comunica a través de una vecina; las respuestas son "tardadas y molestas", hasta más de un día.
+- **Daniel**: Usa grupos de WhatsApp, pero considera deficiente la comunicación con la municipalidad.
+
+ Preferencias de Comunicación
+
+- **Leonardo y Daniel**: Prefieren recib
+
 ## 2.3. Need finding
 
 ### 2.3.1. User personas
