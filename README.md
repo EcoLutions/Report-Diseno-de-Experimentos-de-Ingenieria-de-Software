@@ -3121,6 +3121,858 @@ Interfaz de repositorio para la persistencia de resultados de optimización.
 
 ---
 
+**Diccionario de Clases del Bounded Context Municipal Operations:**
+
+Se definen las clases principales que componen el Bounded Context "Municipal Operations", incluyendo sus atributos, métodos y relaciones clave.
+
+**Aggregates**
+
+**1. `District` (Aggregate Root)**
+
+Representa un distrito municipal con capacidad de gestión de recursos, presupuesto, límites geográficos y operaciones administrativas, incluyendo métricas de rendimiento y asignación de personal.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `id` | `Long` | `private` | Identificador único del distrito. |
+| `districtId` | `DistrictId` | `private` | Identificador de dominio del distrito. |
+| `name` | `String` | `private` | Nombre descriptivo del distrito. |
+| `municipalityId` | `MunicipalityId` | `private` | Identificador de la municipalidad asociada. |
+| `administratorId` | `AdministratorId` | `private` | Identificador del administrador asignado. |
+| `boundaries` | `GeographicBoundary` | `private` | Límites geográficos del distrito. |
+| `population` | `Population` | `private` | Población del distrito. |
+| `budget` | `Budget` | `private` | Presupuesto asignado al distrito. |
+| `operationalStatus` | `OperationalStatus` | `private` | Estado operacional actual del distrito. |
+| `resources` | `List<Resource>` | `private` | Lista de recursos asignados al distrito. |
+| `performanceMetrics` | `PerformanceMetrics` | `private` | Métricas de rendimiento del distrito. |
+| `version` | `Long` | `private` | Versión para control de concurrencia optimista. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `District()` | `Constructor` | `protected` | Constructor protegido para uso exclusivo del repositorio. |
+| `District(name, municipalityId, boundaries)` | `Constructor` | `public` | Constructor que instancia un distrito con datos básicos. |
+| `allocateResource(resource)` | `void` | `public` | Asigna un recurso al distrito. |
+| `deallocateResource(resourceId)` | `void` | `public` | Desasigna un recurso del distrito. |
+| `updateBudget(newBudget)` | `void` | `public` | Actualiza el presupuesto del distrito. |
+| `assignAdministrator(administratorId)` | `void` | `public` | Asigna un administrador al distrito. |
+| `calculateOperationalCost()` | `MonetaryAmount` | `public` | Calcula el costo operacional del distrito. |
+| `isWithinBoundaries(location)` | `boolean` | `public` | Determina si una ubicación está dentro de los límites. |
+| `hasAvailableCapacity()` | `boolean` | `public` | Determina si el distrito tiene capacidad disponible. |
+| `getResourceUtilization()` | `ResourceUtilization` | `public` | Obtiene la utilización actual de recursos. |
+| `publishDomainEvents()` | `List<DomainEvent>` | `public` | Publica eventos de dominio relacionados con cambios de estado. |
+
+**2. `Vehicle` (Aggregate Root)**
+
+Representa un vehículo municipal para recolección de residuos con capacidad de seguimiento GPS, historial de mantenimiento y asignación de conductores.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `id` | `Long` | `private` | Identificador único del vehículo. |
+| `vehicleId` | `VehicleId` | `private` | Identificador de dominio del vehículo. |
+| `registrationNumber` | `String` | `private` | Número de registro del vehículo. |
+| `vehicleType` | `VehicleType` | `private` | Tipo de vehículo (camión recolector, mantenimiento, etc.). |
+| `capacity` | `VehicleCapacity` | `private` | Capacidad de carga del vehículo. |
+| `fuelType` | `FuelType` | `private` | Tipo de combustible que utiliza. |
+| `status` | `VehicleStatus` | `private` | Estado actual del vehículo. |
+| `districtId` | `DistrictId` | `private` | Identificador del distrito asignado. |
+| `currentDriverId` | `DriverId` | `private` | Identificador del conductor actual. |
+| `maintenanceHistory` | `List<MaintenanceRecord>` | `private` | Historial de mantenimientos realizados. |
+| `operationalMetrics` | `OperationalMetrics` | `private` | Métricas operacionales del vehículo. |
+| `gpsTracker` | `GPSTracker` | `private` | Dispositivo de seguimiento GPS. |
+| `lastInspectionDate` | `LocalDateTime` | `private` | Fecha de la última inspección. |
+| `nextMaintenanceDate` | `LocalDateTime` | `private` | Fecha programada para el próximo mantenimiento. |
+| `version` | `Long` | `private` | Versión para control de concurrencia optimista. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `Vehicle()` | `Constructor` | `protected` | Constructor protegido para uso exclusivo del repositorio. |
+| `Vehicle(registrationNumber, vehicleType, capacity)` | `Constructor` | `public` | Constructor que instancia un vehículo con datos básicos. |
+| `assignToDistrict(districtId)` | `void` | `public` | Asigna el vehículo a un distrito específico. |
+| `assignDriver(driverId)` | `void` | `public` | Asigna un conductor al vehículo. |
+| `scheduleMaintenance(maintenanceType, scheduledDate)` | `void` | `public` | Programa un mantenimiento para el vehículo. |
+| `recordMaintenance(record)` | `void` | `public` | Registra un mantenimiento realizado. |
+| `updateStatus(newStatus)` | `void` | `public` | Actualiza el estado del vehículo. |
+| `isAvailableForRoute()` | `boolean` | `public` | Determina si está disponible para asignar a una ruta. |
+| `requiresMaintenance()` | `boolean` | `public` | Determina si requiere mantenimiento. |
+| `calculateOperationalCost()` | `MonetaryAmount` | `public` | Calcula el costo operacional del vehículo. |
+| `updateLocation(location)` | `void` | `public` | Actualiza la ubicación actual del vehículo. |
+| `publishDomainEvents()` | `List<DomainEvent>` | `public` | Publica eventos de dominio relacionados con cambios de estado. |
+
+**3. `Driver` (Aggregate Root)**
+
+Representa un conductor municipal con información personal, licencias, horarios de trabajo, certificaciones y registro de rendimiento.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `id` | `Long` | `private` | Identificador único del conductor. |
+| `driverId` | `DriverId` | `private` | Identificador de dominio del conductor. |
+| `personalInfo` | `PersonalInfo` | `private` | Información personal del conductor. |
+| `licenseInfo` | `LicenseInfo` | `private` | Información de licencia de conducir. |
+| `employmentStatus` | `EmploymentStatus` | `private` | Estado laboral del conductor. |
+| `districtId` | `DistrictId` | `private` | Identificador del distrito asignado. |
+| `assignedVehicleId` | `VehicleId` | `private` | Identificador del vehículo asignado. |
+| `workSchedule` | `WorkSchedule` | `private` | Horario de trabajo del conductor. |
+| `performanceRecord` | `PerformanceRecord` | `private` | Registro de rendimiento del conductor. |
+| `certifications` | `List<Certification>` | `private` | Lista de certificaciones del conductor. |
+| `contactInfo` | `ContactInfo` | `private` | Información de contacto del conductor. |
+| `hireDate` | `LocalDateTime` | `private` | Fecha de contratación. |
+| `version` | `Long` | `private` | Versión para control de concurrencia optimista. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `Driver()` | `Constructor` | `protected` | Constructor protegido para uso exclusivo del repositorio. |
+| `Driver(personalInfo, licenseInfo)` | `Constructor` | `public` | Constructor que instancia un conductor con datos básicos. |
+| `assignToDistrict(districtId)` | `void` | `public` | Asigna el conductor a un distrito específico. |
+| `assignVehicle(vehicleId)` | `void` | `public` | Asigna un vehículo al conductor. |
+| `updateWorkSchedule(schedule)` | `void` | `public` | Actualiza el horario de trabajo del conductor. |
+| `recordPerformance(metrics)` | `void` | `public` | Registra métricas de rendimiento del conductor. |
+| `addCertification(certification)` | `void` | `public` | Agrega una nueva certificación al conductor. |
+| `isAvailableForAssignment()` | `boolean` | `public` | Determina si está disponible para asignación. |
+| `canOperateVehicle(vehicleType)` | `boolean` | `public` | Determina si puede operar un tipo específico de vehículo. |
+| `calculateWorkingHours(period)` | `Duration` | `public` | Calcula las horas trabajadas en un período. |
+| `publishDomainEvents()` | `List<DomainEvent>` | `public` | Publica eventos de dominio relacionados con cambios de estado. |
+
+---
+
+**Entities**
+
+**4. `Resource` (Entity)**
+
+Representa un recurso municipal asignable a distritos, con capacidad de utilización, estado y costos asociados.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `id` | `Long` | `private` | Identificador único del recurso. |
+| `resourceId` | `ResourceId` | `private` | Identificador de dominio del recurso. |
+| `resourceType` | `ResourceType` | `private` | Tipo de recurso (financiero, humano, equipo). |
+| `name` | `String` | `private` | Nombre descriptivo del recurso. |
+| `description` | `String` | `private` | Descripción detallada del recurso. |
+| `capacity` | `ResourceCapacity` | `private` | Capacidad máxima del recurso. |
+| `currentUtilization` | `ResourceUtilization` | `private` | Utilización actual del recurso. |
+| `status` | `ResourceStatus` | `private` | Estado actual del recurso. |
+| `acquisitionCost` | `MonetaryAmount` | `private` | Costo de adquisición del recurso. |
+| `maintenanceCost` | `MonetaryAmount` | `private` | Costo de mantenimiento del recurso. |
+| `location` | `Location` | `private` | Ubicación física del recurso. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `Resource(resourceType, name, capacity)` | `Constructor` | `public` | Constructor que instancia un recurso con datos básicos. |
+| `allocate(amount)` | `void` | `public` | Asigna una cantidad del recurso. |
+| `deallocate(amount)` | `void` | `public` | Libera una cantidad del recurso. |
+| `isAvailable()` | `boolean` | `public` | Determina si el recurso está disponible. |
+| `getUtilizationPercentage()` | `Double` | `public` | Obtiene el porcentaje de utilización actual. |
+
+**5. `MaintenanceRecord` (Entity)**
+
+Representa un registro de mantenimiento realizado en un vehículo, con información de programación, costos y estado de finalización.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `id` | `Long` | `private` | Identificador único del registro. |
+| `recordId` | `MaintenanceRecordId` | `private` | Identificador de dominio del registro. |
+| `vehicleId` | `VehicleId` | `private` | Identificador del vehículo mantenido. |
+| `maintenanceType` | `MaintenanceType` | `private` | Tipo de mantenimiento realizado. |
+| `scheduledDate` | `LocalDateTime` | `private` | Fecha programada para el mantenimiento. |
+| `completedDate` | `LocalDateTime` | `private` | Fecha de finalización del mantenimiento. |
+| `description` | `String` | `private` | Descripción del mantenimiento realizado. |
+| `cost` | `MonetaryAmount` | `private` | Costo total del mantenimiento. |
+| `technicianId` | `TechnicianId` | `private` | Identificador del técnico responsable. |
+| `status` | `MaintenanceStatus` | `private` | Estado del mantenimiento. |
+| `notes` | `String` | `private` | Notas adicionales del mantenimiento. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `MaintenanceRecord(vehicleId, maintenanceType)` | `Constructor` | `public` | Constructor que instancia un registro con datos básicos. |
+| `complete(completedDate, cost)` | `void` | `public` | Marca el mantenimiento como completado. |
+| `addNotes(notes)` | `void` | `public` | Agrega notas al registro de mantenimiento. |
+| `isOverdue()` | `boolean` | `public` | Determina si el mantenimiento está atrasado. |
+
+---
+
+**Value Objects**
+
+**6. `DistrictId` (Value Object)**
+
+Identificador único inmutable para un distrito en el sistema.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `districtId` | `Long` | `private` | Valor numérico del identificador del distrito. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `isValid()` | `Boolean` | `public` | Valida que el identificador sea válido. |
+
+**7. `VehicleId` (Value Object)**
+
+Identificador único inmutable para un vehículo en el sistema.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `vehicleId` | `Long` | `private` | Valor numérico del identificador del vehículo. |
+
+**8. `DriverId` (Value Object)**
+
+Identificador único inmutable para un conductor en el sistema.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `driverId` | `Long` | `private` | Valor numérico del identificador del conductor. |
+
+**9. `ResourceId` (Value Object)**
+
+Identificador único inmutable para un recurso en el sistema.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `resourceId` | `Long` | `private` | Valor numérico del identificador del recurso. |
+
+**10. `MaintenanceRecordId` (Value Object)**
+
+Identificador único inmutable para un registro de mantenimiento en el sistema.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `recordId` | `Long` | `private` | Valor numérico del identificador del registro. |
+
+**11. `GeographicBoundary` (Value Object)**
+
+Define los límites geográficos de un distrito con capacidades de cálculo de área y validación de ubicaciones.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `coordinates` | `List<Coordinate>` | `private` | Lista de coordenadas que definen el perímetro. |
+| `area` | `Double` | `private` | Área total del distrito en kilómetros cuadrados. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `contains(location)` | `Boolean` | `public` | Determina si una ubicación está dentro de los límites. |
+| `calculateArea()` | `Double` | `public` | Calcula el área del distrito. |
+| `getCenter()` | `Location` | `public` | Obtiene el centro geográfico del distrito. |
+
+**12. `VehicleCapacity` (Value Object)**
+
+Define la capacidad de carga de un vehículo en volumen y peso.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `volumeInCubicMeters` | `Double` | `private` | Capacidad de volumen en metros cúbicos. |
+| `weightInKilograms` | `Double` | `private` | Capacidad de peso en kilogramos. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `canAccommodate(load)` | `Boolean` | `public` | Determina si puede acomodar una carga específica. |
+| `getRemainingCapacity(currentLoad)` | `VehicleCapacity` | `public` | Calcula la capacidad restante. |
+
+**13. `Budget` (Value Object)**
+
+Representa el presupuesto asignado a un distrito con categorías y controles fiscales.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `amount` | `MonetaryAmount` | `private` | Monto total del presupuesto. |
+| `fiscalYear` | `Year` | `private` | Año fiscal del presupuesto. |
+| `categories` | `Map<BudgetCategory, MonetaryAmount>` | `private` | Distribución por categorías presupuestarias. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `allocate(category, amount)` | `Budget` | `public` | Asigna fondos a una categoría específica. |
+| `hasAvailableFunds(amount)` | `Boolean` | `public` | Verifica si hay fondos disponibles. |
+
+**14. `PerformanceMetrics` (Value Object)**
+
+Métricas consolidadas de rendimiento para evaluación de desempeño.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `efficiency` | `Double` | `private` | Métrica de eficiencia (0-100). |
+| `costEffectiveness` | `Double` | `private` | Métrica de costo-efectividad. |
+| `customerSatisfaction` | `Double` | `private` | Métrica de satisfacción del cliente. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `calculateOverallScore()` | `Double` | `public` | Calcula la puntuación general de rendimiento. |
+| `compare(other)` | `ComparisonResult` | `public` | Compara con otras métricas de rendimiento. |
+
+**15. `WorkSchedule` (Value Object)**
+
+Define el horario de trabajo de un conductor con turnos y días laborables.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `shifts` | `List<WorkShift>` | `private` | Lista de turnos de trabajo. |
+| `workingDays` | `Set<DayOfWeek>` | `private` | Días de la semana laborables. |
+| `totalHoursPerWeek` | `Duration` | `private` | Total de horas por semana. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `isWorkingDay(date)` | `Boolean` | `public` | Determina si es un día laboral. |
+| `getShiftForDate(date)` | `Optional<WorkShift>` | `public` | Obtiene el turno para una fecha específica. |
+
+**16. `PersonalInfo` (Value Object)**
+
+Información personal de un conductor con datos de identificación.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `firstName` | `String` | `private` | Nombre del conductor. |
+| `lastName` | `String` | `private` | Apellido del conductor. |
+| `dateOfBirth` | `LocalDate` | `private` | Fecha de nacimiento. |
+| `nationalId` | `String` | `private` | Número de identificación nacional. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `getFullName()` | `String` | `public` | Obtiene el nombre completo. |
+| `getAge()` | `Integer` | `public` | Calcula la edad actual. |
+
+**17. `LicenseInfo` (Value Object)**
+
+Información de licencia de conducir con validaciones de vigencia.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `licenseNumber` | `String` | `private` | Número de licencia de conducir. |
+| `licenseType` | `LicenseType` | `private` | Tipo de licencia (categoría). |
+| `issueDate` | `LocalDate` | `private` | Fecha de emisión de la licencia. |
+| `expiryDate` | `LocalDate` | `private` | Fecha de vencimiento de la licencia. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `isValid()` | `Boolean` | `public` | Determina si la licencia está vigente. |
+| `isExpired()` | `Boolean` | `public` | Determina si la licencia está vencida. |
+
+**18. `ResourceCapacity` (Value Object)**
+
+Define la capacidad máxima de un recurso con unidades de medida.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `maxCapacity` | `Double` | `private` | Capacidad máxima del recurso. |
+| `unit` | `String` | `private` | Unidad de medida de la capacidad. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `canAccommodate(amount)` | `Boolean` | `public` | Determina si puede acomodar una cantidad. |
+
+**19. `ResourceUtilization` (Value Object)**
+
+Representa la utilización actual de un recurso con cálculos de porcentaje.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `currentUsage` | `Double` | `private` | Uso actual del recurso. |
+| `maxCapacity` | `Double` | `private` | Capacidad máxima del recurso. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `getUtilizationPercentage()` | `Double` | `public` | Calcula el porcentaje de utilización. |
+| `hasCapacityFor(amount)` | `Boolean` | `public` | Determina si hay capacidad para una cantidad. |
+
+---
+
+**Enums**
+
+**20. `OperationalStatus` (Enum)**
+
+Estados operacionales posibles de un distrito.
+
+**Valores:**
+
+| Valor | Descripción |
+| ----- | ----------- |
+| `ACTIVE` | Distrito operativo y funcional. |
+| `INACTIVE` | Distrito temporalmente inactivo. |
+| `MAINTENANCE` | Distrito en mantenimiento. |
+| `SUSPENDED` | Distrito suspendido por problemas. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `canAcceptNewResources()` | `boolean` | `public` | Determina si puede aceptar nuevos recursos. |
+| `allowsOperations()` | `boolean` | `public` | Determina si permite operaciones. |
+
+**21. `VehicleStatus` (Enum)**
+
+Estados posibles de un vehículo durante su ciclo de vida.
+
+**Valores:**
+
+| Valor | Descripción |
+| ----- | ----------- |
+| `AVAILABLE` | Vehículo disponible para asignación. |
+| `IN_USE` | Vehículo en uso activo. |
+| `MAINTENANCE` | Vehículo en mantenimiento. |
+| `OUT_OF_SERVICE` | Vehículo fuera de servicio. |
+| `RETIRED` | Vehículo retirado del servicio. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `isOperational()` | `boolean` | `public` | Determina si está operativo. |
+| `canBeAssigned()` | `boolean` | `public` | Determina si puede ser asignado. |
+
+**22. `EmploymentStatus` (Enum)**
+
+Estados laborales posibles de un conductor.
+
+**Valores:**
+
+| Valor | Descripción |
+| ----- | ----------- |
+| `ACTIVE` | Conductor activo y disponible. |
+| `ON_LEAVE` | Conductor con licencia temporal. |
+| `SUSPENDED` | Conductor suspendido. |
+| `TERMINATED` | Conductor con contrato terminado. |
+| `RETIRED` | Conductor jubilado. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `isActive()` | `boolean` | `public` | Determina si está activo. |
+| `canBeAssigned()` | `boolean` | `public` | Determina si puede ser asignado. |
+
+**23. `ResourceStatus` (Enum)**
+
+Estados posibles de un recurso municipal.
+
+**Valores:**
+
+| Valor | Descripción |
+| ----- | ----------- |
+| `AVAILABLE` | Recurso disponible para asignación. |
+| `ALLOCATED` | Recurso asignado a un distrito. |
+| `MAINTENANCE` | Recurso en mantenimiento. |
+| `DEPLETED` | Recurso agotado o sin disponibilidad. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `isAvailable()` | `boolean` | `public` | Determina si está disponible. |
+| `canBeAllocated()` | `boolean` | `public` | Determina si puede ser asignado. |
+
+**24. `MaintenanceStatus` (Enum)**
+
+Estados posibles de un registro de mantenimiento.
+
+**Valores:**
+
+| Valor | Descripción |
+| ----- | ----------- |
+| `SCHEDULED` | Mantenimiento programado. |
+| `IN_PROGRESS` | Mantenimiento en progreso. |
+| `COMPLETED` | Mantenimiento completado. |
+| `CANCELLED` | Mantenimiento cancelado. |
+| `OVERDUE` | Mantenimiento atrasado. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `isCompleted()` | `boolean` | `public` | Determina si está completado. |
+| `isOverdue()` | `boolean` | `public` | Determina si está atrasado. |
+
+---
+
+**Application Services**
+
+**25. `DistrictApplicationService` (Application Service)**
+
+Servicio de aplicación que coordina las operaciones de negocio relacionadas con distritos municipales.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `districtRepository` | `DistrictRepository` | `private` | Repositorio para persistencia de distritos. |
+| `districtDomainService` | `DistrictDomainService` | `private` | Servicio de dominio para lógica compleja. |
+| `districtFactory` | `DistrictFactory` | `private` | Factory para creación de distritos. |
+| `resourceAllocationService` | `ResourceAllocationService` | `private` | Servicio de asignación de recursos. |
+| `eventPublisher` | `DomainEventPublisher` | `private` | Publicador de eventos de dominio. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `createDistrict(name, municipalityId, boundaries, population, initialBudget, administratorId)` | `District` | `public` | Crea un nuevo distrito en el sistema. |
+| `updateDistrictBudget(districtId, newBudget)` | `void` | `public` | Actualiza el presupuesto de un distrito. |
+| `assignAdministrator(districtId, administratorId)` | `void` | `public` | Asigna un administrador a un distrito. |
+| `allocateResource(districtId, resourceType, amount, allocationPeriod)` | `void` | `public` | Asigna un recurso a un distrito. |
+| `deallocateResource(districtId, resourceId)` | `void` | `public` | Desasigna un recurso de un distrito. |
+| `getDistrictById(districtId)` | `Optional<District>` | `public` | Obtiene un distrito por su identificador. |
+| `getDistrictsByMunicipality(municipalityId)` | `List<District>` | `public` | Obtiene distritos de una municipalidad. |
+| `generatePerformanceReport(districtId, period)` | `PerformanceReport` | `public` | Genera reporte de rendimiento de un distrito. |
+
+**26. `VehicleApplicationService` (Application Service)**
+
+Servicio de aplicación para gestión de vehículos municipales y su mantenimiento.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `vehicleRepository` | `VehicleRepository` | `private` | Repositorio para persistencia de vehículos. |
+| `vehicleDomainService` | `VehicleDomainService` | `private` | Servicio de dominio para lógica compleja. |
+| `vehicleFactory` | `VehicleFactory` | `private` | Factory para creación de vehículos. |
+| `fleetManagementService` | `FleetManagementService` | `private` | Servicio de gestión de flota. |
+| `eventPublisher` | `DomainEventPublisher` | `private` | Publicador de eventos de dominio. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `registerVehicle(registrationNumber, vehicleType, capacity, fuelType, districtId)` | `Vehicle` | `public` | Registra un nuevo vehículo en el sistema. |
+| `assignVehicleToDistrict(vehicleId, districtId)` | `void` | `public` | Asigna un vehículo a un distrito. |
+| `assignDriverToVehicle(vehicleId, driverId)` | `void` | `public` | Asigna un conductor a un vehículo. |
+| `scheduleMaintenance(vehicleId, maintenanceType, scheduledDate, priority)` | `void` | `public` | Programa mantenimiento para un vehículo. |
+| `updateVehicleStatus(vehicleId, newStatus)` | `void` | `public` | Actualiza el estado de un vehículo. |
+| `getVehicleById(vehicleId)` | `Optional<Vehicle>` | `public` | Obtiene un vehículo por su identificador. |
+| `getVehiclesByDistrict(districtId, status)` | `List<Vehicle>` | `public` | Obtiene vehículos de un distrito por estado. |
+| `getMaintenanceHistory(vehicleId)` | `List<MaintenanceRecord>` | `public` | Obtiene historial de mantenimiento de un vehículo. |
+
+**27. `DriverApplicationService` (Application Service)**
+
+Servicio de aplicación para gestión de conductores municipales y su rendimiento.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `driverRepository` | `DriverRepository` | `private` | Repositorio para persistencia de conductores. |
+| `driverDomainService` | `DriverDomainService` | `private` | Servicio de dominio para lógica compleja. |
+| `driverFactory` | `DriverFactory` | `private` | Factory para creación de conductores. |
+| `performanceAnalysisService` | `PerformanceAnalysisService` | `private` | Servicio de análisis de rendimiento. |
+| `eventPublisher` | `DomainEventPublisher` | `private` | Publicador de eventos de dominio. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `registerDriver(personalInfo, licenseInfo, districtId, hireDate, initialCertifications)` | `Driver` | `public` | Registra un nuevo conductor en el sistema. |
+| `assignDriverToDistrict(driverId, districtId)` | `void` | `public` | Asigna un conductor a un distrito. |
+| `updateWorkSchedule(driverId, schedule)` | `void` | `public` | Actualiza el horario de trabajo de un conductor. |
+| `addCertification(driverId, certification)` | `void` | `public` | Agrega una certificación a un conductor. |
+| `updatePerformance(driverId, metrics)` | `void` | `public` | Actualiza métricas de rendimiento de un conductor. |
+| `getDriverById(driverId)` | `Optional<Driver>` | `public` | Obtiene un conductor por su identificador. |
+| `getAvailableDrivers(districtId, shiftDate)` | `List<Driver>` | `public` | Obtiene conductores disponibles para una fecha. |
+| `getDriverPerformance(driverId, period)` | `PerformanceRecord` | `public` | Obtiene registro de rendimiento de un conductor. |
+
+---
+
+**Domain Services**
+
+**28. `DistrictDomainService` (Domain Service)**
+
+Servicio de dominio que implementa lógica de negocio compleja relacionada con distritos.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `validateDistrictCreation(district)` | `ValidationResult` | `public` | Valida la creación de un nuevo distrito. |
+| `calculateOptimalResourceDistribution(districts)` | `ResourceDistribution` | `public` | Calcula distribución óptima de recursos. |
+| `determineDistrictPriority(districts)` | `List<District>` | `public` | Determina prioridad entre distritos. |
+| `checkDistrictBoundaryConflicts(district, existingDistricts)` | `List<BoundaryConflict>` | `public` | Verifica conflictos de límites geográficos. |
+| `estimateOperationalCost(district)` | `MonetaryAmount` | `public` | Estima el costo operacional de un distrito. |
+
+**29. `VehicleDomainService` (Domain Service)**
+
+Servicio de dominio para lógica compleja relacionada con vehículos.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `validateVehicleRegistration(vehicle)` | `ValidationResult` | `public` | Valida el registro de un nuevo vehículo. |
+| `calculateOptimalMaintenanceSchedule(vehicle)` | `MaintenanceSchedule` | `public` | Calcula programación óptima de mantenimiento. |
+| `determineVehicleAssignment(vehicle, availableRoutes)` | `AssignmentRecommendation` | `public` | Determina asignación óptima de vehículo. |
+| `checkVehicleCompatibility(vehicle, route)` | `CompatibilityResult` | `public` | Verifica compatibilidad vehículo-ruta. |
+| `estimateVehicleLifecycle(vehicle)` | `LifecycleEstimate` | `public` | Estima el ciclo de vida del vehículo. |
+
+**30. `DriverDomainService` (Domain Service)**
+
+Servicio de dominio para lógica compleja relacionada con conductores.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `validateDriverRegistration(driver)` | `ValidationResult` | `public` | Valida el registro de un nuevo conductor. |
+| `calculateOptimalWorkSchedule(driver, workload)` | `WorkSchedule` | `public` | Calcula horario óptimo de trabajo. |
+| `determineDriverAssignment(driver, availableVehicles)` | `AssignmentRecommendation` | `public` | Determina asignación óptima de conductor. |
+| `checkDriverQualifications(driver, vehicleType)` | `QualificationResult` | `public` | Verifica calificaciones del conductor. |
+| `estimateDriverPerformance(driver)` | `PerformanceProjection` | `public` | Estima el rendimiento futuro del conductor. |
+
+**31. `ResourceAllocationService` (Domain Service)**
+
+Servicio especializado en asignación y optimización de recursos municipales.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `allocateResources(district, requirements)` | `AllocationResult` | `public` | Asigna recursos según requerimientos. |
+| `optimizeResourceDistribution(districts)` | `OptimizationResult` | `public` | Optimiza distribución de recursos. |
+| `calculateResourceNeeds(district, projectedDemand)` | `ResourceRequirements` | `public` | Calcula necesidades de recursos. |
+| `balanceResourceUtilization(districts)` | `BalancingResult` | `public` | Balancea utilización de recursos. |
+
+**32. `FleetManagementService` (Domain Service)**
+
+Servicio para gestión integral de la flota de vehículos.
+
+**Atributos Principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+| -------- | ---- | ----------- | ----------- |
+| `maintenanceStrategy` | `MaintenanceStrategy` | `private` | Estrategia de mantenimiento actual. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `assignVehicleToRoute(vehicleId, routeId)` | `AssignmentResult` | `public` | Asigna vehículo a una ruta específica. |
+| `scheduleFleetMaintenance(vehicles)` | `MaintenanceSchedule` | `public` | Programa mantenimiento para la flota. |
+| `calculateFleetUtilization(district)` | `FleetUtilizationReport` | `public` | Calcula utilización de flota por distrito. |
+| `optimizeFleetDistribution(districts)` | `FleetOptimizationResult` | `public` | Optimiza distribución de vehículos. |
+| `setMaintenanceStrategy(strategy)` | `void` | `public` | Establece estrategia de mantenimiento. |
+
+**33. `PerformanceAnalysisService` (Domain Service)**
+
+Servicio para análisis de rendimiento y generación de reportes.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `analyzeDistrictPerformance(district, period)` | `PerformanceReport` | `public` | Analiza rendimiento de un distrito. |
+| `compareDistrictPerformance(districts)` | `ComparisonReport` | `public` | Compara rendimiento entre distritos. |
+| `calculateKPIs(district)` | `Map<KPI, Double>` | `public` | Calcula indicadores clave de rendimiento. |
+| `generateEfficiencyReport(entity, period)` | `EfficiencyReport` | `public` | Genera reporte de eficiencia. |
+
+---
+
+**Strategies**
+
+**34. `MaintenanceStrategy` (Strategy Interface)**
+
+Interfaz que define el contrato para diferentes estrategias de mantenimiento de vehículos.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `scheduleMaintenance(vehicle, currentDate)` | `MaintenanceSchedule` | `public` | Programa mantenimiento según la estrategia. |
+| `calculateMaintenanceCost(vehicle, maintenanceType)` | `MonetaryAmount` | `public` | Calcula costo de mantenimiento. |
+
+**35. `PreventiveMaintenanceStrategy` (Strategy)**
+
+Implementación de estrategia de mantenimiento preventivo.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `scheduleMaintenance(vehicle, currentDate)` | `MaintenanceSchedule` | `public` | Programa mantenimiento preventivo. |
+| `calculateMaintenanceCost(vehicle, maintenanceType)` | `MonetaryAmount` | `public` | Calcula costo de mantenimiento preventivo. |
+
+**36. `CorrectiveMaintenanceStrategy` (Strategy)**
+
+Implementación de estrategia de mantenimiento correctivo.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `scheduleMaintenance(vehicle, currentDate)` | `MaintenanceSchedule` | `public` | Programa mantenimiento correctivo. |
+| `calculateMaintenanceCost(vehicle, maintenanceType)` | `MonetaryAmount` | `public` | Calcula costo de mantenimiento correctivo. |
+
+**37. `PredictiveMaintenanceStrategy` (Strategy)**
+
+Implementación de estrategia de mantenimiento predictivo.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `scheduleMaintenance(vehicle, currentDate)` | `MaintenanceSchedule` | `public` | Programa mantenimiento predictivo. |
+| `calculateMaintenanceCost(vehicle, maintenanceType)` | `MonetaryAmount` | `public` | Calcula costo de mantenimiento predictivo. |
+
+---
+
+**Factories**
+
+**38. `DistrictFactory` (Factory)**
+
+Factory para la creación de instancias de District con validaciones y configuraciones por defecto.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `createDistrict(name, municipalityId, boundaries, population, initialBudget)` | `District` | `public` | Crea un distrito con parámetros completos. |
+| `createUrbanDistrict(name, population)` | `District` | `public` | Crea un distrito urbano con configuración predeterminada. |
+| `createRuralDistrict(name, area)` | `District` | `public` | Crea un distrito rural con configuración predeterminada. |
+
+**39. `VehicleFactory` (Factory)**
+
+Factory para la creación de vehículos según diferentes tipos y especificaciones.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `createVehicle(registrationNumber, vehicleType, capacity, fuelType)` | `Vehicle` | `public` | Crea un vehículo con especificaciones completas. |
+| `createCollectionTruck(registrationNumber, capacity)` | `Vehicle` | `public` | Crea un camión recolector especializado. |
+| `createMaintenanceVehicle(registrationNumber)` | `Vehicle` | `public` | Crea un vehículo de mantenimiento. |
+
+**40. `DriverFactory` (Factory)**
+
+Factory para la creación de conductores con diferentes configuraciones iniciales.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `createDriver(personalInfo, licenseInfo)` | `Driver` | `public` | Crea un conductor con información básica. |
+| `createDriverWithCertifications(personalInfo, licenseInfo, certifications)` | `Driver` | `public` | Crea un conductor con certificaciones iniciales. |
+
+**41. `ResourceFactory` (Factory)**
+
+Factory para la creación de recursos municipales de diferentes tipos.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `createResource(resourceType, name, capacity)` | `Resource` | `public` | Crea un recurso con especificaciones básicas. |
+| `createBudgetAllocation(district, budget)` | `Resource` | `public` | Crea una asignación presupuestaria como recurso. |
+
+---
+
+**Repository Interfaces**
+
+**42. `DistrictRepository` (Repository Interface)**
+
+Interfaz de repositorio para la persistencia y consulta de distritos.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `findById(districtId)` | `Optional<District>` | `public` | Busca un distrito por su identificador. |
+| `findByMunicipality(municipalityId)` | `List<District>` | `public` | Busca distritos de una municipalidad. |
+| `findByAdministrator(administratorId)` | `List<District>` | `public` | Busca distritos de un administrador. |
+| `findByOperationalStatus(status)` | `List<District>` | `public` | Busca distritos por estado operacional. |
+| `findByLocation(location)` | `Optional<District>` | `public` | Busca distrito que contiene una ubicación. |
+| `save(district)` | `District` | `public` | Persiste o actualiza un distrito. |
+| `delete(districtId)` | `void` | `public` | Elimina un distrito del sistema. |
+| `existsById(districtId)` | `boolean` | `public` | Verifica si existe un distrito. |
+
+**43. `VehicleRepository` (Repository Interface)**
+
+Interfaz de repositorio para la persistencia y consulta de vehículos.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `findById(vehicleId)` | `Optional<Vehicle>` | `public` | Busca un vehículo por su identificador. |
+| `findByDistrict(districtId)` | `List<Vehicle>` | `public` | Busca vehículos de un distrito. |
+| `findByStatus(status)` | `List<Vehicle>` | `public` | Busca vehículos por estado. |
+| `findByVehicleType(vehicleType)` | `List<Vehicle>` | `public` | Busca vehículos por tipo. |
+| `findByDriver(driverId)` | `Optional<Vehicle>` | `public` | Busca vehículo asignado a un conductor. |
+| `findAvailableVehicles(districtId)` | `List<Vehicle>` | `public` | Busca vehículos disponibles en un distrito. |
+| `save(vehicle)` | `Vehicle` | `public` | Persiste o actualiza un vehículo. |
+| `delete(vehicleId)` | `void` | `public` | Elimina un vehículo del sistema. |
+| `existsById(vehicleId)` | `boolean` | `public` | Verifica si existe un vehículo. |
+
+**44. `DriverRepository` (Repository Interface)**
+
+Interfaz de repositorio para la persistencia y consulta de conductores.
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|--------|-----------------|-------------|-------------|
+| `findById(driverId)` | `Optional<Driver>` | `public` | Busca un conductor por su identificador. |
+| `findByDistrict(districtId)` | `List<Driver>` | `public` | Busca conductores de un distrito. |
+| `findByEmploymentStatus(status)` | `List<Driver>` | `public` | Busca conductores por estado laboral. |
+| `findByLicenseType(licenseType)` | `List<Driver>` | `public` | Busca conductores por tipo de licencia. |
+| `findAvailableDrivers(districtId, shiftDate)` | `List<Driver>` | `public` | Busca conductores disponibles para una fecha. |
+| `save(driver)` | `Driver` | `public` | Persiste o actualiza un conductor. |
+| `delete(driverId)` | `void` | `public` | Elimina un conductor del sistema. |
+| `existsById(driverId)` | `boolean` | `public` | Verifica si existe un conductor. |
+
 
 
 ## 4.10. Database Design
