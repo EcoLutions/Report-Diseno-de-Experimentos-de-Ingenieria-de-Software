@@ -2165,6 +2165,11 @@ Encapsula toda la lógica de negocio relacionada con la gestión de perfiles de 
 
 ![Diagrama de Clases del Bounded Context Profile](assets/4.product-design/4.9.software-object-oriented-design/7.class-diagram-profile.png)
 
+**Diagrama de clases del Bounded Context IAM**:
+Encapsula toda la lógica de negocio relacionada con la gestión de identidades, autenticación, autorización y seguridad de acceso para todos los usuarios de la plataforma WasteTrack. Este contexto es fundamental para garantizar que solo los usuarios autorizados puedan acceder a las funcionalidades correspondientes a sus roles.
+
+![Diagrama de Clases del Bounded Context IAM](assets/4.product-design/4.9.software-object-oriented-design/8.class-diagram-iam.png)
+
 ### 4.9.2. Class Dictionary
 
 ## 4.10. Database Design
