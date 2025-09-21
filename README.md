@@ -2150,6 +2150,12 @@ Encapsula toda la lógica de negocio relacionada con el engagement ciudadano, ge
 
 ![Diagrama de Clases del Bounded Context Community Relations](assets/4.product-design/4.9.software-object-oriented-design/4.class-diagram-community-relations.png)
 
+**Diagrama de clases del Bounded Context Payment & Subscriptions**:
+Encapsula toda la lógica de negocio relacionada con la gestión del ciclo completo de revenue para clientes municipales, procesamiento de pagos mediante integración con Culqi, facturación automática por ciclos, y administración del lifecycle de suscripciones para asegurar sostenibilidad financiera del modelo SaaS.
+
+![Diagrama de Clases del Bounded Context Payment & Subscriptions](assets/4.product-design/4.9.software-object-oriented-design/5.class-diagram-payment-and-subscriptions.png)
+
+
 ### 4.9.2. Class Dictionary
 
 ## 4.10. Database Design
