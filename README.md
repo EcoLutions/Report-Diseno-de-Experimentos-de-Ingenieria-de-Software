@@ -2160,6 +2160,11 @@ Encapsula toda la lógica de negocio relacionada con la orquestación de comunic
 
 ![Diagrama de Clases del Bounded Context Communication Hub](assets/4.product-design/4.9.software-object-oriented-design/6.class-diagram-communication-hub.png)
 
+**Diagrama de clases del Bounded Context Profile**:
+Encapsula toda la lógica de negocio relacionada con la gestión de perfiles de usuario (ciudadanos, administradores, conductores), sus preferencias personales, configuraciones de notificación y personalización de la experiencia de usuario, asegurando la privacidad de los datos y la validación de elegibilidad del área de servicio.
+
+![Diagrama de Clases del Bounded Context Profile](assets/4.product-design/4.9.software-object-oriented-design/7.class-diagram-profile.png)
+
 ### 4.9.2. Class Dictionary
 
 ## 4.10. Database Design
