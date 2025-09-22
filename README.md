@@ -8198,6 +8198,10 @@ En esta sección se presenta el diseño de la base de datos utilizada en el proy
 
 El siguiente diagrama ilustra la estructura de la base de datos relacional utilizada en el proyecto, mostrando las tablas principales y sus relaciones de los bounded contexts identificados:
 
+![Diagrama de la base de datos relacional](./assets/4.product-design/4.10.database-design/4.10.1.relational-non-relational-database-diagram.png)
+
+Además, se incluye el [script SQL para la creación de las tablas en la base de datos relacional](./assets/4.product-design/4.10.database-design/4.10.1.relational-database-script.sql).
+
 # Capítulo V: Product Implementation
 
 ## 5.1. Software Configuration Management
