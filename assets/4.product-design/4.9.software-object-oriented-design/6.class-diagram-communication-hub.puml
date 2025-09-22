@@ -1,0 +1,763 @@
+@startuml Communication Hub: Domain Layer Class Diagram
+
+title Communication Hub: Domain Layer Class Diagram
+
+skinparam class {
+    BackgroundColor<<Aggregate Root>> #FFFFFF/B3E5FC
+    BackgroundColor<<Entity>> #FFFFFF/C8E6C9
+    BackgroundColor<<Value Object>> #FFFFFF/FFF9C4
+    BackgroundColor<<Domain Service>> #FFFFFF/FFCCBC
+    BackgroundColor<<Application Service>> #FFFFFF/E8EAF6
+    BackgroundColor<<Repository>> #FFFFFF/F3E5F5
+    BackgroundColor<<Controller>> #FFFFFF/E0F2F1
+    BackgroundColor<<Factory>> #FFFFFF/E1BEE7
+    BackgroundColor<<Strategy>> #FFFFFF/E8F5E8
+    BackgroundColor<<Enum>> #FFFFFF/FFF3E0
+    BorderColor #212121
+    ArrowColor #212121
+    FontSize 14
+}
+
+package "Communication Hub Context" {
+
+    package "Interfaces Layer" {
+        ' ===================== CONTROLLERS =====================
+        class "NotificationController" <<(C, #00695C) Controller>> {
+            - notificationService : NotificationApplicationService
+            + createNotification(request : CreateNotificationRequest) : ResponseEntity<NotificationResponse>
+            + sendNotification(requestId : Long, request : SendNotificationRequest) : ResponseEntity<DeliveryResultResponse>
+            + getNotification(requestId : Long) : ResponseEntity<NotificationResponse>
+            + getNotificationsByRecipient(recipientId : String, status : String, startDate : LocalDate, endDate : LocalDate) : ResponseEntity<List<NotificationResponse>>
+            + scheduleNotification(requestId : Long, request : ScheduleNotificationRequest) : ResponseEntity<Void>
+            + retryNotification(requestId : Long, request : RetryNotificationRequest) : ResponseEntity<DeliveryResultResponse>
+            + cancelNotification(requestId : Long) : ResponseEntity<Void>
+        }
+
+        class "TemplateController" <<(C, #00695C) Controller>> {
+            - templateService : TemplateApplicationService
+            + createTemplate(request : CreateTemplateRequest) : ResponseEntity<TemplateResponse>
+            + updateTemplate(templateId : Long, request : UpdateTemplateRequest) : ResponseEntity<Void>
+            + getTemplate(templateId : Long) : ResponseEntity<TemplateResponse>
+            + getTemplatesByType(messageType : String, channel : String) : ResponseEntity<List<TemplateResponse>>
+            + activateTemplate(templateId : Long) : ResponseEntity<Void>
+            + deactivateTemplate(templateId : Long) : ResponseEntity<Void>
+            + renderPreview(templateId : Long, request : PreviewRequest) : ResponseEntity<RenderedMessageResponse>
+        }
+
+        class "DeliveryController" <<(C, #00695C) Controller>> {
+            - deliveryService : DeliveryApplicationService
+            + getDeliveryRecord(recordId : Long) : ResponseEntity<DeliveryRecordResponse>
+            + getDeliveryHistory(requestId : Long) : ResponseEntity<List<DeliveryRecordResponse>>
+            + getDeliveryAnalytics(startDate : LocalDate, endDate : LocalDate, channel : String) : ResponseEntity<DeliveryAnalyticsResponse>
+            + updateDeliveryStatus(recordId : Long, request : UpdateDeliveryStatusRequest) : ResponseEntity<Void>
+            + getChannelPerformance(channel : String, period : String) : ResponseEntity<ChannelPerformanceResponse>
+        }
+
+        class "PreferenceController" <<(C, #00695C) Controller>> {
+            - preferenceService : PreferenceApplicationService
+            + getRecipientPreferences(recipientId : String) : ResponseEntity<RecipientPreferenceResponse>
+            + updateRecipientPreferences(recipientId : String, request : UpdatePreferencesRequest) : ResponseEntity<Void>
+            + setPreferredChannels(recipientId : String, request : SetChannelsRequest) : ResponseEntity<Void>
+            + setQuietHours(recipientId : String, request : SetQuietHoursRequest) : ResponseEntity<Void>
+        }
+    }
+
+    package "Application Layer" {
+        ' ===================== APPLICATION SERVICES =====================
+        class "NotificationApplicationService" <<(S, #5E35B1) Application Service>> {
+            - notificationRepository : NotificationRepository
+            - notificationDomainService : NotificationDomainService
+            - notificationFactory : NotificationFactory
+            - deliveryOrchestrationService : DeliveryOrchestrationService
+            - eventPublisher : DomainEventPublisher
+
+            + createNotification(sourceContext : SourceContext, recipientId : RecipientId, recipientType : RecipientType, messageType : MessageType, templateId : TemplateId, templateData : TemplateData, priority : Priority) : NotificationRequest
+            + scheduleNotification(requestId : NotificationRequestId, scheduledDate : LocalDateTime) : void
+            + sendNotification(requestId : NotificationRequestId, forceDelivery : Boolean, overrideChannels : List<DeliveryChannel>) : DeliveryResult
+            + retryNotification(requestId : NotificationRequestId, channel : DeliveryChannel) : DeliveryResult
+            + cancelNotification(requestId : NotificationRequestId) : void
+            + getNotificationById(requestId : NotificationRequestId) : Optional<NotificationRequest>
+            + getNotificationsByRecipient(recipientId : RecipientId, status : RequestStatus, dateRange : DateRange) : List<NotificationRequest>
+        }
+
+        class "TemplateApplicationService" <<(S, #5E35B1) Application Service>> {
+            - templateRepository : TemplateRepository
+            - templateDomainService : TemplateDomainService
+            - templateFactory : TemplateFactory
+            - messageRenderingService : MessageRenderingService
+            - eventPublisher : DomainEventPublisher
+
+            + createTemplate(name : String, category : TemplateCategory, messageType : MessageType, channels : List<DeliveryChannel>, subject : String, bodyTemplate : String, variables : List<TemplateVariable>) : MessageTemplate
+            + updateTemplate(templateId : TemplateId, subject : String, bodyTemplate : String, variables : List<TemplateVariable>) : void
+            + activateTemplate(templateId : TemplateId) : void
+            + deactivateTemplate(templateId : TemplateId) : void
+            + addLocalization(templateId : TemplateId, language : Language, content : LocalizedContent) : void
+            + getTemplateById(templateId : TemplateId) : Optional<MessageTemplate>
+            + getTemplatesByType(messageType : MessageType, channel : DeliveryChannel, activeOnly : Boolean) : List<MessageTemplate>
+            + renderPreview(templateId : TemplateId, data : TemplateData, language : Language) : RenderedMessage
+        }
+
+        class "DeliveryApplicationService" <<(S, #5E35B1) Application Service>> {
+            - deliveryRepository : DeliveryRepository
+            - deliveryDomainService : DeliveryDomainService
+            - deliveryRecordFactory : DeliveryRecordFactory
+            - deliveryAnalyticsService : DeliveryAnalyticsService
+            - eventPublisher : DomainEventPublisher
+
+            + recordDeliveryAttempt(requestId : NotificationRequestId, channel : DeliveryChannel, attemptNumber : Integer) : DeliveryRecord
+            + markDeliveryAsSuccessful(recordId : DeliveryRecordId, providerTransactionId : String) : void
+            + markDeliveryAsFailed(recordId : DeliveryRecordId, reason : FailureReason) : void
+            + getDeliveryRecord(recordId : DeliveryRecordId) : Optional<DeliveryRecord>
+            + getDeliveryHistory(requestId : NotificationRequestId) : List<DeliveryRecord>
+            + getDeliveryAnalytics(startDate : LocalDateTime, endDate : LocalDateTime, channel : DeliveryChannel) : DeliveryAnalytics
+            + getChannelPerformance(channel : DeliveryChannel, period : TimePeriod) : ChannelPerformance
+        }
+
+        class "PreferenceApplicationService" <<(S, #5E35B1) Application Service>> {
+            - notificationRepository : NotificationRepository
+            - preferenceDomainService : PreferenceDomainService
+            - eventPublisher : DomainEventPublisher
+
+            + getRecipientPreferences(recipientId : RecipientId) : Optional<RecipientPreference>
+            + updatePreferences(recipientId : RecipientId, preferredChannels : List<DeliveryChannel>, blockedChannels : List<DeliveryChannel>, language : Language, timezone : Timezone, frequency : NotificationFrequency) : void
+            + setQuietHours(recipientId : RecipientId, quietHours : QuietHours) : void
+            + checkNotificationEligibility(recipientId : RecipientId, messageType : MessageType, timestamp : LocalDateTime) : Boolean
+        }
+    }
+
+    package "Domain Layer" {
+        ' ===================== AGGREGATES =====================
+        class "NotificationRequest" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - requestId : NotificationRequestId
+            - sourceContext : SourceContext
+            - recipientId : RecipientId
+            - recipientType : RecipientType
+            - messageType : MessageType
+            - priority : Priority
+            - channels : List<DeliveryChannel>
+            - templateId : TemplateId
+            - templateData : TemplateData
+            - scheduledDate : LocalDateTime
+            - expiryDate : LocalDateTime
+            - status : RequestStatus
+            - deliveryAttempts : List<DeliveryAttempt>
+            - createdAt : LocalDateTime
+            - version : Long
+
+            # NotificationRequest()
+            + NotificationRequest(sourceContext : SourceContext, recipientId : RecipientId, messageType : MessageType)
+            + addDeliveryChannel(channel : DeliveryChannel) : void
+            + scheduleDelivery(scheduledDate : LocalDateTime) : void
+            + processDelivery() : DeliveryResult
+            + markAsDelivered(channel : DeliveryChannel, deliveryId : String) : void
+            + markAsFailed(channel : DeliveryChannel, reason : FailureReason) : void
+            + canBeRetried() : boolean
+            + isExpired() : boolean
+            + isScheduled() : boolean
+            + canBeProcessed() : boolean
+            + canBeCancelled() : boolean
+            + getPreferredChannel() : DeliveryChannel
+            + requiresImmediateDelivery() : boolean
+            + getAvailableActions() : List<NotificationAction>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        class "MessageTemplate" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - templateId : TemplateId
+            - name : String
+            - category : TemplateCategory
+            - messageType : MessageType
+            - channels : List<DeliveryChannel>
+            - subject : String
+            - bodyTemplate : String
+            - variables : List<TemplateVariable>
+            - localization : Map<Language, LocalizedContent>
+            - version : TemplateVersion
+            - status : TemplateStatus
+            - metadata : TemplateMetadata
+            - createdAt : LocalDateTime
+            - version : Long
+
+            # MessageTemplate()
+            + MessageTemplate(name : String, category : TemplateCategory, messageType : MessageType)
+            + updateContent(subject : String, body : String) : void
+            + addLocalization(language : Language, content : LocalizedContent) : void
+            + addVariable(variable : TemplateVariable) : void
+            + renderMessage(data : TemplateData, language : Language) : RenderedMessage
+            + isCompatibleWith(channel : DeliveryChannel) : boolean
+            + validateTemplate() : ValidationResult
+            + activate() : void
+            + deactivate() : void
+            + canBeModified() : boolean
+            + canBeActivated() : boolean
+            + canBeDeactivated() : boolean
+            + getAvailableActions() : List<TemplateAction>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        class "DeliveryRecord" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - recordId : DeliveryRecordId
+            - requestId : NotificationRequestId
+            - recipientId : RecipientId
+            - channel : DeliveryChannel
+            - providerTransactionId : String
+            - status : DeliveryStatus
+            - attemptNumber : Integer
+            - deliveryDate : LocalDateTime
+            - confirmationDate : LocalDateTime
+            - failureReason : FailureReason
+            - cost : MonetaryAmount
+            - metadata : DeliveryMetadata
+            - version : Long
+
+            # DeliveryRecord()
+            + DeliveryRecord(requestId : NotificationRequestId, channel : DeliveryChannel)
+            + markAsDelivered(providerTransactionId : String) : void
+            + markAsFailed(reason : FailureReason) : void
+            + markAsConfirmed() : void
+            + calculateDeliveryTime() : Duration
+            + isSuccessful() : boolean
+            + canBeRetried() : boolean
+            + canBeUpdated() : boolean
+            + getAvailableActions() : List<DeliveryAction>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        ' ===================== ENTITIES =====================
+        class "DeliveryAttempt" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - attemptId : AttemptId
+            - requestId : NotificationRequestId
+            - channel : DeliveryChannel
+            - attemptNumber : Integer
+            - attemptDate : LocalDateTime
+            - status : AttemptStatus
+            - providerResponse : ProviderResponse
+            - errorCode : String
+            - errorMessage : String
+            - retryDate : LocalDateTime
+
+            + DeliveryAttempt(requestId : NotificationRequestId, channel : DeliveryChannel)
+            + isSuccessful() : boolean
+            + canRetry() : boolean
+            + getNextRetryDate() : LocalDateTime
+        }
+
+        class "RecipientPreference" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - preferenceId : PreferenceId
+            - recipientId : RecipientId
+            - recipientType : RecipientType
+            - preferredChannels : List<DeliveryChannel>
+            - blockedChannels : List<DeliveryChannel>
+            - quietHours : QuietHours
+            - language : Language
+            - timezone : Timezone
+            - frequency : NotificationFrequency
+            - isActive : boolean
+
+            + RecipientPreference(recipientId : RecipientId, recipientType : RecipientType)
+            + getPreferredChannel(messageType : MessageType) : DeliveryChannel
+            + isChannelAllowed(channel : DeliveryChannel) : boolean
+            + isInQuietHours(timestamp : LocalDateTime) : boolean
+            + shouldReceiveNotification(messageType : MessageType) : boolean
+        }
+
+        class "TemplateVariable" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - variableId : VariableId
+            - name : String
+            - dataType : VariableDataType
+            - isRequired : boolean
+            - defaultValue : String
+            - validation : ValidationRule
+            - description : String
+
+            + TemplateVariable(name : String, dataType : VariableDataType)
+            + validate(value : String) : ValidationResult
+            + getFormattedValue(value : String, format : String) : String
+        }
+
+        ' ===================== ENUMS =====================
+        enum "RequestStatus" <<(E, #FFF3E0) Enum>> {
+            DRAFT
+            SCHEDULED
+            PROCESSING
+            DELIVERED
+            FAILED
+            CANCELLED
+            EXPIRED
+
+            + canTransitionTo(newStatus : RequestStatus) : boolean
+            + isDelivered() : boolean
+            + isFailed() : boolean
+            + canBeRetried() : boolean
+            + canBeCancelled() : boolean
+            + getAvailableTransitions() : List<RequestStatus>
+        }
+
+        enum "TemplateStatus" <<(E, #FFF3E0) Enum>> {
+            DRAFT
+            ACTIVE
+            INACTIVE
+            DEPRECATED
+
+            + canTransitionTo(newStatus : TemplateStatus) : boolean
+            + isActive() : boolean
+            + canBeModified() : boolean
+            + canBeActivated() : boolean
+            + getAvailableTransitions() : List<TemplateStatus>
+        }
+
+        enum "DeliveryStatus" <<(E, #FFF3E0) Enum>> {
+            PENDING
+            IN_PROGRESS
+            DELIVERED
+            FAILED
+            CONFIRMED
+
+            + canTransitionTo(newStatus : DeliveryStatus) : boolean
+            + isDelivered() : boolean
+            + isFailed() : boolean
+            + canBeUpdated() : boolean
+            + getAvailableTransitions() : List<DeliveryStatus>
+        }
+
+        enum "NotificationAction" <<(E, #FFF3E0) Enum>> {
+            SCHEDULE
+            SEND
+            RETRY
+            CANCEL
+            UPDATE_PRIORITY
+
+            + isAllowedForStatus(status : RequestStatus) : boolean
+            + requiresChannel() : boolean
+        }
+
+        enum "TemplateAction" <<(E, #FFF3E0) Enum>> {
+            ACTIVATE
+            DEACTIVATE
+            UPDATE_CONTENT
+            ADD_LOCALIZATION
+            DEPRECATE
+
+            + isAllowedForStatus(status : TemplateStatus) : boolean
+            + requiresValidation() : boolean
+        }
+
+        enum "DeliveryAction" <<(E, #FFF3E0) Enum>> {
+            RETRY
+            CONFIRM
+            UPDATE_STATUS
+            CANCEL
+
+            + isAllowedForStatus(status : DeliveryStatus) : boolean
+            + requiresProvider() : boolean
+        }
+
+        ' ===================== VALUE OBJECTS (LOCAL) =====================
+        class "NotificationRequestId" <<(V, #FFD700) Value Object>> {
+            - requestId : String
+            + isValid() : Boolean
+        }
+
+        class "TemplateId" <<(V, #FFD700) Value Object>> {
+            - templateId : String
+        }
+
+        class "DeliveryRecordId" <<(V, #FFD700) Value Object>> {
+            - recordId : String
+        }
+
+        class "DeliveryChannel" <<(V, #FFD700) Value Object>> {
+            - channel : String
+            + isEmail() : boolean
+            + isSMS() : boolean
+            + isPush() : boolean
+            + isInApp() : boolean
+            + getChannelName() : String
+        }
+
+        class "Priority" <<(V, #FFD700) Value Object>> {
+            - level : Integer
+            - description : String
+            + isHighPriority() : boolean
+            + isCritical() : boolean
+            + compareTo(other : Priority) : int
+        }
+
+        class "TemplateData" <<(V, #FFD700) Value Object>> {
+            - data : Map<String, Object>
+            + getValue(key : String) : Object
+            + containsKey(key : String) : boolean
+            + merge(other : TemplateData) : TemplateData
+        }
+
+        class "RenderedMessage" <<(V, #FFD700) Value Object>> {
+            - subject : String
+            - body : String
+            - channel : DeliveryChannel
+            - metadata : MessageMetadata
+            + getSubject() : String
+            + getBody() : String
+            + getMetadata() : MessageMetadata
+        }
+
+        class "MessageType" <<(V, #FFD700) Value Object>> {
+            - type : String
+            + isAlert() : boolean
+            + isNotification() : boolean
+            + isMarketing() : boolean
+            + isTransactional() : boolean
+        }
+
+        class "QuietHours" <<(V, #FFD700) Value Object>> {
+            - startTime : LocalTime
+            - endTime : LocalTime
+            - timezone : Timezone
+            + isInQuietPeriod(timestamp : LocalDateTime) : boolean
+            + getDuration() : Duration
+        }
+
+        class "SourceContext" <<(V, #FFD700) Value Object>> {
+            - contextName : String
+            - contextId : String
+            - metadata : Map<String, String>
+            + getFullContext() : String
+        }
+
+        ' ===================== FACTORIES (Creational Pattern) =====================
+        class "NotificationFactory" <<(F, #BA68C8) Factory>> {
+            + createUrgentNotification(recipientId : RecipientId, messageType : MessageType, data : TemplateData) : NotificationRequest
+            + createScheduledNotification(recipientId : RecipientId, messageType : MessageType, scheduledDate : LocalDateTime) : NotificationRequest
+            + createBulkNotification(recipients : List<RecipientId>, messageType : MessageType) : List<NotificationRequest>
+            + createNotification(sourceContext : SourceContext, recipientId : RecipientId, messageType : MessageType) : NotificationRequest
+        }
+
+        class "TemplateFactory" <<(F, #BA68C8) Factory>> {
+            + createEmailTemplate(name : String, subject : String, body : String) : MessageTemplate
+            + createSMSTemplate(name : String, body : String) : MessageTemplate
+            + createPushTemplate(name : String, title : String, body : String) : MessageTemplate
+            + createTemplate(name : String, category : TemplateCategory, messageType : MessageType) : MessageTemplate
+        }
+
+        class "DeliveryRecordFactory" <<(F, #BA68C8) Factory>> {
+            + createDeliveryRecord(request : NotificationRequest, channel : DeliveryChannel) : DeliveryRecord
+            + createRetryRecord(originalRecord : DeliveryRecord) : DeliveryRecord
+            + createBulkRecords(requests : List<NotificationRequest>) : List<DeliveryRecord>
+        }
+
+        ' ===================== STRATEGIES (Behavioral Pattern) =====================
+        interface "ChannelSelectionStrategy" <<(S, #81C784) Strategy>> {
+            + selectOptimalChannel(request : NotificationRequest, preferences : RecipientPreference) : DeliveryChannel
+            + getFallbackChannels(primaryChannel : DeliveryChannel) : List<DeliveryChannel>
+            + isChannelAvailable(channel : DeliveryChannel, timestamp : LocalDateTime) : boolean
+        }
+
+        class "PriorityBasedStrategy" <<(S, #81C784) Strategy>> {
+            + selectOptimalChannel(request : NotificationRequest, preferences : RecipientPreference) : DeliveryChannel
+            + getFallbackChannels(primaryChannel : DeliveryChannel) : List<DeliveryChannel>
+            + isChannelAvailable(channel : DeliveryChannel, timestamp : LocalDateTime) : boolean
+        }
+
+        class "CostOptimizedStrategy" <<(S, #81C784) Strategy>> {
+            + selectOptimalChannel(request : NotificationRequest, preferences : RecipientPreference) : DeliveryChannel
+            + getFallbackChannels(primaryChannel : DeliveryChannel) : List<DeliveryChannel>
+            + isChannelAvailable(channel : DeliveryChannel, timestamp : LocalDateTime) : boolean
+        }
+
+        class "ReliabilityBasedStrategy" <<(S, #81C784) Strategy>> {
+            + selectOptimalChannel(request : NotificationRequest, preferences : RecipientPreference) : DeliveryChannel
+            + getFallbackChannels(primaryChannel : DeliveryChannel) : List<DeliveryChannel>
+            + isChannelAvailable(channel : DeliveryChannel, timestamp : LocalDateTime) : boolean
+        }
+
+        ' ===================== DOMAIN SERVICES =====================
+        class "NotificationDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validateNotificationCreation(request : NotificationRequest) : ValidationResult
+            + determineOptimalDeliveryChannels(request : NotificationRequest, preferences : RecipientPreference) : List<DeliveryChannel>
+            + calculateDeliverySchedule(request : NotificationRequest, preferences : RecipientPreference) : LocalDateTime
+            + checkRecipientEligibility(recipientId : RecipientId, messageType : MessageType) : Boolean
+            + estimateDeliveryCost(request : NotificationRequest, channels : List<DeliveryChannel>) : MonetaryAmount
+        }
+
+        class "TemplateDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validateTemplateCreation(template : MessageTemplate) : ValidationResult
+            + validateTemplateVariables(variables : List<TemplateVariable>) : ValidationResult
+            + optimizeTemplateContent(template : MessageTemplate, channel : DeliveryChannel) : String
+            + checkTemplateDuplication(template : MessageTemplate, existingTemplates : List<MessageTemplate>) : ValidationResult
+            + generateTemplateMetrics(template : MessageTemplate, usage : UsageData) : TemplateMetrics
+        }
+
+        class "DeliveryDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validateDeliveryAttempt(record : DeliveryRecord) : ValidationResult
+            + calculateRetrySchedule(record : DeliveryRecord, attempt : Integer) : LocalDateTime
+            + estimateDeliveryTime(channel : DeliveryChannel, messageType : MessageType) : Duration
+            + checkProviderCapacity(channel : DeliveryChannel, timestamp : LocalDateTime) : Boolean
+            + calculateDeliveryCost(channel : DeliveryChannel, messageType : MessageType) : MonetaryAmount
+        }
+
+        class "DeliveryOrchestrationService" <<(S, #FF8A65) Domain Service>> {
+            - channelStrategy : ChannelSelectionStrategy
+            + orchestrateDelivery(request : NotificationRequest, preferences : RecipientPreference) : DeliveryResult
+            + handleDeliveryFailure(record : DeliveryRecord, request : NotificationRequest) : RetryStrategy
+            + optimizeDeliverySequence(requests : List<NotificationRequest>) : List<DeliveryPlan>
+            + setChannelStrategy(strategy : ChannelSelectionStrategy) : void
+            + monitorDeliveryProgress(requests : List<NotificationRequest>) : DeliveryProgress
+        }
+
+        class "MessageRenderingService" <<(S, #FF8A65) Domain Service>> {
+            + renderMessage(template : MessageTemplate, data : TemplateData, channel : DeliveryChannel) : RenderedMessage
+            + validateTemplateData(template : MessageTemplate, data : TemplateData) : ValidationResult
+            + processTemplateVariables(template : String, data : TemplateData) : String
+            + optimizeMessageForChannel(message : RenderedMessage, channel : DeliveryChannel) : RenderedMessage
+            + generatePreview(template : MessageTemplate, data : TemplateData) : RenderedMessage
+        }
+
+        class "DeliveryAnalyticsService" <<(S, #FF8A65) Domain Service>> {
+            + generateDeliveryReport(startDate : LocalDateTime, endDate : LocalDateTime) : DeliveryReport
+            + calculateChannelPerformance(channel : DeliveryChannel, period : TimePeriod) : ChannelPerformance
+            + analyzeDeliveryTrends(records : List<DeliveryRecord>) : DeliveryTrends
+            + calculateSuccessRates(channel : DeliveryChannel, messageType : MessageType) : Double
+            + generateCostAnalysis(period : TimePeriod) : CostAnalysis
+        }
+
+        class "PreferenceDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validatePreferences(preferences : RecipientPreference) : ValidationResult
+            + mergePreferences(existing : RecipientPreference, updates : RecipientPreference) : RecipientPreference
+            + determineDefaultPreferences(recipientType : RecipientType) : RecipientPreference
+            + checkConsentCompliance(preferences : RecipientPreference, messageType : MessageType) : Boolean
+            + optimizePreferences(preferences : RecipientPreference, usage : UsagePattern) : RecipientPreference
+        }
+
+        ' ===================== REPOSITORY INTERFACES =====================
+        interface "NotificationRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(requestId : NotificationRequestId) : Optional<NotificationRequest>
+            + findByRecipient(recipientId : RecipientId) : List<NotificationRequest>
+            + findByStatus(status : RequestStatus) : List<NotificationRequest>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<NotificationRequest>
+            + findScheduledNotifications(beforeDate : LocalDateTime) : List<NotificationRequest>
+            + findExpiredNotifications() : List<NotificationRequest>
+            + save(request : NotificationRequest) : NotificationRequest
+            + delete(requestId : NotificationRequestId) : void
+            + existsById(requestId : NotificationRequestId) : boolean
+        }
+
+        interface "TemplateRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(templateId : TemplateId) : Optional<MessageTemplate>
+            + findByMessageType(messageType : MessageType) : List<MessageTemplate>
+            + findByChannel(channel : DeliveryChannel) : List<MessageTemplate>
+            + findActiveTemplates() : List<MessageTemplate>
+            + findByCategory(category : TemplateCategory) : List<MessageTemplate>
+            + save(template : MessageTemplate) : MessageTemplate
+            + delete(templateId : TemplateId) : void
+            + existsById(templateId : TemplateId) : boolean
+        }
+
+        interface "DeliveryRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(recordId : DeliveryRecordId) : Optional<DeliveryRecord>
+            + findByRequestId(requestId : NotificationRequestId) : List<DeliveryRecord>
+            + findByChannel(channel : DeliveryChannel) : List<DeliveryRecord>
+            + findByStatus(status : DeliveryStatus) : List<DeliveryRecord>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<DeliveryRecord>
+            + findFailedDeliveries() : List<DeliveryRecord>
+            + save(record : DeliveryRecord) : DeliveryRecord
+            + delete(recordId : DeliveryRecordId) : void
+            + existsById(recordId : DeliveryRecordId) : boolean
+        }
+    }
+
+    package "Infrastructure Layer" {
+        ' ===================== REPOSITORY IMPLEMENTATIONS =====================
+        class "JpaNotificationRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : NotificationJpaRepository
+            - notificationMapper : NotificationMapper
+            - attemptMapper : DeliveryAttemptMapper
+            + findById(requestId : NotificationRequestId) : Optional<NotificationRequest>
+            + findByRecipient(recipientId : RecipientId) : List<NotificationRequest>
+            + findByStatus(status : RequestStatus) : List<NotificationRequest>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<NotificationRequest>
+            + findScheduledNotifications(beforeDate : LocalDateTime) : List<NotificationRequest>
+            + findExpiredNotifications() : List<NotificationRequest>
+            + save(request : NotificationRequest) : NotificationRequest
+            + delete(requestId : NotificationRequestId) : void
+            + existsById(requestId : NotificationRequestId) : boolean
+        }
+
+        class "JpaTemplateRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : TemplateJpaRepository
+            - templateMapper : TemplateMapper
+            - variableMapper : TemplateVariableMapper
+            + findById(templateId : TemplateId) : Optional<MessageTemplate>
+            + findByMessageType(messageType : MessageType) : List<MessageTemplate>
+            + findByChannel(channel : DeliveryChannel) : List<MessageTemplate>
+            + findActiveTemplates() : List<MessageTemplate>
+            + findByCategory(category : TemplateCategory) : List<MessageTemplate>
+            + save(template : MessageTemplate) : MessageTemplate
+            + delete(templateId : TemplateId) : void
+            + existsById(templateId : TemplateId) : boolean
+        }
+
+        class "JpaDeliveryRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : DeliveryJpaRepository
+            - deliveryMapper : DeliveryRecordMapper
+            + findById(recordId : DeliveryRecordId) : Optional<DeliveryRecord>
+            + findByRequestId(requestId : NotificationRequestId) : List<DeliveryRecord>
+            + findByChannel(channel : DeliveryChannel) : List<DeliveryRecord>
+            + findByStatus(status : DeliveryStatus) : List<DeliveryRecord>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<DeliveryRecord>
+            + findFailedDeliveries() : List<DeliveryRecord>
+            + save(record : DeliveryRecord) : DeliveryRecord
+            + delete(recordId : DeliveryRecordId) : void
+            + existsById(recordId : DeliveryRecordId) : boolean
+        }
+    }
+}
+
+package "Shared Kernel" {
+    package "Domain Layer" {
+        class "RecipientId" <<(V, #FFD700) Value Object>> {
+            - recipientId : String
+        }
+
+        class "Language" <<(V, #FFD700) Value Object>> {
+            - languageCode : String
+            - displayName : String
+        }
+
+        class "Timezone" <<(V, #FFD700) Value Object>> {
+            - timezoneId : String
+        }
+
+        class "MonetaryAmount" <<(V, #FFD700) Value Object>> {
+            - amount : BigDecimal
+            - currency : Currency
+        }
+
+        class "ValidationResult" <<(V, #FFD700) Value Object>> {
+            - isValid : Boolean
+            - errors : List<String>
+            - warnings : List<String>
+            + hasErrors() : Boolean
+            + hasWarnings() : Boolean
+        }
+
+        class "DateRange" <<(V, #FFD700) Value Object>> {
+            - startDate : LocalDate
+            - endDate : LocalDate
+            + contains(date : LocalDate) : Boolean
+            + getDurationInDays() : Long
+        }
+
+        interface "DomainEvent" <<(E, #FFB74D) Domain Event>> {
+            + getAggregateId() : String
+            + getOccurredOn() : LocalDateTime
+            + getEventType() : String
+        }
+
+        interface "DomainEventPublisher" <<(P, #FF8A65) Publisher>> {
+            + publish(event : DomainEvent) : void
+            + publishAll(events : List<DomainEvent>) : void
+        }
+    }
+}
+
+' ===================== RELATIONSHIPS =====================
+
+' --- Controller Dependencies ---
+NotificationController --> NotificationApplicationService : uses >
+TemplateController --> TemplateApplicationService : uses >
+DeliveryController --> DeliveryApplicationService : uses >
+PreferenceController --> PreferenceApplicationService : uses >
+
+' --- Application Service Dependencies ---
+NotificationApplicationService --> NotificationRepository : uses >
+NotificationApplicationService --> NotificationDomainService : uses >
+NotificationApplicationService --> NotificationFactory : uses >
+NotificationApplicationService --> DeliveryOrchestrationService : uses >
+NotificationApplicationService --> DomainEventPublisher : uses >
+
+TemplateApplicationService --> TemplateRepository : uses >
+TemplateApplicationService --> TemplateDomainService : uses >
+TemplateApplicationService --> TemplateFactory : uses >
+TemplateApplicationService --> MessageRenderingService : uses >
+TemplateApplicationService --> DomainEventPublisher : uses >
+
+DeliveryApplicationService --> DeliveryRepository : uses >
+DeliveryApplicationService --> DeliveryDomainService : uses >
+DeliveryApplicationService --> DeliveryRecordFactory : uses >
+DeliveryApplicationService --> DeliveryAnalyticsService : uses >
+DeliveryApplicationService --> DomainEventPublisher : uses >
+
+PreferenceApplicationService --> NotificationRepository : uses >
+PreferenceApplicationService --> PreferenceDomainService : uses >
+PreferenceApplicationService --> DomainEventPublisher : uses >
+
+' --- Repository Implementations ---
+NotificationRepository <|.. JpaNotificationRepository : implements >
+TemplateRepository <|.. JpaTemplateRepository : implements >
+DeliveryRepository <|.. JpaDeliveryRepository : implements >
+
+' --- Aggregate Root Compositions ---
+NotificationRequest *-- NotificationRequestId
+NotificationRequest *-- Priority
+NotificationRequest *-- TemplateData
+NotificationRequest *-- RequestStatus
+NotificationRequest o-- DeliveryAttempt
+NotificationRequest o-- RecipientPreference
+
+MessageTemplate *-- TemplateId
+MessageTemplate *-- TemplateStatus
+MessageTemplate o-- TemplateVariable
+
+DeliveryRecord *-- DeliveryRecordId
+DeliveryRecord *-- DeliveryStatus
+
+' --- Entity Compositions ---
+DeliveryAttempt *-- DeliveryChannel
+RecipientPreference *-- QuietHours
+TemplateVariable *-- ValidationResult
+
+' --- Shared Kernel Usage ---
+NotificationRequest ..> RecipientId : uses >
+NotificationRequest ..> DomainEvent : publishes >
+RecipientPreference ..> Language : uses >
+RecipientPreference ..> Timezone : uses >
+DeliveryRecord ..> MonetaryAmount : uses >
+DeliveryRecord ..> DomainEvent : publishes >
+MessageTemplate ..> ValidationResult : validates with >
+MessageTemplate ..> DomainEvent : publishes >
+
+' --- Factory Relationships ---
+NotificationFactory ..> NotificationRequest : creates >
+TemplateFactory ..> MessageTemplate : creates >
+DeliveryRecordFactory ..> DeliveryRecord : creates >
+
+' --- Strategy Relationships ---
+ChannelSelectionStrategy <|.. PriorityBasedStrategy : implements >
+ChannelSelectionStrategy <|.. CostOptimizedStrategy : implements >
+ChannelSelectionStrategy <|.. ReliabilityBasedStrategy : implements >
+DeliveryOrchestrationService o-- ChannelSelectionStrategy : uses >
+
+' --- Domain Service Relationships ---
+NotificationDomainService ..> NotificationRequest : operates on >
+NotificationDomainService ..> ValidationResult : returns >
+TemplateDomainService ..> MessageTemplate : operates on >
+TemplateDomainService ..> ValidationResult : returns >
+DeliveryDomainService ..> DeliveryRecord : operates on >
+DeliveryOrchestrationService ..> NotificationRequest : orchestrates >
+DeliveryOrchestrationService ..> DeliveryRecord : manages >
+MessageRenderingService ..> MessageTemplate : uses >
+MessageRenderingService ..> RenderedMessage : creates >
+DeliveryAnalyticsService ..> DeliveryRecord : analyzes >
+PreferenceDomainService ..> RecipientPreference : manages >
+
+' --- Repository Relationships ---
+NotificationRepository ..> NotificationRequest : manages >
+TemplateRepository ..> MessageTemplate : manages >
+DeliveryRepository ..> DeliveryRecord : manages >
+
+@enduml

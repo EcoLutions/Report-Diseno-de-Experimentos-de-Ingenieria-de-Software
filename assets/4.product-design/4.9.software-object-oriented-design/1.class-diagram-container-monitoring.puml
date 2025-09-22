@@ -1,0 +1,337 @@
+@startuml Container Monitoring: Domain Layer Class Diagram
+
+title Container Monitoring: Domain Layer Class Diagram
+
+skinparam class {
+    BackgroundColor<<Aggregate Root>> #FFFFFF/B3E5FC
+    BackgroundColor<<Entity>> #FFFFFF/C8E6C9
+    BackgroundColor<<Value Object>> #FFFFFF/FFF9C4
+    BackgroundColor<<Domain Service>> #FFFFFF/FFCCBC
+    BackgroundColor<<Application Service>> #FFFFFF/E8EAF6
+    BackgroundColor<<Repository>> #FFFFFF/F3E5F5
+    BackgroundColor<<Controller>> #FFFFFF/E0F2F1
+    BackgroundColor<<Factory>> #FFFFFF/E1BEE7
+    BackgroundColor<<Strategy>> #FFFFFF/E8F5E8
+    BackgroundColor<<Observer>> #FFFFFF/FFF3E0
+    BorderColor #212121
+    ArrowColor #212121
+    FontSize 14
+}
+
+package "Container Monitoring Context" {
+
+    package "Interfaces Layer" {
+        ' ===================== CONTROLLERS =====================
+        class "ContainerController" <<(C, #00695C) Controller>> {
+            - containerService : ContainerApplicationService
+            + createContainer(request : CreateContainerRequest) : ResponseEntity<ContainerResponse>
+            + updateFillLevel(containerId : Long, request : UpdateFillLevelRequest) : ResponseEntity<Void>
+            + markAsCollected(containerId : Long, request : MarkCollectedRequest) : ResponseEntity<Void>
+            + getContainer(containerId : Long) : ResponseEntity<ContainerResponse>
+            + getContainersByLocation(latitude : double, longitude : double, radius : double) : ResponseEntity<List<ContainerResponse>>
+            + getOverflowingContainers(municipalityId : Long) : ResponseEntity<List<ContainerResponse>>
+        }
+
+        class "SensorController" <<(C, #00695C) Controller>> {
+            - sensorService : SensorApplicationService
+            + receiveSensorReading(containerId : Long, request : SensorReadingRequest) : ResponseEntity<Void>
+            + getSensorReadings(containerId : Long, startDate : LocalDateTime, endDate : LocalDateTime) : ResponseEntity<List<SensorReadingResponse>>
+            + validateSensorData(containerId : Long) : ResponseEntity<ValidationResponse>
+        }
+    }
+
+    package "Application Layer" {
+        ' ===================== APPLICATION SERVICES =====================
+        class "ContainerApplicationService" <<(S, #5E35B1) Application Service>> {
+            - containerRepository : ContainerRepository
+            - containerDomainService : ContainerDomainService
+            - containerFactory : ContainerFactory
+            - eventPublisher : DomainEventPublisher
+
+            + createContainer(location : Location, capacity : ContainerCapacity, type : ContainerType, municipalityId : MunicipalityId) : Container
+            + updateFillLevel(containerId : ContainerId, fillLevel : FillLevel, sensorId : SensorId) : void
+            + markContainerAsCollected(containerId : ContainerId, driverId : DriverId) : void
+            + getContainerById(containerId : ContainerId) : Optional<Container>
+            + getContainersByLocation(location : Location, radiusKm : double) : List<Container>
+            + getOverflowingContainers(municipalityId : MunicipalityId) : List<Container>
+        }
+
+        class "SensorApplicationService" <<(S, #5E35B1) Application Service>> {
+            - containerRepository : ContainerRepository
+            - sensorValidationService : SensorValidationService
+            - eventPublisher : DomainEventPublisher
+
+            + processSensorReading(containerId : ContainerId, sensorId : SensorId, fillLevel : FillLevel, temperature : Temperature) : void
+            + validateSensorReadings(containerId : ContainerId) : ValidationResult
+            + getSensorReadings(containerId : ContainerId, startDate : LocalDateTime, endDate : LocalDateTime) : List<SensorReading>
+        }
+    }
+
+    package "Domain Layer" {
+        ' ===================== AGGREGATES =====================
+        class "Container" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - containerId : ContainerId
+            - location : Location
+            - capacity : ContainerCapacity
+            - currentFillLevel : FillLevel
+            - status : ContainerStatus
+            - type : ContainerType
+            - lastCollectionDate : LocalDateTime
+            - sensorReadings : List<SensorReading>
+            - version : Long
+
+            # Container()
+            + Container(location : Location, capacity : ContainerCapacity, type : ContainerType)
+            + addSensorReading(reading : SensorReading) : void
+            + updateFillLevel(newLevel : FillLevel) : void
+            + markAsCollected() : void
+            + isOverflowing() : boolean
+            + needsCollection() : boolean
+            + calculateFillRate() : double
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        class "SensorReading" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - readingId : SensorReadingId
+            - containerId : ContainerId
+            - sensorId : SensorId
+            - timestamp : LocalDateTime
+            - fillLevel : FillLevel
+            - temperature : Temperature
+            - sensorHealth : SensorHealth
+            - isValidated : boolean
+
+            # SensorReading()
+            + SensorReading(containerId : ContainerId, sensorId : SensorId, fillLevel : FillLevel)
+            + validate() : ValidationResult
+            + isAnomalous() : boolean
+        }
+
+        ' ===================== VALUE OBJECTS (LOCAL) =====================
+        class "ContainerId" <<(V, #FFD700) Value Object>> {
+            - containerId : Long
+            + isValid() : boolean
+        }
+
+        class "SensorReadingId" <<(V, #FFD700) Value Object>> {
+            - readingId : Long
+        }
+
+        class "SensorId" <<(V, #FFD700) Value Object>> {
+            - sensorId : Long
+        }
+
+        class "FillLevel" <<(V, #FFD700) Value Object>> {
+            - percentage : double
+            - lastUpdated : LocalDateTime
+            + isCritical() : boolean
+            + isNearFull() : boolean
+        }
+
+        class "ContainerCapacity" <<(V, #FFD700) Value Object>> {
+            - volumeInLiters : double
+            - maxWeight : double
+            + calculateUtilization(currentFill : FillLevel) : double
+        }
+
+        class "ContainerStatus" <<(V, #FFD700) Value Object>> {
+            - status : String
+            - lastStatusChange : LocalDateTime
+            + isActive() : boolean
+            + canTransitionTo(newStatus : String) : boolean
+        }
+
+        class "SensorHealth" <<(V, #FFD700) Value Object>> {
+            - healthStatus : String
+            - batteryLevel : double
+            - signalStrength : double
+            + isHealthy() : boolean
+            + needsMaintenance() : boolean
+        }
+
+        class "Temperature" <<(V, #FFD700) Value Object>> {
+            - celsius : double
+            + toFahrenheit() : double
+            + isWithinNormalRange() : boolean
+        }
+
+        ' ===================== FACTORIES (Creational Pattern) =====================
+        class "ContainerFactory" <<(F, #BA68C8) Factory>> {
+            + createContainer(location : Location, capacity : ContainerCapacity, type : ContainerType, municipalityId : MunicipalityId) : Container
+            + createWithDefaults(location : Location, type : ContainerType) : Container
+        }
+
+        class "SensorReadingFactory" <<(F, #BA68C8) Factory>> {
+            + createFromSensorData(containerId : ContainerId, sensorData : String) : SensorReading
+            + createFromIoTMessage(message : IoTMessage) : SensorReading
+        }
+
+        ' ===================== STRATEGIES (Behavioral Pattern) =====================
+        interface "FillLevelPredictionStrategy" <<(S, #81C784) Strategy>> {
+            + predictNextCollection(container : Container) : LocalDateTime
+        }
+
+        class "LinearPredictionStrategy" <<(S, #81C784) Strategy>> {
+            + predictNextCollection(container : Container) : LocalDateTime
+        }
+
+        class "MachineLearningPredictionStrategy" <<(S, #81C784) Strategy>> {
+            + predictNextCollection(container : Container) : LocalDateTime
+        }
+
+        ' ===================== DOMAIN SERVICES =====================
+        class "ContainerDomainService" <<(S, #FF8A65) Domain Service>> {
+            + calculateOptimalCollectionRoute(containers : List<Container>) : CollectionRoute
+            + determineMaintenancePriority(containers : List<Container>) : List<Container>
+            + validateContainerPlacement(location : Location, type : ContainerType) : ValidationResult
+        }
+
+        class "SensorValidationService" <<(S, #FF8A65) Domain Service>> {
+            + validateReading(reading : SensorReading) : ValidationResult
+            + detectAnomalies(readings : List<SensorReading>) : List<Anomaly>
+            + calibrateSensor(sensorId : SensorId, referenceValue : double) : CalibrationResult
+        }
+
+        class "ContainerAnalyticsService" <<(S, #FF8A65) Domain Service>> {
+            - predictionStrategy : FillLevelPredictionStrategy
+            + calculateFillTrend(container : Container) : FillTrend
+            + generateUsageReport(containers : List<Container>, period : DatePeriod) : UsageReport
+            + setPredictionStrategy(strategy : FillLevelPredictionStrategy) : void
+        }
+
+        ' ===================== REPOSITORY INTERFACES =====================
+        interface "ContainerRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(containerId : ContainerId) : Optional<Container>
+            + findByLocation(location : Location, radiusKm : double) : List<Container>
+            + findByMunicipality(municipalityId : MunicipalityId) : List<Container>
+            + findOverflowing() : List<Container>
+            + findByStatus(status : ContainerStatus) : List<Container>
+            + save(container : Container) : Container
+            + delete(containerId : ContainerId) : void
+            + existsById(containerId : ContainerId) : boolean
+        }
+    }
+    package "Infrastructure Layer" {
+        ' ===================== REPOSITORY IMPLEMENTATIONS =====================
+        class "JpaContainerRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : ContainerJpaRepository
+            - containerMapper : ContainerMapper
+            + findById(containerId : ContainerId) : Optional<Container>
+            + findByLocation(location : Location, radiusKm : double) : List<Container>
+            + findByMunicipality(municipalityId : MunicipalityId) : List<Container>
+            + findOverflowing() : List<Container>
+            + findByStatus(status : ContainerStatus) : List<Container>
+            + save(container : Container) : Container
+            + delete(containerId : ContainerId) : void
+            + existsById(containerId : ContainerId) : boolean
+        }
+    }
+}
+
+package "Shared Kernel" {
+    package "Domain Layer" {
+        class "Location" <<(V, #FFD700) Value Object>> {
+            - latitude : double
+            - longitude : double
+            - address : String
+            - district : String
+            + distanceTo(other : Location) : double
+        }
+
+        class "MunicipalityId" <<(V, #FFD700) Value Object>> {
+            - municipalityId : Long
+        }
+
+        class "DriverId" <<(V, #FFD700) Value Object>> {
+            - driverId : Long
+        }
+
+        class "ContainerType" <<(V, #FFD700) Value Object>> {
+            - type : String
+            + isOrganic() : boolean
+            + isRecyclable() : boolean
+        }
+
+        class "MaintenanceType" <<(V, #FFD700) Value Object>> {
+            - type : String
+            - estimatedDuration : Duration
+        }
+
+        class "ValidationResult" <<(V, #FFD700) Value Object>> {
+            - isValid : boolean
+            - errors : List<String>
+            - warnings : List<String>
+        }
+
+        interface "DomainEvent" <<(E, #FFB74D) Domain Event>> {
+            + getAggregateId() : String
+            + getOccurredOn() : LocalDateTime
+            + getEventType() : String
+        }
+
+        interface "DomainEventPublisher" <<(P, #FF8A65) Publisher>> {
+            + publish(event : DomainEvent) : void
+            + publishAll(events : List<DomainEvent>) : void
+        }
+    }
+}
+
+' ===================== RELATIONSHIPS =====================
+
+' --- Controller Dependencies ---
+ContainerController --> ContainerApplicationService : uses >
+SensorController --> SensorApplicationService : uses >
+
+' --- Application Service Dependencies ---
+ContainerApplicationService --> ContainerRepository : uses >
+ContainerApplicationService --> ContainerDomainService : uses >
+ContainerApplicationService --> ContainerFactory : uses >
+ContainerApplicationService --> DomainEventPublisher : uses >
+
+SensorApplicationService --> ContainerRepository : uses >
+SensorApplicationService --> SensorValidationService : uses >
+SensorApplicationService --> DomainEventPublisher : uses >
+
+' --- Repository Implementations ---
+ContainerRepository <|.. JpaContainerRepository : implements >
+
+' --- Aggregate Root Compositions ---
+Container *-- ContainerId
+Container *-- ContainerCapacity
+Container *-- FillLevel
+Container *-- ContainerStatus
+Container o-- SensorReading
+
+' --- Entity Compositions ---
+SensorReading *-- SensorReadingId
+SensorReading *-- SensorId
+SensorReading *-- SensorHealth
+SensorReading *-- Temperature
+
+' --- Shared Kernel Usage ---
+Container ..> Location : uses >
+Container ..> ContainerType : uses >
+Container ..> MunicipalityId : belongs to >
+Container ..> DomainEvent : publishes >
+SensorReading ..> ValidationResult : validates with >
+
+' --- Factory Relationships ---
+ContainerFactory ..> Container : creates >
+SensorReadingFactory ..> SensorReading : creates >
+
+' --- Strategy Relationships ---
+FillLevelPredictionStrategy <|.. LinearPredictionStrategy : implements >
+FillLevelPredictionStrategy <|.. MachineLearningPredictionStrategy : implements >
+ContainerAnalyticsService o-- FillLevelPredictionStrategy : uses >
+
+' --- Domain Service Relationships ---
+ContainerDomainService ..> Container : operates on >
+SensorValidationService ..> SensorReading : validates >
+ContainerAnalyticsService ..> Container : analyzes >
+
+' --- Repository Relationships ---
+ContainerRepository ..> Container : manages >
+
+@enduml
