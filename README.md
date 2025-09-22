@@ -44,8 +44,14 @@
 
 # Registro de Versiones del Informe
 
-| Versión | Fecha      | Autor                             | Descripción de modificación |
-|---------|------------|-----------------------------------|-----------------------------|
+| Versión | Fecha      | Autor             | Descripción de modificación                                                                                                                                                                  |
+|---------|------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| v1.8.0  | 20/09/2025 | Eric, Salim       | Agregados diagramas de base de datos, resultados estudiantiles, conclusiones y bibliografía. Documentación completa de diccionarios de clases y diagramas de clase para todos los contextos. |
+| v1.7.0  | 19/09/2025 | Eric, Elmer, Paul | Diseño de interfaz para aplicaciones web y móviles, wireflows, videos guía y arquitectura de información. Secciones de guías de estilo y prototipos agregadas.                               |
+| v1.6.0  | 19/09/2025 | Jhosepmyr         | Integración de diseño de entrevistas, análisis de necesidades y especificación de requerimientos. Incorporación de secciones de gestión de código y entorno de desarrollo.                   |
+| v1.5.0  | 16/09/2025 | Elmer, Salim      | Estilo visual móvil y web definido, sistema de navegación, SEO, diagramas de arquitectura y estrategia de diseño centrado en el dominio.                                                     |
+| v1.4.0  | 12/09/2025 | Eric              | Perfil de solución, segmentos de usuarios y descripción de startup añadidos.                                                                                                                 |
+| v1.3.0  | 05/09/2025 | Jhosepmyr         | Estructura base del proyecto, portada, archivos iniciales y configuración de .gitignore.                                                                                                     |
 
 <div style="page-break-before: always"></div>
 
