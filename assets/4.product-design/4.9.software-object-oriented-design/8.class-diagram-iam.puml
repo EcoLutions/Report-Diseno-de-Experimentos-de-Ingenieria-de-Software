@@ -1,0 +1,604 @@
+@startuml IAM: Domain Layer Class Diagram
+
+title IAM: Domain Layer Class Diagram
+
+skinparam class {
+    BackgroundColor<<Aggregate Root>> #FFFFFF/B3E5FC
+    BackgroundColor<<Entity>> #FFFFFF/C8E6C9
+    BackgroundColor<<Value Object>> #FFFFFF/FFF9C4
+    BackgroundColor<<Domain Service>> #FFFFFF/FFCCBC
+    BackgroundColor<<Application Service>> #FFFFFF/E8EAF6
+    BackgroundColor<<Repository>> #FFFFFF/F3E5F5
+    BackgroundColor<<Controller>> #FFFFFF/E0F2F1
+    BackgroundColor<<Factory>> #FFFFFF/E1BEE7
+    BackgroundColor<<Strategy>> #FFFFFF/E8F5E8
+    BackgroundColor<<Enum>> #FFFFFF/FFF3E0
+    BorderColor #212121
+    ArrowColor #212121
+    FontSize 14
+}
+
+package "IAM Context" {
+
+    package "Interfaces Layer" {
+        ' ===================== CONTROLLERS =====================
+        class "UserController" <<(C, #00695C) Controller>> {
+            - userService : UserApplicationService
+            + registerUser(request : RegisterUserRequest) : ResponseEntity<UserResponse>
+            + authenticateUser(request : AuthenticateUserRequest) : ResponseEntity<AuthTokenResponse>
+            + updateUser(userId : Long, request : UpdateUserRequest) : ResponseEntity<Void>
+            + activateUser(userId : Long) : ResponseEntity<Void>
+            + deactivateUser(userId : Long, request : DeactivateUserRequest) : ResponseEntity<Void>
+            + changePassword(userId : Long, request : ChangePasswordRequest) : ResponseEntity<Void>
+            + getUser(userId : Long) : ResponseEntity<UserResponse>
+            + getUserByEmail(email : String) : ResponseEntity<UserResponse>
+            + getUsersByRole(roleName : String) : ResponseEntity<List<UserResponse>>
+            + assignRole(userId : Long, request : AssignRoleRequest) : ResponseEntity<Void>
+            + removeRole(userId : Long, request : RemoveRoleRequest) : ResponseEntity<Void>
+        }
+
+        class "RoleController" <<(C, #00695C) Controller>> {
+            - roleService : RoleApplicationService
+            + createRole(request : CreateRoleRequest) : ResponseEntity<RoleResponse>
+            + updateRole(roleId : Long, request : UpdateRoleRequest) : ResponseEntity<Void>
+            + addPermission(roleId : Long, request : AddPermissionRequest) : ResponseEntity<Void>
+            + removePermission(roleId : Long, request : RemovePermissionRequest) : ResponseEntity<Void>
+            + getRole(roleId : Long) : ResponseEntity<RoleResponse>
+            + getRoleByName(roleName : String) : ResponseEntity<RoleResponse>
+            + getAllRoles() : ResponseEntity<List<RoleResponse>>
+            + getPermissions(roleId : Long) : ResponseEntity<List<PermissionResponse>>
+            + deleteRole(roleId : Long) : ResponseEntity<Void>
+        }
+
+        class "AuthController" <<(C, #00695C) Controller>> {
+            - authService : AuthApplicationService
+            + login(request : LoginRequest) : ResponseEntity<AuthTokenResponse>
+            + logout(request : LogoutRequest) : ResponseEntity<Void>
+            + refreshToken(request : RefreshTokenRequest) : ResponseEntity<AuthTokenResponse>
+            + resetPassword(request : ResetPasswordRequest) : ResponseEntity<Void>
+            + verifyToken(request : VerifyTokenRequest) : ResponseEntity<TokenValidationResponse>
+            + requestPasswordReset(request : PasswordResetRequest) : ResponseEntity<Void>
+        }
+    }
+
+    package "Application Layer" {
+        ' ===================== APPLICATION SERVICES =====================
+        class "UserApplicationService" <<(S, #5E35B1) Application Service>> {
+            - userRepository : UserRepository
+            - userDomainService : UserDomainService
+            - userFactory : UserFactory
+            - passwordPolicyService : PasswordPolicyService
+            - eventPublisher : DomainEventPublisher
+
+            + registerUser(username : Username, email : EmailAddress, password : String, userType : UserType) : User
+            + authenticateUser(email : EmailAddress, password : String) : AuthenticationResult
+            + updateUser(userId : UserId, personalInfo : PersonalInfo) : void
+            + activateUser(userId : UserId) : void
+            + deactivateUser(userId : UserId, reason : DeactivationReason) : void
+            + changePassword(userId : UserId, oldPassword : String, newPassword : String) : void
+            + assignRole(userId : UserId, roleId : RoleId) : void
+            + removeRole(userId : UserId, roleId : RoleId) : void
+            + getUserById(userId : UserId) : Optional<User>
+            + getUserByEmail(email : EmailAddress) : Optional<User>
+            + getUsersByRole(roleId : RoleId) : List<User>
+        }
+
+        class "RoleApplicationService" <<(S, #5E35B1) Application Service>> {
+            - roleRepository : RoleRepository
+            - roleDomainService : RoleDomainService
+            - roleFactory : RoleFactory
+            - eventPublisher : DomainEventPublisher
+
+            + createRole(name : String, description : String, permissions : List<PermissionId>) : Role
+            + updateRole(roleId : RoleId, description : String) : void
+            + addPermission(roleId : RoleId, permissionId : PermissionId) : void
+            + removePermission(roleId : RoleId, permissionId : PermissionId) : void
+            + getRoleById(roleId : RoleId) : Optional<Role>
+            + getRoleByName(name : String) : Optional<Role>
+            + getAllRoles() : List<Role>
+            + deleteRole(roleId : RoleId) : void
+        }
+
+        class "AuthApplicationService" <<(S, #5E35B1) Application Service>> {
+            - userRepository : UserRepository
+            - tokenService : TokenDomainService
+            - authenticationService : AuthenticationDomainService
+            - eventPublisher : DomainEventPublisher
+
+            + login(email : EmailAddress, password : String) : AuthToken
+            + logout(token : AuthToken) : void
+            + refreshToken(refreshToken : AuthToken) : AuthToken
+            + verifyToken(token : String) : TokenValidationResult
+            + requestPasswordReset(email : EmailAddress) : void
+            + resetPassword(resetToken : String, newPassword : String) : void
+        }
+    }
+
+    package "Domain Layer" {
+        ' ===================== AGGREGATES =====================
+        class "User" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - userId : UserId
+            - username : Username
+            - email : EmailAddress
+            - hashedPassword : HashedPassword
+            - status : UserStatus
+            - personalInfo : PersonalInfo
+            - securityInfo : SecurityInfo
+            - roles : Set<Role>
+            - createdAt : LocalDateTime
+            - lastLoginAt : LocalDateTime
+            - failedLoginAttempts : Integer
+            - lockoutTime : LocalDateTime
+            - version : Long
+
+            # User()
+            + User(username : Username, email : EmailAddress, hashedPassword : HashedPassword, userType : UserType)
+            + authenticate(password : String) : AuthenticationResult
+            + changePassword(oldPassword : String, newPassword : String, policy : PasswordPolicyStrategy) : void
+            + assignRole(role : Role) : void
+            + removeRole(role : Role) : void
+            + activate() : void
+            + deactivate(reason : DeactivationReason) : void
+            + suspend() : void
+            + updatePersonalInfo(personalInfo : PersonalInfo) : void
+            + recordLogin() : void
+            + recordFailedLogin() : void
+            + isLocked() : boolean
+            + unlock() : void
+            + hasRole(roleName : String) : boolean
+            + hasPermission(permissionName : String) : boolean
+            + canPerformAction(action : Action) : boolean
+            + isActive() : boolean
+            + canBeModified() : boolean
+            + canBeDeactivated() : boolean
+            + getAvailableActions() : List<UserAction>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        class "Role" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - roleId : RoleId
+            - name : String
+            - description : String
+            - permissions : Set<Permission>
+            - isDefault : boolean
+            - isSystemRole : boolean
+            - createdAt : LocalDateTime
+            - version : Long
+
+            # Role()
+            + Role(name : String, description : String)
+            + addPermission(permission : Permission) : void
+            + removePermission(permission : Permission) : void
+            + updateDescription(description : String) : void
+            + hasPermission(permissionName : String) : boolean
+            + canBeDeleted() : boolean
+            + canBeModified() : boolean
+            + getAvailableActions() : List<RoleAction>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        ' ===================== ENTITIES =====================
+        class "Permission" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - permissionId : PermissionId
+            - name : String
+            - description : String
+            - resource : String
+            - action : String
+            - scope : PermissionScope
+
+            + Permission(name : String, description : String, resource : String, action : String)
+            + getPermissionKey() : String
+            + isSystemPermission() : boolean
+            + canBeDeleted() : boolean
+        }
+
+        class "AuthToken" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - tokenId : TokenId
+            - userId : UserId
+            - tokenValue : String
+            - tokenType : TokenType
+            - expiryDate : LocalDateTime
+            - isRevoked : boolean
+            - createdAt : LocalDateTime
+
+            + AuthToken(userId : UserId, tokenType : TokenType, expiryDate : LocalDateTime)
+            + isExpired() : boolean
+            + revoke() : void
+            + isValid() : boolean
+            + getRemainingTime() : Duration
+        }
+
+        ' ===================== ENUMS =====================
+        enum "UserStatus" <<(E, #FFF3E0) Enum>> {
+            PENDING_VERIFICATION
+            ACTIVE
+            SUSPENDED
+            LOCKED
+            DEACTIVATED
+
+            + canTransitionTo(newStatus : UserStatus) : boolean
+            + isActive() : boolean
+            + canLogin() : boolean
+            + canBeModified() : boolean
+            + getAvailableTransitions() : List<UserStatus>
+        }
+
+        enum "UserAction" <<(E, #FFF3E0) Enum>> {
+            ACTIVATE
+            DEACTIVATE
+            SUSPEND
+            UNLOCK
+            CHANGE_PASSWORD
+            ASSIGN_ROLE
+            REMOVE_ROLE
+            UPDATE_INFO
+
+            + isAllowedForStatus(status : UserStatus) : boolean
+            + requiresSpecialPermission() : boolean
+        }
+
+        enum "RoleAction" <<(E, #FFF3E0) Enum>> {
+            ADD_PERMISSION
+            REMOVE_PERMISSION
+            UPDATE_DESCRIPTION
+            DELETE_ROLE
+
+            + isAllowedForRole(role : Role) : boolean
+            + requiresAdminPermission() : boolean
+        }
+
+        enum "TokenType" <<(E, #FFF3E0) Enum>> {
+            ACCESS_TOKEN
+            REFRESH_TOKEN
+            RESET_TOKEN
+            VERIFICATION_TOKEN
+
+            + getExpiryDuration() : Duration
+            + canBeRefreshed() : boolean
+        }
+
+        ' ===================== VALUE OBJECTS =====================
+        class "UserId" <<(V, #FFD700) Value Object>> {
+            - userId : String
+            + UserId(userId : String)
+            + getValue() : String
+            + isValid() : boolean
+        }
+
+        class "RoleId" <<(V, #FFD700) Value Object>> {
+            - roleId : String
+            + RoleId(roleId : String)
+            + getValue() : String
+        }
+
+        class "PermissionId" <<(V, #FFD700) Value Object>> {
+            - permissionId : String
+        }
+
+        class "TokenId" <<(V, #FFD700) Value Object>> {
+            - tokenId : String
+        }
+
+        class "Username" <<(V, #FFD700) Value Object>> {
+            - username : String
+            + Username(username : String)
+            + getValue() : String
+            + isValid() : boolean
+            + meetsRequirements() : boolean
+        }
+
+        class "HashedPassword" <<(V, #FFD700) Value Object>> {
+            - hash : String
+            - salt : String
+            - algorithm : String
+            + HashedPassword(password : String, algorithm : String)
+            + matches(password : String) : boolean
+            + needsRehashing() : boolean
+        }
+
+        class "PersonalInfo" <<(V, #FFD700) Value Object>> {
+            - firstName : String
+            - lastName : String
+            - displayName : String
+            - avatarUrl : String
+            + PersonalInfo(firstName : String, lastName : String)
+            + getFullName() : String
+            + hasAvatar() : boolean
+        }
+
+        class "SecurityInfo" <<(V, #FFD700) Value Object>> {
+            - twoFactorEnabled : boolean
+            - lastPasswordChange : LocalDateTime
+            - passwordHistory : List<String>
+            - securityQuestions : List<SecurityQuestion>
+            + SecurityInfo()
+            + needsPasswordChange() : boolean
+            + hasUsedPassword(password : String) : boolean
+        }
+
+        class "AuthenticationResult" <<(V, #FFD700) Value Object>> {
+            - isSuccessful : boolean
+            - failureReason : AuthFailureReason
+            - user : User
+            - requiresTwoFactor : boolean
+            + AuthenticationResult(isSuccessful : boolean, user : User)
+            + isSuccessful() : boolean
+            + getFailureReason() : AuthFailureReason
+        }
+
+        ' ===================== FACTORIES =====================
+        class "UserFactory" <<(F, #BA68C8) Factory>> {
+            + createUser(username : Username, email : EmailAddress, password : String, userType : UserType) : User
+            + createAdminUser(username : Username, email : EmailAddress, password : String) : User
+            + createSystemUser(username : Username, email : EmailAddress) : User
+        }
+
+        class "RoleFactory" <<(F, #BA68C8) Factory>> {
+            + createRole(name : String, description : String, permissions : List<PermissionId>) : Role
+            + createDefaultRole(userType : UserType) : Role
+            + createSystemRole(name : String, permissions : List<PermissionId>) : Role
+        }
+
+        class "TokenFactory" <<(F, #BA68C8) Factory>> {
+            + createAccessToken(userId : UserId) : AuthToken
+            + createRefreshToken(userId : UserId) : AuthToken
+            + createResetToken(userId : UserId) : AuthToken
+            + createVerificationToken(userId : UserId) : AuthToken
+        }
+
+        ' ===================== STRATEGIES =====================
+        interface "PasswordPolicyStrategy" <<(S, #81C784) Strategy>> {
+            + validate(password : String) : ValidationResult
+            + generateStrengthScore(password : String) : PasswordStrength
+            + suggestImprovements(password : String) : List<String>
+        }
+
+        class "BasicPasswordStrategy" <<(S, #81C784) Strategy>> {
+            + validate(password : String) : ValidationResult
+            + generateStrengthScore(password : String) : PasswordStrength
+            + suggestImprovements(password : String) : List<String>
+        }
+
+        class "EnhancedPasswordStrategy" <<(S, #81C784) Strategy>> {
+            + validate(password : String) : ValidationResult
+            + generateStrengthScore(password : String) : PasswordStrength
+            + suggestImprovements(password : String) : List<String>
+        }
+
+        class "EnterprisePasswordStrategy" <<(S, #81C784) Strategy>> {
+            + validate(password : String) : ValidationResult
+            + generateStrengthScore(password : String) : PasswordStrength
+            + suggestImprovements(password : String) : List<String>
+        }
+
+        ' ===================== DOMAIN SERVICES =====================
+        class "UserDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validateUserRegistration(user : User) : ValidationResult
+            + checkUsernameAvailability(username : Username) : boolean
+            + checkEmailAvailability(email : EmailAddress) : boolean
+            + calculateUserPermissions(user : User) : Set<Permission>
+            + determineDefaultRoles(userType : UserType) : Set<Role>
+            + validateRoleAssignment(user : User, role : Role) : ValidationResult
+        }
+
+        class "RoleDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validateRoleCreation(role : Role) : ValidationResult
+            + checkRoleNameAvailability(name : String) : boolean
+            + validatePermissionAssignment(role : Role, permission : Permission) : ValidationResult
+            + calculateRoleHierarchy(role : Role) : RoleHierarchy
+            + checkRoleDependencies(role : Role) : List<RoleDependency>
+        }
+
+        class "AuthenticationDomainService" <<(S, #FF8A65) Domain Service>> {
+            + authenticateUser(email : EmailAddress, password : String, users : List<User>) : AuthenticationResult
+            + validateLoginAttempt(user : User) : ValidationResult
+            + handleFailedLogin(user : User) : void
+            + checkAccountLockout(user : User) : boolean
+            + validateTwoFactorAuthentication(user : User, code : String) : boolean
+        }
+
+        class "TokenDomainService" <<(S, #FF8A65) Domain Service>> {
+            + generateToken(userId : UserId, tokenType : TokenType) : AuthToken
+            + validateToken(token : String) : TokenValidationResult
+            + revokeToken(token : AuthToken) : void
+            + refreshToken(refreshToken : AuthToken) : AuthToken
+            + cleanupExpiredTokens() : void
+        }
+
+        class "PasswordPolicyService" <<(S, #FF8A65) Domain Service>> {
+            - passwordStrategy : PasswordPolicyStrategy
+            + validatePassword(password : String) : ValidationResult
+            + generatePassword() : String
+            + checkPasswordHistory(user : User, password : String) : boolean
+            + setPasswordStrategy(strategy : PasswordPolicyStrategy) : void
+            + calculatePasswordStrength(password : String) : PasswordStrength
+        }
+
+        class "PermissionManagementService" <<(S, #FF8A65) Domain Service>> {
+            + validatePermission(permission : Permission) : ValidationResult
+            + checkPermissionConflicts(permissions : Set<Permission>) : List<PermissionConflict>
+            + calculateEffectivePermissions(user : User) : Set<Permission>
+            + checkResourceAccess(user : User, resource : String, action : String) : boolean
+            + groupPermissionsByResource(permissions : Set<Permission>) : Map<String, List<Permission>>
+        }
+
+        ' ===================== REPOSITORY INTERFACES =====================
+        interface "UserRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(userId : UserId) : Optional<User>
+            + findByUsername(username : Username) : Optional<User>
+            + findByEmail(email : EmailAddress) : Optional<User>
+            + findByStatus(status : UserStatus) : List<User>
+            + findByRole(roleId : RoleId) : List<User>
+            + findActiveUsers() : List<User>
+            + save(user : User) : User
+            + delete(userId : UserId) : void
+            + existsById(userId : UserId) : boolean
+            + existsByUsername(username : Username) : boolean
+            + existsByEmail(email : EmailAddress) : boolean
+        }
+
+        interface "RoleRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(roleId : RoleId) : Optional<Role>
+            + findByName(name : String) : Optional<Role>
+            + findDefaultRoles() : List<Role>
+            + findSystemRoles() : List<Role>
+            + findAll() : List<Role>
+            + save(role : Role) : Role
+            + delete(roleId : RoleId) : void
+            + existsById(roleId : RoleId) : boolean
+            + existsByName(name : String) : boolean
+        }
+    }
+
+    package "Infrastructure Layer" {
+        ' ===================== REPOSITORY IMPLEMENTATIONS =====================
+        class "JpaUserRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : UserJpaRepository
+            - userMapper : UserMapper
+            - roleMapper : RoleMapper
+            + findById(userId : UserId) : Optional<User>
+            + findByUsername(username : Username) : Optional<User>
+            + findByEmail(email : EmailAddress) : Optional<User>
+            + findByStatus(status : UserStatus) : List<User>
+            + findByRole(roleId : RoleId) : List<User>
+            + findActiveUsers() : List<User>
+            + save(user : User) : User
+            + delete(userId : UserId) : void
+            + existsById(userId : UserId) : boolean
+            + existsByUsername(username : Username) : boolean
+            + existsByEmail(email : EmailAddress) : boolean
+        }
+
+        class "JpaRoleRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : RoleJpaRepository
+            - roleMapper : RoleMapper
+            - permissionMapper : PermissionMapper
+            + findById(roleId : RoleId) : Optional<Role>
+            + findByName(name : String) : Optional<Role>
+            + findDefaultRoles() : List<Role>
+            + findSystemRoles() : List<Role>
+            + findAll() : List<Role>
+            + save(role : Role) : Role
+            + delete(roleId : RoleId) : void
+            + existsById(roleId : RoleId) : boolean
+            + existsByName(name : String) : boolean
+        }
+    }
+}
+
+package "Shared Kernel" {
+    package "Domain Layer" {
+        class "EmailAddress" <<(V, #FFD700) Value Object>> {
+            - email : String
+            + EmailAddress(email : String)
+            + getValue() : String
+            + isValid() : boolean
+            + getDomain() : String
+        }
+
+        class "ValidationResult" <<(V, #FFD700) Value Object>> {
+            - isValid : Boolean
+            - errors : List<String>
+            - warnings : List<String>
+            + hasErrors() : Boolean
+            + hasWarnings() : Boolean
+        }
+
+        interface "DomainEvent" <<(E, #FFB74D) Domain Event>> {
+            + getAggregateId() : String
+            + getOccurredOn() : LocalDateTime
+            + getEventType() : String
+        }
+
+        interface "DomainEventPublisher" <<(P, #FF8A65) Publisher>> {
+            + publish(event : DomainEvent) : void
+            + publishAll(events : List<DomainEvent>) : void
+        }
+    }
+}
+
+' ===================== RELATIONSHIPS =====================
+
+' --- Controller Dependencies ---
+UserController --> UserApplicationService : uses >
+RoleController --> RoleApplicationService : uses >
+AuthController --> AuthApplicationService : uses >
+
+' --- Application Service Dependencies ---
+UserApplicationService --> UserRepository : uses >
+UserApplicationService --> UserDomainService : uses >
+UserApplicationService --> UserFactory : uses >
+UserApplicationService --> PasswordPolicyService : uses >
+UserApplicationService --> DomainEventPublisher : uses >
+
+RoleApplicationService --> RoleRepository : uses >
+RoleApplicationService --> RoleDomainService : uses >
+RoleApplicationService --> RoleFactory : uses >
+RoleApplicationService --> DomainEventPublisher : uses >
+
+AuthApplicationService --> UserRepository : uses >
+AuthApplicationService --> TokenDomainService : uses >
+AuthApplicationService --> AuthenticationDomainService : uses >
+AuthApplicationService --> DomainEventPublisher : uses >
+
+' --- Repository Implementations ---
+UserRepository <|.. JpaUserRepository : implements >
+RoleRepository <|.. JpaRoleRepository : implements >
+
+' --- Aggregate Root Compositions ---
+User *-- UserId
+User *-- Username
+User *-- HashedPassword
+User *-- PersonalInfo
+User *-- SecurityInfo
+User *-- UserStatus
+User o-- Role
+User o-- AuthToken
+
+Role *-- RoleId
+Role o-- Permission
+
+' --- Entity Compositions ---
+Permission *-- PermissionId
+AuthToken *-- TokenId
+AuthToken *-- TokenType
+
+' --- Shared Kernel Usage ---
+User ..> EmailAddress : uses >
+User ..> ValidationResult : validates with >
+User ..> DomainEvent : publishes >
+Role ..> ValidationResult : validates with >
+Role ..> DomainEvent : publishes >
+
+' --- Factory Relationships ---
+UserFactory ..> User : creates >
+RoleFactory ..> Role : creates >
+TokenFactory ..> AuthToken : creates >
+
+' --- Strategy Relationships ---
+PasswordPolicyStrategy <|.. BasicPasswordStrategy : implements >
+PasswordPolicyStrategy <|.. EnhancedPasswordStrategy : implements >
+PasswordPolicyStrategy <|.. EnterprisePasswordStrategy : implements >
+PasswordPolicyService o-- PasswordPolicyStrategy : uses >
+
+' --- Domain Service Relationships ---
+UserDomainService ..> User : operates on >
+UserDomainService ..> ValidationResult : returns >
+RoleDomainService ..> Role : operates on >
+RoleDomainService ..> ValidationResult : returns >
+AuthenticationDomainService ..> User : authenticates >
+AuthenticationDomainService ..> AuthenticationResult : returns >
+TokenDomainService ..> AuthToken : manages >
+PasswordPolicyService ..> User : validates passwords for >
+PermissionManagementService ..> Permission : manages >
+PermissionManagementService ..> User : calculates permissions for >
+
+' --- Repository Relationships ---
+UserRepository ..> User : manages >
+RoleRepository ..> Role : manages >
+
+@enduml

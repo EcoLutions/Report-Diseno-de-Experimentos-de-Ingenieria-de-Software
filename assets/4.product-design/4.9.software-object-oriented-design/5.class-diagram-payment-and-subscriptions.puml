@@ -1,0 +1,761 @@
+@startuml Payment & Subscriptions: Domain Layer Class Diagram
+
+title Payment & Subscriptions: Domain Layer Class Diagram
+
+skinparam class {
+    BackgroundColor<<Aggregate Root>> #FFFFFF/B3E5FC
+    BackgroundColor<<Entity>> #FFFFFF/C8E6C9
+    BackgroundColor<<Value Object>> #FFFFFF/FFF9C4
+    BackgroundColor<<Domain Service>> #FFFFFF/FFCCBC
+    BackgroundColor<<Application Service>> #FFFFFF/E8EAF6
+    BackgroundColor<<Repository>> #FFFFFF/F3E5F5
+    BackgroundColor<<Controller>> #FFFFFF/E0F2F1
+    BackgroundColor<<Factory>> #FFFFFF/E1BEE7
+    BackgroundColor<<Strategy>> #FFFFFF/E8F5E8
+    BackgroundColor<<Enum>> #FFFFFF/FFF3E0
+    BorderColor #212121
+    ArrowColor #212121
+    FontSize 14
+}
+
+package "Payment & Subscriptions Context" {
+
+    package "Interfaces Layer" {
+        ' ===================== CONTROLLERS =====================
+        class "SubscriptionController" <<(C, #00695C) Controller>> {
+            - subscriptionService : SubscriptionApplicationService
+            + createSubscription(request : CreateSubscriptionRequest) : ResponseEntity<SubscriptionResponse>
+            + updateSubscription(subscriptionId : Long, request : UpdateSubscriptionRequest) : ResponseEntity<Void>
+            + activateSubscription(subscriptionId : Long) : ResponseEntity<Void>
+            + suspendSubscription(subscriptionId : Long, request : SuspendSubscriptionRequest) : ResponseEntity<Void>
+            + cancelSubscription(subscriptionId : Long, request : CancelSubscriptionRequest) : ResponseEntity<Void>
+            + getSubscription(subscriptionId : Long) : ResponseEntity<SubscriptionResponse>
+            + getSubscriptionsByMunicipality(municipalityId : Long, status : String) : ResponseEntity<List<SubscriptionResponse>>
+            + updatePaymentMethod(subscriptionId : Long, request : UpdatePaymentMethodRequest) : ResponseEntity<Void>
+        }
+
+        class "PaymentController" <<(C, #00695C) Controller>> {
+            - paymentService : PaymentApplicationService
+            + processPayment(request : ProcessPaymentRequest) : ResponseEntity<PaymentResponse>
+            + retryPayment(paymentId : Long) : ResponseEntity<PaymentResponse>
+            + getPayment(paymentId : Long) : ResponseEntity<PaymentResponse>
+            + getPaymentHistory(subscriptionId : Long, startDate : LocalDate, endDate : LocalDate) : ResponseEntity<List<PaymentResponse>>
+            + getPaymentMethods(municipalityId : Long) : ResponseEntity<List<PaymentMethodResponse>>
+            + addPaymentMethod(municipalityId : Long, request : AddPaymentMethodRequest) : ResponseEntity<PaymentMethodResponse>
+            + updatePaymentMethod(paymentMethodId : Long, request : UpdatePaymentMethodRequest) : ResponseEntity<Void>
+        }
+
+        class "InvoiceController" <<(C, #00695C) Controller>> {
+            - invoiceService : InvoiceApplicationService
+            + generateInvoice(subscriptionId : Long, request : GenerateInvoiceRequest) : ResponseEntity<InvoiceResponse>
+            + getInvoice(invoiceId : Long) : ResponseEntity<InvoiceResponse>
+            + markInvoiceAsPaid(invoiceId : Long, request : MarkAsPaidRequest) : ResponseEntity<Void>
+            + getInvoicesBySubscription(subscriptionId : Long) : ResponseEntity<List<InvoiceResponse>>
+            + getOutstandingInvoices(municipalityId : Long, overdueOnly : Boolean) : ResponseEntity<List<InvoiceResponse>>
+            + downloadInvoicePdf(invoiceId : Long) : ResponseEntity<byte[]>
+        }
+    }
+
+    package "Application Layer" {
+        ' ===================== APPLICATION SERVICES =====================
+        class "SubscriptionApplicationService" <<(S, #5E35B1) Application Service>> {
+            - subscriptionRepository : SubscriptionRepository
+            - subscriptionDomainService : SubscriptionDomainService
+            - subscriptionFactory : SubscriptionFactory
+            - billingService : BillingService
+            - eventPublisher : DomainEventPublisher
+
+            + createSubscription(municipalityId : MunicipalityId, planId : PlanId, billingCycle : BillingCycle, paymentMethodId : PaymentMethodId, billingAddress : BillingAddress, autoRenewal : Boolean) : Subscription
+            + updateSubscription(subscriptionId : SubscriptionId, newPlanId : PlanId, effectiveDate : LocalDateTime, prorationPolicy : ProrationPolicy) : void
+            + activateSubscription(subscriptionId : SubscriptionId) : void
+            + suspendSubscription(subscriptionId : SubscriptionId, reason : SuspensionReason) : void
+            + cancelSubscription(subscriptionId : SubscriptionId, reason : CancellationReason) : void
+            + updatePaymentMethod(subscriptionId : SubscriptionId, paymentMethodId : PaymentMethodId) : void
+            + getSubscriptionById(subscriptionId : SubscriptionId) : Optional<Subscription>
+            + getSubscriptionsByMunicipality(municipalityId : MunicipalityId, status : SubscriptionStatus) : List<Subscription>
+        }
+
+        class "PaymentApplicationService" <<(S, #5E35B1) Application Service>> {
+            - paymentRepository : PaymentRepository
+            - paymentDomainService : PaymentDomainService
+            - paymentFactory : PaymentFactory
+            - paymentProcessingService : PaymentProcessingService
+            - eventPublisher : DomainEventPublisher
+
+            + processPayment(subscriptionId : SubscriptionId, amount : MonetaryAmount, paymentMethodId : PaymentMethodId, scheduledDate : LocalDateTime) : Payment
+            + retryPayment(paymentId : PaymentId) : PaymentResult
+            + addPaymentMethod(municipalityId : MunicipalityId, type : PaymentMethodType, cardDetails : CardDetails, bankAccountDetails : BankAccountDetails, isDefault : Boolean) : PaymentMethod
+            + updatePaymentMethod(paymentMethodId : PaymentMethodId, cardDetails : CardDetails, bankAccountDetails : BankAccountDetails) : void
+            + getPaymentById(paymentId : PaymentId) : Optional<Payment>
+            + getPaymentHistory(subscriptionId : SubscriptionId, startDate : LocalDateTime, endDate : LocalDateTime) : List<Payment>
+            + getPaymentMethods(municipalityId : MunicipalityId) : List<PaymentMethod>
+        }
+
+        class "InvoiceApplicationService" <<(S, #5E35B1) Application Service>> {
+            - invoiceRepository : InvoiceRepository
+            - invoiceDomainService : InvoiceDomainService
+            - invoiceFactory : InvoiceFactory
+            - financialReportingService : FinancialReportingService
+            - eventPublisher : DomainEventPublisher
+
+            + generateInvoice(subscriptionId : SubscriptionId, billingPeriod : BillingPeriod, includeUsageCharges : Boolean) : Invoice
+            + markInvoiceAsPaid(invoiceId : InvoiceId, paymentId : PaymentId) : void
+            + markInvoiceAsOverdue(invoiceId : InvoiceId) : void
+            + getInvoiceById(invoiceId : InvoiceId) : Optional<Invoice>
+            + getInvoicesBySubscription(subscriptionId : SubscriptionId) : List<Invoice>
+            + getOutstandingInvoices(municipalityId : MunicipalityId, overdueOnly : Boolean) : List<Invoice>
+            + generateFinancialReport(municipalityId : MunicipalityId, period : ReportPeriod) : FinancialReport
+        }
+    }
+
+    package "Domain Layer" {
+        ' ===================== AGGREGATES =====================
+        class "Subscription" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - subscriptionId : SubscriptionId
+            - municipalityId : MunicipalityId
+            - planId : PlanId
+            - status : SubscriptionStatus
+            - startDate : LocalDateTime
+            - endDate : LocalDateTime
+            - nextBillingDate : LocalDateTime
+            - paymentMethodId : PaymentMethodId
+            - billingAddress : BillingAddress
+            - billingCycle : BillingCycle
+            - trialEndDate : LocalDateTime
+            - autoRenewal : Boolean
+            - gracePeriodEndDate : LocalDateTime
+            - createdAt : LocalDateTime
+            - version : Long
+
+            # Subscription()
+            + Subscription(municipalityId : MunicipalityId, planId : PlanId, billingCycle : BillingCycle)
+            + activate() : void
+            + suspend(reason : SuspensionReason) : void
+            + cancel(reason : CancellationReason) : void
+            + updatePlan(newPlanId : PlanId) : void
+            + updatePaymentMethod(paymentMethodId : PaymentMethodId) : void
+            + processPayment(amount : MonetaryAmount) : PaymentResult
+            + isActive() : boolean
+            + isInGracePeriod() : boolean
+            + canBeUpgraded() : boolean
+            + canBeDowngraded() : boolean
+            + canBeCancelled() : boolean
+            + canBeActivated() : boolean
+            + calculateNextBilling() : LocalDateTime
+            + getAvailableActions() : List<SubscriptionAction>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        class "Payment" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - paymentId : PaymentId
+            - subscriptionId : SubscriptionId
+            - amount : MonetaryAmount
+            - currency : Currency
+            - paymentMethod : PaymentMethodType
+            - status : PaymentStatus
+            - transactionId : TransactionId
+            - gatewayResponse : GatewayResponse
+            - attemptNumber : Integer
+            - scheduledDate : LocalDateTime
+            - processedDate : LocalDateTime
+            - failureReason : FailureReason
+            - attempts : List<PaymentAttempt>
+            - version : Long
+
+            # Payment()
+            + Payment(subscriptionId : SubscriptionId, amount : MonetaryAmount, paymentMethod : PaymentMethodType)
+            + process() : PaymentResult
+            + retry() : PaymentResult
+            + markAsSuccessful(transactionId : TransactionId) : void
+            + markAsFailed(reason : FailureReason) : void
+            + canBeRetried() : boolean
+            + isSuccessful() : boolean
+            + canBeProcessed() : boolean
+            + canBeCancelled() : boolean
+            + getAvailableActions() : List<PaymentAction>
+            + getAttemptHistory() : List<PaymentAttempt>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        class "Invoice" <<(A, #27D3F5) Aggregate Root>> {
+            - id : Long
+            - invoiceId : InvoiceId
+            - subscriptionId : SubscriptionId
+            - invoiceNumber : InvoiceNumber
+            - billingPeriod : BillingPeriod
+            - issueDate : LocalDateTime
+            - dueDate : LocalDateTime
+            - subtotal : MonetaryAmount
+            - taxAmount : MonetaryAmount
+            - totalAmount : MonetaryAmount
+            - status : InvoiceStatus
+            - paymentId : PaymentId
+            - lineItems : List<InvoiceLineItem>
+            - version : Long
+
+            # Invoice()
+            + Invoice(subscriptionId : SubscriptionId, billingPeriod : BillingPeriod)
+            + addLineItem(item : InvoiceLineItem) : void
+            + calculateTotals() : void
+            + markAsPaid(paymentId : PaymentId) : void
+            + markAsOverdue() : void
+            + isPaid() : boolean
+            + isOverdue() : boolean
+            + canBePaid() : boolean
+            + canBeVoided() : boolean
+            + getDaysOverdue() : Integer
+            + getAvailableActions() : List<InvoiceAction>
+            + publishDomainEvents() : List<DomainEvent>
+        }
+
+        class "PaymentMethod" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - paymentMethodId : PaymentMethodId
+            - municipalityId : MunicipalityId
+            - type : PaymentMethodType
+            - cardDetails : CardDetails
+            - bankAccountDetails : BankAccountDetails
+            - isDefault : Boolean
+            - isActive : Boolean
+            - expiryDate : LocalDateTime
+            - lastUsedDate : LocalDateTime
+
+            + PaymentMethod(municipalityId : MunicipalityId, type : PaymentMethodType)
+            + validate() : ValidationResult
+            + isExpired() : boolean
+            + canProcess(amount : MonetaryAmount) : boolean
+            + updateDetails(cardDetails : CardDetails, bankDetails : BankAccountDetails) : void
+        }
+
+        class "InvoiceLineItem" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - lineItemId : LineItemId
+            - description : String
+            - quantity : Integer
+            - unitPrice : MonetaryAmount
+            - totalPrice : MonetaryAmount
+            - taxRate : TaxRate
+            - taxAmount : MonetaryAmount
+
+            + InvoiceLineItem(description : String, quantity : Integer, unitPrice : MonetaryAmount)
+            + calculateTotal() : MonetaryAmount
+            + applyTax(rate : TaxRate) : void
+        }
+
+        class "PaymentAttempt" <<(E, #4CAF50) Entity>> {
+            - id : Long
+            - attemptId : AttemptId
+            - paymentId : PaymentId
+            - attemptNumber : Integer
+            - attemptDate : LocalDateTime
+            - status : AttemptStatus
+            - gatewayResponse : GatewayResponse
+            - errorCode : String
+            - errorMessage : String
+
+            + PaymentAttempt(paymentId : PaymentId, attemptNumber : Integer)
+            + isSuccessful() : boolean
+            + getResponseTime() : Duration
+        }
+
+        ' ===================== ENUMS =====================
+        enum "SubscriptionStatus" <<(E, #FFF3E0) Enum>> {
+            TRIAL
+            ACTIVE
+            SUSPENDED
+            CANCELLED
+            EXPIRED
+            PENDING_ACTIVATION
+
+            + canTransitionTo(newStatus : SubscriptionStatus) : boolean
+            + isActive() : boolean
+            + isSuspended() : boolean
+            + isCancelled() : boolean
+            + canBeActivated() : boolean
+            + canBeUpgraded() : boolean
+            + getAvailableTransitions() : List<SubscriptionStatus>
+        }
+
+        enum "PaymentStatus" <<(E, #FFF3E0) Enum>> {
+            PENDING
+            PROCESSING
+            SUCCESSFUL
+            FAILED
+            CANCELLED
+            REFUNDED
+
+            + canTransitionTo(newStatus : PaymentStatus) : boolean
+            + isPending() : boolean
+            + isSuccessful() : boolean
+            + isFailed() : boolean
+            + canBeRetried() : boolean
+            + canBeCancelled() : boolean
+            + getAvailableTransitions() : List<PaymentStatus>
+        }
+
+        enum "InvoiceStatus" <<(E, #FFF3E0) Enum>> {
+            DRAFT
+            ISSUED
+            PAID
+            OVERDUE
+            CANCELLED
+            VOIDED
+
+            + canTransitionTo(newStatus : InvoiceStatus) : boolean
+            + isPaid() : boolean
+            + isOverdue() : boolean
+            + canBePaid() : boolean
+            + canBeVoided() : boolean
+            + getAvailableTransitions() : List<InvoiceStatus>
+        }
+
+        enum "SubscriptionAction" <<(E, #FFF3E0) Enum>> {
+            ACTIVATE
+            SUSPEND
+            CANCEL
+            UPGRADE_PLAN
+            DOWNGRADE_PLAN
+            UPDATE_PAYMENT_METHOD
+            RENEW
+
+            + isAllowedForStatus(status : SubscriptionStatus) : boolean
+            + requiresPaymentMethod() : boolean
+        }
+
+        enum "PaymentAction" <<(E, #FFF3E0) Enum>> {
+            PROCESS
+            RETRY
+            CANCEL
+            REFUND
+
+            + isAllowedForStatus(status : PaymentStatus) : boolean
+            + requiresGatewayInteraction() : boolean
+        }
+
+        enum "InvoiceAction" <<(E, #FFF3E0) Enum>> {
+            PAY
+            VOID
+            SEND_REMINDER
+            APPLY_DISCOUNT
+
+            + isAllowedForStatus(status : InvoiceStatus) : boolean
+            + requiresPayment() : boolean
+        }
+
+        ' ===================== VALUE OBJECTS (LOCAL) =====================
+        class "SubscriptionId" <<(V, #FFD700) Value Object>> {
+            - subscriptionId : String
+            + isValid() : Boolean
+        }
+
+        class "PaymentId" <<(V, #FFD700) Value Object>> {
+            - paymentId : String
+        }
+
+        class "InvoiceId" <<(V, #FFD700) Value Object>> {
+            - invoiceId : String
+        }
+
+        class "PaymentMethodId" <<(V, #FFD700) Value Object>> {
+            - paymentMethodId : String
+        }
+
+        class "MonetaryAmount" <<(V, #FFD700) Value Object>> {
+            - amount : BigDecimal
+            - currency : Currency
+            + add(other : MonetaryAmount) : MonetaryAmount
+            + subtract(other : MonetaryAmount) : MonetaryAmount
+            + multiply(factor : BigDecimal) : MonetaryAmount
+            + isZero() : boolean
+            + isPositive() : boolean
+        }
+
+        class "BillingAddress" <<(V, #FFD700) Value Object>> {
+            - street : String
+            - city : String
+            - state : String
+            - postalCode : String
+            - country : String
+            + getFullAddress() : String
+        }
+
+        class "BillingCycle" <<(V, #FFD700) Value Object>> {
+            - type : BillingCycleType
+            - intervalMonths : Integer
+            + calculateNextBilling(startDate : LocalDateTime) : LocalDateTime
+        }
+
+        class "PaymentMethodType" <<(V, #FFD700) Value Object>> {
+            - type : String
+            + isCreditCard() : boolean
+            + isBankTransfer() : boolean
+            + isDigitalWallet() : boolean
+        }
+
+        class "CardDetails" <<(V, #FFD700) Value Object>> {
+            - cardNumber : String
+            - expiryDate : LocalDate
+            - cardHolderName : String
+            - cvv : String
+            + isExpired() : boolean
+            + isValid() : boolean
+        }
+
+        class "BankAccountDetails" <<(V, #FFD700) Value Object>> {
+            - accountNumber : String
+            - routingNumber : String
+            - accountHolderName : String
+            - bankName : String
+            + isValid() : boolean
+        }
+
+        class "GatewayResponse" <<(V, #FFD700) Value Object>> {
+            - responseCode : String
+            - responseMessage : String
+            - transactionId : String
+            - timestamp : LocalDateTime
+            + isSuccessful() : boolean
+        }
+
+        class "BillingPeriod" <<(V, #FFD700) Value Object>> {
+            - startDate : LocalDate
+            - endDate : LocalDate
+            + getDurationInDays() : Integer
+            + contains(date : LocalDate) : boolean
+        }
+
+        class "InvoiceNumber" <<(V, #FFD700) Value Object>> {
+            - number : String
+            - prefix : String
+            - sequence : Integer
+            + getFormattedNumber() : String
+        }
+
+        ' ===================== FACTORIES (Creational Pattern) =====================
+        class "SubscriptionFactory" <<(F, #BA68C8) Factory>> {
+            + createTrialSubscription(municipalityId : MunicipalityId, planId : PlanId) : Subscription
+            + createPaidSubscription(municipalityId : MunicipalityId, planId : PlanId, paymentMethod : PaymentMethodId) : Subscription
+            + createSubscription(municipalityId : MunicipalityId, planId : PlanId, billingCycle : BillingCycle, paymentMethodId : PaymentMethodId) : Subscription
+        }
+
+        class "PaymentFactory" <<(F, #BA68C8) Factory>> {
+            + createScheduledPayment(subscription : Subscription, amount : MonetaryAmount) : Payment
+            + createRetryPayment(originalPayment : Payment) : Payment
+            + createPayment(subscriptionId : SubscriptionId, amount : MonetaryAmount, paymentMethod : PaymentMethodType) : Payment
+        }
+
+        class "InvoiceFactory" <<(F, #BA68C8) Factory>> {
+            + createMonthlyInvoice(subscription : Subscription, period : BillingPeriod) : Invoice
+            + createProrationInvoice(subscription : Subscription, adjustment : ProrationAdjustment) : Invoice
+            + createInvoice(subscriptionId : SubscriptionId, billingPeriod : BillingPeriod) : Invoice
+        }
+
+        class "PaymentMethodFactory" <<(F, #BA68C8) Factory>> {
+            + createCreditCard(municipalityId : MunicipalityId, cardDetails : CardDetails) : PaymentMethod
+            + createBankAccount(municipalityId : MunicipalityId, bankDetails : BankAccountDetails) : PaymentMethod
+            + createDigitalWallet(municipalityId : MunicipalityId, walletDetails : WalletDetails) : PaymentMethod
+        }
+
+        ' ===================== STRATEGIES (Behavioral Pattern) =====================
+        interface "PaymentProcessingStrategy" <<(S, #81C784) Strategy>> {
+            + processPayment(payment : Payment, paymentMethod : PaymentMethod) : PaymentResult
+            + validatePayment(payment : Payment) : ValidationResult
+            + canProcess(paymentMethod : PaymentMethodType) : boolean
+        }
+
+        class "CreditCardStrategy" <<(S, #81C784) Strategy>> {
+            + processPayment(payment : Payment, paymentMethod : PaymentMethod) : PaymentResult
+            + validatePayment(payment : Payment) : ValidationResult
+            + canProcess(paymentMethod : PaymentMethodType) : boolean
+        }
+
+        class "BankTransferStrategy" <<(S, #81C784) Strategy>> {
+            + processPayment(payment : Payment, paymentMethod : PaymentMethod) : PaymentResult
+            + validatePayment(payment : Payment) : ValidationResult
+            + canProcess(paymentMethod : PaymentMethodType) : boolean
+        }
+
+        class "DigitalWalletStrategy" <<(S, #81C784) Strategy>> {
+            + processPayment(payment : Payment, paymentMethod : PaymentMethod) : PaymentResult
+            + validatePayment(payment : Payment) : ValidationResult
+            + canProcess(paymentMethod : PaymentMethodType) : boolean
+        }
+
+        ' ===================== DOMAIN SERVICES =====================
+        class "SubscriptionDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validateSubscriptionCreation(subscription : Subscription) : ValidationResult
+            + calculateProrationAmount(subscription : Subscription, change : SubscriptionChange) : MonetaryAmount
+            + determineBillingDate(subscription : Subscription, planChange : PlanChange) : LocalDateTime
+            + checkMunicipalityEligibility(municipalityId : MunicipalityId, planId : PlanId) : EligibilityResult
+            + calculateUpgradeDowngradeFee(currentPlan : PlanId, newPlan : PlanId) : MonetaryAmount
+        }
+
+        class "PaymentDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validatePayment(payment : Payment, paymentMethod : PaymentMethod) : ValidationResult
+            + calculateRetrySchedule(payment : Payment) : List<LocalDateTime>
+            + determineFailureReason(gatewayResponse : GatewayResponse) : FailureReason
+            + checkFraudRisk(payment : Payment, paymentMethod : PaymentMethod) : FraudRiskResult
+            + calculateProcessingFee(amount : MonetaryAmount, paymentMethod : PaymentMethodType) : MonetaryAmount
+        }
+
+        class "InvoiceDomainService" <<(S, #FF8A65) Domain Service>> {
+            + validateInvoiceGeneration(subscription : Subscription, period : BillingPeriod) : ValidationResult
+            + calculateInvoiceLineItems(subscription : Subscription, period : BillingPeriod) : List<InvoiceLineItem>
+            + applyDiscounts(invoice : Invoice, discounts : List<Discount>) : MonetaryAmount
+            + calculateTaxes(invoice : Invoice, taxRules : List<TaxRule>) : MonetaryAmount
+            + generateInvoiceNumber(subscription : Subscription) : InvoiceNumber
+        }
+
+        class "BillingService" <<(S, #FF8A65) Domain Service>> {
+            + calculateNextBillingDate(subscription : Subscription) : LocalDateTime
+            + generateBillingCycle(subscription : Subscription) : BillingCycle
+            + processScheduledBilling(subscriptions : List<Subscription>) : List<Invoice>
+            + handlePaymentFailure(payment : Payment, subscription : Subscription) : BillingAction
+            + calculateGracePeriod(subscription : Subscription) : LocalDateTime
+        }
+
+        class "PaymentProcessingService" <<(S, #FF8A65) Domain Service>> {
+            - processingStrategy : PaymentProcessingStrategy
+            + processPayment(payment : Payment, paymentMethod : PaymentMethod) : PaymentResult
+            + retryPayment(payment : Payment) : PaymentResult
+            + refundPayment(payment : Payment, amount : MonetaryAmount) : RefundResult
+            + setProcessingStrategy(strategy : PaymentProcessingStrategy) : void
+            + validatePaymentMethod(paymentMethod : PaymentMethod) : ValidationResult
+        }
+
+        class "FinancialReportingService" <<(S, #FF8A65) Domain Service>> {
+            + generateRevenueReport(municipalityId : MunicipalityId, period : DateRange) : RevenueReport
+            + calculateOutstandingBalance(municipalityId : MunicipalityId) : MonetaryAmount
+            + generatePaymentAnalytics(subscriptions : List<Subscription>) : PaymentAnalytics
+            + calculateChurnRate(municipalityId : MunicipalityId, period : DateRange) : Double
+            + generateFinancialSummary(period : DateRange) : FinancialSummary
+        }
+
+        ' ===================== REPOSITORY INTERFACES =====================
+        interface "SubscriptionRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(subscriptionId : SubscriptionId) : Optional<Subscription>
+            + findByMunicipality(municipalityId : MunicipalityId) : List<Subscription>
+            + findByStatus(status : SubscriptionStatus) : List<Subscription>
+            + findByPlan(planId : PlanId) : List<Subscription>
+            + findActiveSubscriptions() : List<Subscription>
+            + findExpiringSubscriptions(withinDays : Integer) : List<Subscription>
+            + save(subscription : Subscription) : Subscription
+            + delete(subscriptionId : SubscriptionId) : void
+            + existsById(subscriptionId : SubscriptionId) : boolean
+        }
+
+        interface "PaymentRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(paymentId : PaymentId) : Optional<Payment>
+            + findBySubscription(subscriptionId : SubscriptionId) : List<Payment>
+            + findByStatus(status : PaymentStatus) : List<Payment>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<Payment>
+            + findFailedPayments() : List<Payment>
+            + findPaymentsForRetry() : List<Payment>
+            + save(payment : Payment) : Payment
+            + delete(paymentId : PaymentId) : void
+            + existsById(paymentId : PaymentId) : boolean
+        }
+
+        interface "InvoiceRepository" <<(R, #7B1FA2) Repository>> {
+            + findById(invoiceId : InvoiceId) : Optional<Invoice>
+            + findBySubscription(subscriptionId : SubscriptionId) : List<Invoice>
+            + findByStatus(status : InvoiceStatus) : List<Invoice>
+            + findByMunicipality(municipalityId : MunicipalityId) : List<Invoice>
+            + findOverdueInvoices() : List<Invoice>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<Invoice>
+            + save(invoice : Invoice) : Invoice
+            + delete(invoiceId : InvoiceId) : void
+            + existsById(invoiceId : InvoiceId) : boolean
+        }
+    }
+
+    package "Infrastructure Layer" {
+        ' ===================== REPOSITORY IMPLEMENTATIONS =====================
+        class "JpaSubscriptionRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : SubscriptionJpaRepository
+            - subscriptionMapper : SubscriptionMapper
+            - paymentMethodMapper : PaymentMethodMapper
+            + findById(subscriptionId : SubscriptionId) : Optional<Subscription>
+            + findByMunicipality(municipalityId : MunicipalityId) : List<Subscription>
+            + findByStatus(status : SubscriptionStatus) : List<Subscription>
+            + findByPlan(planId : PlanId) : List<Subscription>
+            + findActiveSubscriptions() : List<Subscription>
+            + findExpiringSubscriptions(withinDays : Integer) : List<Subscription>
+            + save(subscription : Subscription) : Subscription
+            + delete(subscriptionId : SubscriptionId) : void
+            + existsById(subscriptionId : SubscriptionId) : boolean
+        }
+
+        class "JpaPaymentRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : PaymentJpaRepository
+            - paymentMapper : PaymentMapper
+            - paymentAttemptMapper : PaymentAttemptMapper
+            + findById(paymentId : PaymentId) : Optional<Payment>
+            + findBySubscription(subscriptionId : SubscriptionId) : List<Payment>
+            + findByStatus(status : PaymentStatus) : List<Payment>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<Payment>
+            + findFailedPayments() : List<Payment>
+            + findPaymentsForRetry() : List<Payment>
+            + save(payment : Payment) : Payment
+            + delete(paymentId : PaymentId) : void
+            + existsById(paymentId : PaymentId) : boolean
+        }
+
+        class "JpaInvoiceRepository" <<(R, #7B1FA2) Repository>> {
+            - jpaRepository : InvoiceJpaRepository
+            - invoiceMapper : InvoiceMapper
+            - lineItemMapper : InvoiceLineItemMapper
+            + findById(invoiceId : InvoiceId) : Optional<Invoice>
+            + findBySubscription(subscriptionId : SubscriptionId) : List<Invoice>
+            + findByStatus(status : InvoiceStatus) : List<Invoice>
+            + findByMunicipality(municipalityId : MunicipalityId) : List<Invoice>
+            + findOverdueInvoices() : List<Invoice>
+            + findByDateRange(startDate : LocalDateTime, endDate : LocalDateTime) : List<Invoice>
+            + save(invoice : Invoice) : Invoice
+            + delete(invoiceId : InvoiceId) : void
+            + existsById(invoiceId : InvoiceId) : boolean
+        }
+    }
+}
+
+package "Shared Kernel" {
+    package "Domain Layer" {
+        class "MunicipalityId" <<(V, #FFD700) Value Object>> {
+            - municipalityId : String
+        }
+
+        class "PlanId" <<(V, #FFD700) Value Object>> {
+            - planId : String
+        }
+
+        class "Currency" <<(V, #FFD700) Value Object>> {
+            - currencyCode : String
+            - symbol : String
+            + isValid() : boolean
+        }
+
+        class "TaxRate" <<(V, #FFD700) Value Object>> {
+            - rate : BigDecimal
+            - taxType : TaxType
+            + apply(amount : MonetaryAmount) : MonetaryAmount
+        }
+
+        class "ValidationResult" <<(V, #FFD700) Value Object>> {
+            - isValid : Boolean
+            - errors : List<String>
+            - warnings : List<String>
+            + hasErrors() : Boolean
+            + hasWarnings() : Boolean
+        }
+
+        interface "DomainEvent" <<(E, #FFB74D) Domain Event>> {
+            + getAggregateId() : String
+            + getOccurredOn() : LocalDateTime
+            + getEventType() : String
+        }
+
+        interface "DomainEventPublisher" <<(P, #FF8A65) Publisher>> {
+            + publish(event : DomainEvent) : void
+            + publishAll(events : List<DomainEvent>) : void
+        }
+    }
+}
+
+' ===================== RELATIONSHIPS =====================
+
+' --- Controller Dependencies ---
+SubscriptionController --> SubscriptionApplicationService : uses >
+PaymentController --> PaymentApplicationService : uses >
+InvoiceController --> InvoiceApplicationService : uses >
+
+' --- Application Service Dependencies ---
+SubscriptionApplicationService --> SubscriptionRepository : uses >
+SubscriptionApplicationService --> SubscriptionDomainService : uses >
+SubscriptionApplicationService --> SubscriptionFactory : uses >
+SubscriptionApplicationService --> BillingService : uses >
+SubscriptionApplicationService --> DomainEventPublisher : uses >
+
+PaymentApplicationService --> PaymentRepository : uses >
+PaymentApplicationService --> PaymentDomainService : uses >
+PaymentApplicationService --> PaymentFactory : uses >
+PaymentApplicationService --> PaymentProcessingService : uses >
+PaymentApplicationService --> DomainEventPublisher : uses >
+
+InvoiceApplicationService --> InvoiceRepository : uses >
+InvoiceApplicationService --> InvoiceDomainService : uses >
+InvoiceApplicationService --> InvoiceFactory : uses >
+InvoiceApplicationService --> FinancialReportingService : uses >
+InvoiceApplicationService --> DomainEventPublisher : uses >
+
+' --- Repository Implementations ---
+SubscriptionRepository <|.. JpaSubscriptionRepository : implements >
+PaymentRepository <|.. JpaPaymentRepository : implements >
+InvoiceRepository <|.. JpaInvoiceRepository : implements >
+
+' --- Aggregate Root Compositions ---
+Subscription *-- SubscriptionId
+Subscription *-- SubscriptionStatus
+Subscription *-- BillingCycle
+Subscription *-- BillingAddress
+Subscription o-- PaymentMethod
+
+Payment *-- PaymentId
+Payment *-- PaymentStatus
+Payment *-- MonetaryAmount
+Payment o-- PaymentAttempt
+
+Invoice *-- InvoiceId
+Invoice *-- InvoiceStatus
+Invoice *-- MonetaryAmount
+Invoice o-- InvoiceLineItem
+
+' --- Entity Compositions ---
+PaymentMethod *-- PaymentMethodId
+PaymentMethod *-- PaymentMethodType
+PaymentMethod *-- CardDetails
+PaymentMethod *-- BankAccountDetails
+InvoiceLineItem *-- MonetaryAmount
+PaymentAttempt *-- GatewayResponse
+
+' --- Shared Kernel Usage ---
+Subscription ..> MunicipalityId : belongs to >
+Subscription ..> PlanId : uses >
+Subscription ..> DomainEvent : publishes >
+Payment ..> Currency : uses >
+Payment ..> DomainEvent : publishes >
+Invoice ..> TaxRate : uses >
+Invoice ..> DomainEvent : publishes >
+PaymentMethod ..> ValidationResult : validates with >
+
+' --- Factory Relationships ---
+SubscriptionFactory ..> Subscription : creates >
+PaymentFactory ..> Payment : creates >
+InvoiceFactory ..> Invoice : creates >
+PaymentMethodFactory ..> PaymentMethod : creates >
+
+' --- Strategy Relationships ---
+PaymentProcessingStrategy <|.. CreditCardStrategy : implements >
+PaymentProcessingStrategy <|.. BankTransferStrategy : implements >
+PaymentProcessingStrategy <|.. DigitalWalletStrategy : implements >
+PaymentProcessingService o-- PaymentProcessingStrategy : uses >
+
+' --- Domain Service Relationships ---
+SubscriptionDomainService ..> Subscription : operates on >
+SubscriptionDomainService ..> ValidationResult : returns >
+PaymentDomainService ..> Payment : operates on >
+PaymentDomainService ..> PaymentMethod : validates >
+InvoiceDomainService ..> Invoice : operates on >
+BillingService ..> Subscription : manages billing for >
+PaymentProcessingService ..> Payment : processes >
+PaymentProcessingService ..> PaymentMethod : uses >
+FinancialReportingService ..> Invoice : analyzes >
+FinancialReportingService ..> Payment : analyzes >
+
+' --- Repository Relationships ---
+SubscriptionRepository ..> Subscription : manages >
+PaymentRepository ..> Payment : manages >
+InvoiceRepository ..> Invoice : manages >
+
+@enduml
