@@ -2688,9 +2688,32 @@ El despliegue de WasteTrack se ejecuta de forma automatizada en entornos en la n
 
 ### 5.2.1. Sprint Backlogs
 
-**Sprint Backlog 1**
+**Sprint Backlog – Sprint 1**
+
+| User Story ID | User Story Title                        | Task ID | Task Title               | Description                                                              | Estimation (Hours) | Assigned To                       | Status |
+|---------------|-----------------------------------------|---------|--------------------------|--------------------------------------------------------------------------|--------------------|-----------------------------------|--------|
+| US32          | Página principal con propuesta de valor | T1      | Implementar sección Hero | Diseñar e implementar la sección principal con propuesta de valor clara. | 4                  | Riva Rodríguez, Elmer Augusto     | Done   |
+| US33          | Sección específica para administradores | T2      | Sección Administradores  | Crear sección enfocada en funcionalidades para gestión administrativa.   | 8                  | Ramirez Mestanza, Salim Ignacio   | Done   |
+| US34          | Sección específica para conductores     | T3      | Sección Conductores      | Diseñar e implementar la sección para conductores con enfoque móvil.     | 6                  | Sulca Gonzales, Paul Fernando     | Done   |
+| US35          | Sección específica para ciudadanos      | T4      | Sección Ciudadanos       | Crear sección que muestre opciones de participación ciudadana.           | 4                  | Hernández Tuiro, Eric Ernesto     | Done   |
+| US36          | Casos de éxito y testimonios            | T5      | Casos de Éxito           | Diseñar e implementar sección con testimonios e indicadores de impacto.  | 4                  | Gutiérrez Soto, Jhosepmyr Orlando | Done   |
 
 ### 5.2.2. Implemented Landing Page Evidence
+
+**Enlace de la landing page:** [https://wastetracklanding.vercel.app/](https://wastetracklanding.vercel.app/)
+
+![landing page](./assets/5.product-implementation/5.2.implementation&deployment/landingPageEcolution.png)
+
+Pasos para desplegar un landing page en Vercel
+
+![vercel](./assets/5.product-implementation/5.2.implementation&deployment/vercel.png)
+
+1. Preparación del repositorio funcional en ambiente local
+2. Crear una cuenta en Vercel
+3. Desplegar desde GitHub
+    - Build command: `npm run build` o `yarn build`
+    - Publish directory: `build`
+4. Desplegar la aplicación
 
 ### 5.2.3. Implemented Frontend-Web Application Evidence
 
