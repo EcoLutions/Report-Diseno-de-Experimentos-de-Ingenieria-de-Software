@@ -2540,17 +2540,155 @@ Se presentan los diagramas de componentes de la arquitectura de software, que de
 
 ## 5.1. Software Configuration Management
 
+A continuacion, se detallan las herramientas utilizadas para la planificación y el diseño del software del proyecto:
+
+- Miro: Esta plataforma de pizarra colaborativa se utiliza para la gestión de requisitos y el mapeo de procesos. Permite al equipo visualizar flujos de trabajo, crear diagramas de eventos y mapear funcionalidades de forma interactiva y en tiempo real.
+
+- Lucidchart: Es una herramienta para el modelado de arquitecturas y flujos. Se usa para crear diagramas de sistemas, flujos de datos y estructuras de red, proporcionando una visión clara de la arquitectura del software.
+
+- Figma: Un editor de gráficos vectoriales y una herramienta de prototipado esencial para el diseño de la interfaz de usuario (UI). Permite crear maquetas, flujos de navegación y prototipos interactivos que simulan la experiencia del usuario final.
+
+- UXPressia: Herramienta especializada en investigación de usuarios y diseño de la experiencia de usuario (UX). Facilita la creación de User Personas, User Journey maps, y Empathy Maps, ayudando a comprender las necesidades y puntos débiles del usuario.
+
+- Canva: Se utiliza para la creación de recursos visuales y gráficos complementarios. Es útil para elaborar gráficos, banners, y otros elementos de marketing o presentación que no forman parte directa de la interfaz de la aplicación, pero que apoyan el proyecto.
+
 ### 5.1.1. Software Development Environment Configuration
+
+A continuacion, se detallan las herramientas utilizadas para el desarrollo del software del proyecto:
+
+- Git: Un sistema de control de versiones distribuido (DVCS) fundamental. Se instala localmente para rastrear y gestionar los cambios en el código fuente. Permite crear commits (guardar versiones), ramificar (branching) y fusionar (merging) código, lo que es vital para el trabajo en equipo.
+
+- GitHub: Una plataforma de alojamiento de repositorios Git. No solo almacena el código en la nube, sino que también ofrece funcionalidades clave para la colaboración, como la gestión de issues, pull requests y la automatización de flujos de trabajo mediante GitHub Actions. Es el centro de colaboración del equipo.
+
+- WebStorm: Un entorno de desarrollo integrado (IDE) de JetBrains, especializado en desarrollo web frontend. Ofrece herramientas de autocompletado inteligente, depuración y refactorización para lenguajes como HTML, CSS, JavaScript y frameworks como Vue y Angular.
+
+- IntelliJ IDEA Ultimate: Un IDE de alta gama, también de JetBrains, utilizado para el desarrollo del backend. Con el plugin Spring Assistant, facilita la creación y gestión de proyectos con el framework Spring Boot, que se utiliza para construir servicios web robustos en Java.
+
+- Visual Studio Code (VS Code): Un editor de código ligero pero potente de Microsoft, muy popular por su flexibilidad y la gran cantidad de extensiones disponibles. Es una excelente alternativa a los IDEs más pesados para el desarrollo de scripts, frontend o proyectos que no requieran un entorno completo.
+
+- Postman: Una herramienta para probar APIs. Permite enviar solicitudes HTTP a los servicios backend (creados con Spring Boot) y verificar las respuestas, lo que es esencial para el desarrollo y depuración de las APIs.
+
+- Docker: Una plataforma para crear, desplegar y ejecutar aplicaciones en contenedores. Permite empaquetar una aplicación con todas sus dependencias en un "contenedor" ligero y portable, asegurando que el software funcione de manera idéntica en cualquier entorno (desarrollo, pruebas, producción). Esto elimina los problemas de "en mi máquina funciona".
 
 ### 5.1.2. Source Code Management
 
+Se utilizó Gihub como plataforma principal para el control de versiones la gestion de repositorios. A continuación, se describen las prácticas y convenciones adoptadas para asegurar una gestión eficiente y colaborativa del código fuente:
+
+**Estructura de Repositorios:** El proyecto se organizó en múltiples repositorios, cada uno dedicado a un componente específico del sistema (frontend web, aplicaciones móviles, backend API). Esto facilita la gestión y el despliegue independiente de cada parte del sistema.
+
+- Landing Page: https://github.com/EcoLutions/Landing-Page
+
+---
+
+**Branching Strategy:**
+
+Adoptamos el modelo de Git Flow como nuestra estrategia de ramificación principal. Esta metodología nos permite gestionar de manera estructurada el desarrollo, las nuevas funcionalidades, los lanzamientos y las correcciones urgentes. Las ramas principales que utilizamos son:
+
+- main: Contiene el código completamente estable y listo para ser desplegado en producción. No se realizan commits directos a esta rama.
+
+- develop: Es la rama de integración. Aquí se fusiona el código de todas las nuevas funcionalidades que están en desarrollo. Representa la versión más reciente del proyecto con todas las características completadas.
+
+- feature/: Se crea una rama por cada nueva funcionalidad o historia de usuario. Se nombran con el prefijo feature/ seguido de una descripción concisa (ej. feature/login-de-usuario).
+
+- release/: Se crea una rama para preparar un nuevo lanzamiento a producción. Esta rama permite realizar las pruebas finales y las correcciones de errores de último momento antes de fusionar el código a main.
+
+- hotfix/: Se crea para corregir rápidamente errores críticos en la rama main. El arreglo se fusiona tanto a main (para la corrección inmediata) como a develop (para mantener la coherencia).
+
+---
+
+**Estrategia de Trabajo:**
+
+Para mantener un historial de commits claro, coherente y legible, seguimos la especificación de Conventional Commits. Esto nos permite automatizar tareas como la generación de notas de lanzamiento (release notes) y la detección de cambios importantes que requieren una nueva versión del software.
+
+Cada mensaje de commit debe tener una estructura definida:
+
+    <type> [opcional scope]: <description>
+    [optional body]
+    [optional footer
+
+- type: Obligatorio. Describe la naturaleza del cambio. Los tipos más comunes son:
+
+  - feat: Nuevas funcionalidades.
+
+  - fix: Corrección de errores.
+
+  - docs: Cambios en la documentación.
+
+  - style: Cambios de formato (sin impacto en el código).
+
+  - refactor: Reestructuración del código (sin cambios de funcionalidad).
+
+  - test: Adición o modificación de pruebas.
+
+  - chore: Cambios de construcción o herramientas.
+
+- scope: Un prefijo opcional que indica la parte del proyecto afectada por el cambio (ej. login, backend, UI).
+
+- description: Una descripción breve y clara del cambio. Debe ser concisa y empezar con una letra minúscula.
+
+- body:  Sirve para detallar aun más la información sobre el commit en caso que el description no sea suficiente.
+
+- footer: Se utiliza de forma opcional para informar respecto a cambios importantes en el proyecto
+
 ### 5.1.3. Source Code Style Guide & Conventions
 
+### Convenciones de Nomenclatura
+
+Una convención de nombres clara facilita la comprensión del propósito de cada elemento del código. A continuación, se detallan nuestras convenciones:
+
+-   **Variables y funciones:** Usamos **`camelCase`**. Los nombres deben ser descriptivos y evitar abreviaciones ambiguas.
+    -   *Ejemplo:* `const nombreDeUsuario = 'Jane';` o `function calcularTotalCompra() { ... }`
+-   **Clases y Componentes:** Usamos **`PascalCase`**. Los nombres deben ser sustantivos y reflejar su responsabilidad.
+    -   *Ejemplo:* `class Usuario { ... }` o `function BotonPrincipal() { ... }`
+-   **Constantes:** Usamos **`UPPER_CASE_SNAKE_CASE`**. Son valores que no cambiarán durante la ejecución del programa.
+    -   *Ejemplo:* `const MAX_INTENTOS = 3;`
+-   **Archivos:** Usamos **`kebab-case`** para archivos y directorios en la mayoría de los casos.
+    -   *Ejemplo:* `pagina-principal.component.ts`
+
+---
+
+### Convenciones de Formato y Estructura
+
+Para la estructura visual del código, seguimos estas reglas:
+
+-   **Indentación:** Usamos **2 espacios** para la indentación en lugar de tabulaciones. Esto garantiza una consistencia visual en cualquier editor de código.
+-   **Espacios:** Siempre se debe incluir un espacio después de las comas en listas y objetos, y alrededor de operadores (`=`, `+`, `-`, etc.).
+    -   *Ejemplo:* `const numeros = [1, 2, 3];` o `const resultado = a + b;`
+-   **Comillas:** Usamos **comillas simples (`'`)** en JavaScript, a menos que sea necesario usar comillas dobles (`"`) para evitar un escape de caracteres. Se recomienda el uso de *backticks* (`) para plantillas de *strings*.
+-   **Punto y coma:** Finalizamos cada declaración con un punto y coma `;` para evitar errores y hacer el código más predecible.
+
+---
+
+### Comentarios y Documentación
+
+Los comentarios son vitales para explicar el **porqué** de una decisión de diseño, no solo el **qué** hace el código.
+
+-   **Comentarios de bloque:** Se usan para explicar funcionalidades complejas o algoritmos.
+-   **Comentarios de línea:** Se usan para aclarar una línea de código específica.
+-   **Documentación de funciones y clases:** Se recomienda el uso de un formato de comentarios estandarizado (como **JSDoc** para JavaScript) para describir los parámetros, el valor de retorno y el propósito de las funciones.
+
 ### 5.1.4. Software Deployment Configuration
+
+El despliegue de WasteTrack se ejecuta de forma automatizada en entornos en la nube, utilizando herramientas modernas de integración continua (CI) y entrega continua (CD).
+
+**Herramientas de despliegue utilizadas:**
+- **GitHub Actions**: CI/CD para pruebas y despliegue
+<p align="center"><img src="https://avatars.githubusercontent.com/u/44036562?s=280&v=4" width="200"/></p>
+
+**Pasos de despliegue:**
+
+1. Cambios se suben a rama `release/*`
+2. GitHub Actions ejecuta pruebas y linter
+3. Se construyen contenedores con Docker
+4. Se despliegan el backend y el frontend
+5. Servicios IoT son conectados vía MQTT
+6. Validación final en entorno productivo
 
 ## 5.2. Product Implementation & Deployment
 
 ### 5.2.1. Sprint Backlogs
+
+**Sprint Backlog 1**
 
 ### 5.2.2. Implemented Landing Page Evidence
 
