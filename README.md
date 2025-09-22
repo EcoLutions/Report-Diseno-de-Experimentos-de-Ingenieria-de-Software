@@ -62,6 +62,49 @@ En esta sección se documenta la colaboración del equipo en la elaboración del
 * URL del repositorio del Project Report en la organización de GitHub del equipo:
 * [https://github.com/EcoLutions/Report-Diseno-de-Experimentos-de-Ingenieria-de-Software](https://github.com/EcoLutions/Report-Diseno-de-Experimentos-de-Ingenieria-de-Software)
 
+**TB1 (Entrega 1) - Análisis de Colaboración**
+
+**Desarrollo de Actividades**
+Para la entrega TB1, el equipo trabajó de manera colaborativa con participación activa de todos los miembros en la elaboración del informe del proyecto.
+
+**Evidencias de Colaboración en GitHub**
+
+*Network Graph*
+
+![network-graph](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/network-graph.png)
+
+Muestra el flujo de trabajo colaborativo con múltiples ramas y merges entre los miembros del equipo.
+
+*Frecuencia de Código*
+
+![code-frequency](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/code-frequency.png)
+
+Actividad de desarrollo constante durante el período, con pico de 12.5k adiciones en la semana del 22 de septiembre.
+
+*Contribuciones por Miembro*
+
+![contributors](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/contributors.png)
+
+**Participación del equipo:**
+- **salimramirez**: 35 commits, 12,947 adiciones
+- **Eric396**: 28 commits, 1,426 adiciones
+- **elmer-riva**: 27 commits, 769 adiciones
+- **Kyrubi**: 7 commits, 287 adiciones
+- **jhosepmyr**: 5 commits, 573 adiciones
+
+*Resumen del Período*
+
+![summary](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/summary.png)
+
+**Métricas (Agosto 21 - Septiembre 21, 2025):**
+- 12 pull requests mergeadas exitosamente
+- 102 commits al main branch
+- 5 autores activos
+- 0 issues pendientes
+
+**Conclusión**
+Todos los miembros del equipo contribuyeron activamente al desarrollo del informe TB1, demostrando una colaboración efectiva y organizada según evidencian los analíticos de GitHub.
+
 <div style="page-break-before: always"></div>
 
 # Contenido
@@ -214,6 +257,8 @@ Valores
 | ![erick.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/erick.png)         | Eric Ernesto Hernández Tuiro     | 20221C857            | Ingeniería de Software | Especialista en desarrollo backend con Java/Spring Boot y diseño de arquitecturas de sistemas. Enfocado en tecnologías empresariales y soluciones eficientes. Será responsable de los servicios web, procesamiento de datos y desarrollo de APIs para la plataforma WasteTrack.                                                     |
 | ![elmer.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/elmer.png)         | Elmer Augusto Riva Rodríguez     | 202220829            | Ingeniería de Software | Desarrollador con experiencia en Angular/Spring Boot y Vue.js/ASP.NET, enfocado en arquitecturas monolíticas y desarrollo de aplicaciones. Liderará el desarrollo de aplicaciones móviles para conductores y ciudadanos, garantizando interfaces intuitivas y funcionales.                                                          | 
 | ![jhosepmyr.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/jhosepmyr.png) | Jhosepmyr Orlando Gutiérrez Soto | 202317638            | Ingeniería de Software | Especialista en desarrollo full-stack con Java/Spring Boot y frameworks frontend como Angular y Vue.js. Experiencia en microservicios y servicios cloud (AWS, Azure, GCP). Aporta habilidades de liderazgo técnico, toma de decisiones y coordinación de equipos de desarrollo para la arquitectura general del sistema WasteTrack. | 
+| ![paul.png](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/paul.png)           | Paul Fernando Sulca Gonzales     | 20221C486  | Ingeniería de Software | Conocimiento en diseño de software orientado a objetos y modelado UML. Experiencia en implementación de interfaces web adaptativas. Amante de los desafíos de la vida universitaria.                                                                                                                                                |
+| ![salim.jpg](assets/1.introduction/1.1.startup-profile/1.1.2.team-member/salim.jpg)         | Salim Ignacio Ramirez Mestanza   | 20201E843  | Ingeniería de Software | Conocimiento en arquitectura de software y control de versiones con Git. Experiencia en documentación técnica y colaboración en equipos ágiles. Desarrollo backend con Java/Spring Boot y Domain-Driven Design.                                                                                                                     |
 
 ## 1.2. Solution Profile
 
