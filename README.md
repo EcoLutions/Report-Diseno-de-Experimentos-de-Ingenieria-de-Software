@@ -62,6 +62,49 @@ En esta sección se documenta la colaboración del equipo en la elaboración del
 * URL del repositorio del Project Report en la organización de GitHub del equipo:
 * [https://github.com/EcoLutions/Report-Diseno-de-Experimentos-de-Ingenieria-de-Software](https://github.com/EcoLutions/Report-Diseno-de-Experimentos-de-Ingenieria-de-Software)
 
+**TB1 (Entrega 1) - Análisis de Colaboración**
+
+**Desarrollo de Actividades**
+Para la entrega TB1, el equipo trabajó de manera colaborativa con participación activa de todos los miembros en la elaboración del informe del proyecto.
+
+**Evidencias de Colaboración en GitHub**
+
+*Network Graph*
+
+![network-graph](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/network-graph.png)
+
+Muestra el flujo de trabajo colaborativo con múltiples ramas y merges entre los miembros del equipo.
+
+*Frecuencia de Código*
+
+![code-frequency](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/code-frequency.png)
+
+Actividad de desarrollo constante durante el período, con pico de 12.5k adiciones en la semana del 22 de septiembre.
+
+*Contribuciones por Miembro*
+
+![contributors](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/contributors.png)
+
+**Participación del equipo:**
+- **salimramirez**: 35 commits, 12,947 adiciones
+- **Eric396**: 28 commits, 1,426 adiciones
+- **elmer-riva**: 27 commits, 769 adiciones
+- **Kyrubi**: 7 commits, 287 adiciones
+- **jhosepmyr**: 5 commits, 573 adiciones
+
+*Resumen del Período*
+
+![summary](assets/0.cover/0.1.collaboration-insights/0.1.1.tb1/summary.png)
+
+**Métricas (Agosto 21 - Septiembre 21, 2025):**
+- 12 pull requests mergeadas exitosamente
+- 102 commits al main branch
+- 5 autores activos
+- 0 issues pendientes
+
+**Conclusión**
+Todos los miembros del equipo contribuyeron activamente al desarrollo del informe TB1, demostrando una colaboración efectiva y organizada según evidencian los analíticos de GitHub.
+
 <div style="page-break-before: always"></div>
 
 # Contenido
