@@ -168,10 +168,10 @@ El curso contribuye al cumplimiento del Student Outcome ABET:
 
 En el siguiente cuadro se describe las acciones realizadas y enunciados de conclusiones por parte del grupo, que permiten sustentar el haber alcanzado el logro del ABET – EAC - Student Outcome 4.
 
-| **Criterio específico**                                                                                                                                           | **Acciones realizadas** | **Conclusiones** |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|------------------|  
-| **4.c.1 Reconoce responsabilidad ética y profesional en situaciones de ingeniería de software.**                                                                  |                         |                  |
-| **4.c.2 Emite juicios informados considerando el impacto de las soluciones de ingeniería de software en contextos globales, económicos, ambientales y sociales.** |                         |                  |
+| **Criterio específico**                                                                                                                                           | **Acciones realizadas**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | **Conclusiones**                                                                                                                                                                                                                                                                                                                                                                                       |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **4.c.1 Reconoce responsabilidad ética y profesional en situaciones de ingeniería de software.**                                                                  | - **Gutiérrez Soto, Jhosepmyr Orlando**: Supervisó el cumplimiento de convenciones éticas de desarrollo en el diseño del Domain-Driven Design y en la documentación técnica.<br>- **Hernández Tuiro, Eric Ernesto**: Veló por la protección de datos sensibles durante la transcripción y análisis de entrevistas.<br>- **Ramirez Mestanza, Salim Ignacio**: Promovió buenas prácticas en el versionamiento del código y la colaboración ética en Git.<br>- **Riva Rodríguez, Elmer Augusto**: Aseguró el uso de fuentes confiables para el análisis de impacto social y económico.<br>- **Sulca Gonzales, Paul Fernando**: Implementó lineamientos de diseño inclusivo y accesibilidad en las interfaces.                                                                                        | El equipo mostró un alto nivel de responsabilidad ética y profesional en todas las etapas del proyecto. Se mantuvo un compromiso con el uso responsable de la información, el cumplimiento de estándares técnicos y la transparencia en la colaboración. Cada integrante adoptó prácticas que fomentaron la integridad y el profesionalismo en la ingeniería de software.                              |
+| **4.c.2 Emite juicios informados considerando el impacto de las soluciones de ingeniería de software en contextos globales, económicos, ambientales y sociales.** | - **Gutiérrez Soto, Jhosepmyr Orlando**: Evaluó el impacto económico de la solución al justificar la reducción de costos operativos para municipios.<br>- **Hernández Tuiro, Eric Ernesto**: Incorporó las necesidades sociales de los ciudadanos en el diseño funcional del sistema a partir de entrevistas.<br>- **Ramirez Mestanza, Salim Ignacio**: Consideró el impacto ambiental al definir funcionalidades que promuevan la recolección oportuna de residuos.<br>- **Riva Rodríguez, Elmer Augusto**: Relacionó el alcance del producto con escenarios de implementación a nivel nacional y en otros contextos globales.<br>- **Sulca Gonzales, Paul Fernando**: Analizó la interoperabilidad de la solución en entornos con limitaciones tecnológicas y propuso alternativas sostenibles. | A lo largo del desarrollo, el equipo realizó juicios informados al considerar cómo su solución influye en el entorno. Se tomaron en cuenta factores económicos, ambientales y sociales para maximizar el valor público del sistema. Esta visión integral permitió que las decisiones de diseño y arquitectura respondieran a problemáticas reales de forma responsable y con proyección a largo plazo. |
 
 <div style="page-break-before: always"></div>
 
@@ -8702,7 +8702,7 @@ Cada mensaje de commit debe tener una estructura definida:
 
 ### 5.1.3. Source Code Style Guide & Conventions
 
-### Convenciones de Nomenclatura
+**Convenciones de Nomenclatura**
 
 Una convención de nombres clara facilita la comprensión del propósito de cada elemento del código. A continuación, se detallan nuestras convenciones:
 
@@ -8717,7 +8717,7 @@ Una convención de nombres clara facilita la comprensión del propósito de cada
 
 ---
 
-### Convenciones de Formato y Estructura
+**Convenciones de Formato y Estructura**
 
 Para la estructura visual del código, seguimos estas reglas:
 
@@ -8729,7 +8729,7 @@ Para la estructura visual del código, seguimos estas reglas:
 
 ---
 
-### Comentarios y Documentación
+**Comentarios y Documentación**
 
 Los comentarios son vitales para explicar el **porqué** de una decisión de diseño, no solo el **qué** hace el código.
 
